@@ -13,8 +13,7 @@ int main(int argc,char* argv[])
 	
 	Scalefree network(n,m0,m);
 	network.PrintG(filename);
-	network.PrintG();
-	
+
 	filename.close();
 	
 	return 0;

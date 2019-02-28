@@ -6,5 +6,5 @@ else
     ./scalefree
 fi
 
-Rscript plotgraph.r
+Rscript plotgraph.r >& /dev/null
 xdg-open Rplots.pdf
