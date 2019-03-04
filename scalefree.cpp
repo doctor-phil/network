@@ -11,10 +11,12 @@ int main(int argc,char* argv[])
 	std::ofstream filename;
 	filename.open("adjacency.csv");
 	
-	Scalefree network(n,m0,m);
-	network.PrintG(filename);
+	Network network;
+	network.generate_scalefree(n,m0,m);
+	network.print_adjacency(filename);
 
 	filename.close();
+	std::cout << network;
 	
 	return 0;
 }

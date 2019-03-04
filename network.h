@@ -1,37 +1,67 @@
-#ifndef SCALEFREE
-#define SCALEFREE
-#include <iostream>
+#ifndef NETWORK
+#define NETWORK
 
+#include <iostream>
 #include <random>
 #include <cmath>
 
-class Scalefree
+class Network
 {
 	public:
-	Scalefree(void);
-	Scalefree(int a,int m0, int m);
-	~Scalefree() { delete adjacency; };
-	void PrintG(void);
-	void PrintG(std::ostream& o);
+		Network(void);                
+		Network(int a);
+		Network(const Network &net); 				//Copy Constructor
+									//Network Generators:
+		void generate_scalefree(int a, int m0, int m);			//Scale-free generator (Barabasi-Albert Model)
+		void generate_er(int a, double k);				//Erdos-Renyi generator
+	
+		void print_adjacency(void);					//Print adjacency matrix to stdout
+		void print_adjacency(std::ostream& o);				//Print adjacency matrix to given output stream
+		friend std::ostream& operator<<(std::ostream& os, Network& net);//<< operator
+		~Network() { delete [] adjacency; };			//Destructor
 
-	int *adjacency;
-	int n;
-	int m0;
-	int m;
+		void iterate(void);					//iterate dynamical process once
+		void iterate(int k);					//iterate k times
+	
+		int *adjacency;						//Stores adjacency matrix as nxn integer array
+		double *state;
+		int n;							//Number of nodes in the network
 };
 
-Scalefree::Scalefree(void)
+Network::Network(void)							//init 10 node empty network
 {
-	n=1;
-	adjacency = new int[1];
-	*adjacency = 0;
+	n=10;
+	state = new double[10];
+	for (int i=0;i<10;i++) { state[i] = 0; }
+
+	adjacency = new int[100];
+	for (int i=0;i<100;i++) { adjacency[i] = 0; }
 }
 
-Scalefree::Scalefree(int a,int m_0, int em)
+Network::Network(int a)							//init a node empty network
 {
-	m0 = m_0;
-	m = em;
+	n = a;
+	state = new double[10];
+	for (int i=0;i<10;i++) { state[i] = 0; }
+
+	adjacency = new int[a];
+	for (int i=0;i<a*a;i++) { adjacency[i] = 0; }
+}
+
+Network::Network(const Network &net)					//copy existing network
+{
+	n = net.n;
+	state = new double[10];
+	for (int i=0;i<10;i++) { state[i] = 0; }
+
+	adjacency = new int[n*n];
+	for (int i=0;i<n*n;i++) { adjacency[i] = net.adjacency[i]; }	
+}
+
+void Network::generate_scalefree(int a,int m0, int m)			//overwrite network with a randomly-drawn scale-free network
+{
 	n=a;
+	delete [] adjacency;
 	adjacency = new int [n*n];
 	int k[n];
 	double r;
@@ -79,7 +109,30 @@ Scalefree::Scalefree(int a,int m_0, int em)
 	}
 }
 
-void Scalefree::PrintG(void) 
+void Network::generate_er(int a, double k)				//overwrite network with a randomly drawn ER network
+{
+	n = a;
+	delete [] adjacency;
+	adjacency = new int[n*n];
+
+	std::random_device rd;
+	std::mt19937 mt(rd());
+  	std::uniform_real_distribution<double> distribution(0.0,1.0);
+	double draw;
+
+	for (int i=0;i<n;i++)
+	{
+		*(adjacency+i*n+i)=0;
+
+		for (int j=0;j<i;j++)
+		{
+			draw = distribution(mt);
+			if (draw<k) { *(adjacency+j*n+i)=1; *(adjacency+i*n+j)=1; } else { *(adjacency+j*n+i)=0; *(adjacency+i*n+j)=0; }
+		}
+	}
+}
+
+void Network::print_adjacency(void) 
 {
 	for (int i=0;i<n;i++)
 	{
@@ -91,7 +144,7 @@ void Scalefree::PrintG(void)
 	}
 }
 
-void Scalefree::PrintG(std::ostream& o) 
+void Network::print_adjacency(std::ostream& o) 
 {
 	for (int i=0;i<n;i++)
 	{
@@ -103,4 +156,58 @@ void Scalefree::PrintG(std::ostream& o)
 	}
 }
 
+std::ostream& operator<<(std::ostream& o, Network& net)
+{				//give data to ostream os
+	for (int i=0;i<net.n;i++)
+	{
+		for (int j=0;j<net.n;j++)
+		{
+			o << (int)net.adjacency[i*net.n+j];
+			if (j<(net.n-1)) { o << ","; } else { o << "\n"; }
+		}
+	}
+	return (o);
+}
+
+void Network::iterate(void)
+{
+	double sumelts=0;
+	double *newstate;
+	newstate = new double[n];
+
+	for (int i=0;i<n;i++)
+	{
+		*(newstate+i)=0;
+		for (int j=0;j<n;j++)
+		{
+			*(newstate+i)=(double)*(adjacency+i*n+j) * *(newstate+j);
+			sumelts+=(double)*(adjacency+i*n+j);
+		}
+		*(newstate+i) = *(newstate+i)/sumelts;
+		sumelts = 0;
+	}
+	for (int i=0;i<n;i++) { *(state+i)=*(newstate+i); }
+}
+
+void Network::iterate(int k)
+{
+	double sumelts=0;
+	double *newstate;
+	newstate = new double[n];
+	for (int it=0;it<k;it++)
+	{
+		for (int i=0;i<n;i++)
+		{
+			*(newstate+i)=0;
+			for (int j=0;j<n;j++)
+			{
+				*(newstate+i)=(double)*(adjacency+i*n+j) * *(newstate+j);
+				sumelts+=(double)*(adjacency+i*n+j);
+			}
+			*(newstate+i) = *(newstate+i)/sumelts;
+			sumelts = 0;
+		}
+		for (int i=0;i<n;i++) { *(state+i)=*(newstate+i); }
+	}
+}
 #endif
