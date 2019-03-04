@@ -18,7 +18,7 @@ class Network
 		void print_adjacency(void);					//Print adjacency matrix to stdout
 		void print_adjacency(std::ostream& o);				//Print adjacency matrix to given output stream
 		friend std::ostream& operator<<(std::ostream& os, Network& net);//<< operator
-		~Network() { delete [] adjacency; delete [] state };		//Destructor
+		~Network() { delete [] adjacency; delete [] state; }		//Destructor
 
 		void iterate(void);					//iterate dynamical process once
 		void iterate(int k);					//iterate k times
