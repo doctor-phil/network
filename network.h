@@ -11,20 +11,24 @@ class Network
 		Network(void);                
 		Network(int a);
 		Network(const Network &net); 				//Copy Constructor
+		~Network() { delete [] adjacency; delete [] state; }		//Destructor
+
 									//Network Generators:
 		void generate_scalefree(int a, int m0, int m);			//Scale-free generator (Barabasi-Albert Model)
 		void generate_er(int a, double k);				//Erdos-Renyi generator
-	
+									
+									//Output:
 		void print_adjacency(void);					//Print adjacency matrix to stdout
 		void print_adjacency(std::ostream& o);				//Print adjacency matrix to given output stream
 		friend std::ostream& operator<<(std::ostream& os, Network& net);//<< operator
-		~Network() { delete [] adjacency; delete [] state; }		//Destructor
 
-		void iterate(void);					//iterate dynamical process once
-		void iterate(int k);					//iterate k times
+									//Simulate Dynamical Processes:
+		void genstate_normal(double mean, double stddev);		//draw states for each node from iid normal dist
+		void iterate(void);						//iterate dynamical process once
+		void iterate(int k);						//iterate k times
 	
 		int *adjacency;						//Stores adjacency matrix as nxn integer array
-		double *state;
+		double *state;						//Store the state vector of all nodes
 		int n;							//Number of nodes in the network
 };
 
@@ -71,7 +75,7 @@ void Network::generate_scalefree(int a,int m0, int m)			//overwrite network with
 	double newsum = sum;
 	int num;
 
-	for (int i=0;i<n;i++) { k[i]=0; }
+	for (int i=0;i<n;i++) { k[i]=0; }			
 
 	for (int i=0;i<m0;i++)
 	{
@@ -115,8 +119,8 @@ void Network::generate_er(int a, double k)				//overwrite network with a randoml
 	delete [] adjacency;
 	adjacency = new int[n*n];
 
-	std::random_device rd;
-	std::mt19937 mt(rd());
+	std::random_device device;
+	std::mt19937 mt(device());
   	std::uniform_real_distribution<double> distribution(0.0,1.0);
 	double draw;
 
@@ -208,6 +212,18 @@ void Network::iterate(int k)
 			sumelts = 0;
 		}
 		for (int i=0;i<n;i++) { *(state+i)=*(newstate+i); }
+	}
+}
+
+void Network::genstate_normal(double mean, double stddev)
+{
+	std::random_device device;
+	std::mt19937 mt(device());
+	std::normal_distribution<double> distribution(mean,stddev);
+
+	for (int i=0;i<n;i++)
+	{
+		*(state+i)=distribution(mt);
 	}
 }
 #endif
