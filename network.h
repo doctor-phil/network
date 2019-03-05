@@ -19,6 +19,8 @@ class Network
 									
 									//Output:
 		void print_adjacency(void);					//Print adjacency matrix to stdout
+		void print_state(void);
+		void print_state(std::ostream& o);
 		void print_adjacency(std::ostream& o);				//Print adjacency matrix to given output stream
 		friend std::ostream& operator<<(std::ostream& os, Network& net);//<< operator
 
@@ -29,8 +31,7 @@ class Network
 	
 									//Operations:
 		double average_degree(void);
-
-	private:	
+	
 		int *adjacency;						//Stores adjacency matrix as nxn integer array
 		double *state;						//Store the state vector of all nodes
 		int n;							//Number of nodes in the network
@@ -60,7 +61,7 @@ Network::Network(const Network &net)					//copy existing network
 {
 	n = net.n;
 	state = new double[10];
-	for (int i=0;i<10;i++) { state[i] = 0; }
+	for (int i=0;i<10;i++) { state[i] = net.state[i]; }
 
 	adjacency = new int[n*n];
 	for (int i=0;i<n*n;i++) { adjacency[i] = net.adjacency[i]; }	
@@ -165,7 +166,7 @@ void Network::print_adjacency(std::ostream& o)
 }
 
 std::ostream& operator<<(std::ostream& o, Network& net)
-{				//give data to ostream os
+{
 	for (int i=0;i<net.n;i++)
 	{
 		for (int j=0;j<net.n;j++)
@@ -242,5 +243,23 @@ double Network::average_degree(void)
 		}
 	}
 	return k/(double)n;
+}
+
+void Network::print_state(void)
+{
+	for (int i=0;i<n;i++)
+	{
+		std::cout << (double)*(state+i);
+		if (i<(n-1)) { std::cout << ","; }
+	}
+}
+
+void Network::print_state(std::ostream& o)
+{
+	for (int i=0;i<n;i++)
+	{
+		o << (double)*(state+i);
+		if (i<(n-1)) { o << ","; }
+	}
 }
 #endif
