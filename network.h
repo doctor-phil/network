@@ -189,7 +189,7 @@ void Network::iterate(void)
 		*(newstate+i)=0;
 		for (int j=0;j<n;j++)
 		{
-			*(newstate+i)=(double)*(adjacency+i*n+j) * *(state+j);
+			*(newstate+i)+=(double)*(adjacency+i*n+j) * *(state+j);
 			sumelts+=(double)*(adjacency+i*n+j);
 		}
 		*(newstate+i) = *(newstate+i)/sumelts;
@@ -210,7 +210,7 @@ void Network::iterate(int k)
 			*(newstate+i)=0;
 			for (int j=0;j<n;j++)
 			{
-				*(newstate+i)=(double)*(adjacency+i*n+j) * *(state+j);
+				*(newstate+i)+=(double)*(adjacency+i*n+j) * *(state+j);
 				sumelts+=(double)*(adjacency+i*n+j);
 			}
 			*(newstate+i) = *(newstate+i)/sumelts;
