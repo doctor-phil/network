@@ -189,7 +189,7 @@ void Network::iterate(void)
 		*(newstate+i)=0;
 		for (int j=0;j<n;j++)
 		{
-			*(newstate+i)=(double)*(adjacency+i*n+j) * *(newstate+j);
+			*(newstate+i)=(double)*(adjacency+i*n+j) * *(state+j);
 			sumelts+=(double)*(adjacency+i*n+j);
 		}
 		*(newstate+i) = *(newstate+i)/sumelts;
@@ -210,7 +210,7 @@ void Network::iterate(int k)
 			*(newstate+i)=0;
 			for (int j=0;j<n;j++)
 			{
-				*(newstate+i)=(double)*(adjacency+i*n+j) * *(newstate+j);
+				*(newstate+i)=(double)*(adjacency+i*n+j) * *(state+j);
 				sumelts+=(double)*(adjacency+i*n+j);
 			}
 			*(newstate+i) = *(newstate+i)/sumelts;
@@ -250,7 +250,7 @@ void Network::print_state(void)
 	for (int i=0;i<n;i++)
 	{
 		std::cout << (double)*(state+i);
-		if (i<(n-1)) { std::cout << ","; }
+		if (i<(n-1)) { std::cout << ","; } else { std::cout << "\n"; }
 	}
 }
 
@@ -259,7 +259,7 @@ void Network::print_state(std::ostream& o)
 	for (int i=0;i<n;i++)
 	{
 		o << (double)*(state+i);
-		if (i<(n-1)) { o << ","; }
+		if (i<(n-1)) { o << ","; } else { std::cout << "\n"; }
 	}
 }
 #endif
