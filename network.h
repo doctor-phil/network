@@ -27,6 +27,10 @@ class Network
 		void iterate(void);						//iterate dynamical process once
 		void iterate(int k);						//iterate k times
 	
+									//Operations:
+		double average_degree(void);
+
+	private:	
 		int *adjacency;						//Stores adjacency matrix as nxn integer array
 		double *state;						//Store the state vector of all nodes
 		int n;							//Number of nodes in the network
@@ -225,5 +229,18 @@ void Network::genstate_normal(double mean, double stddev)
 	{
 		*(state+i)=distribution(mt);
 	}
+}
+
+double Network::average_degree(void)
+{
+	double k;
+	for (int i=0;i<n;i++)
+	{
+		for (int j=0;j<n;j++)
+		{
+			k+=(double)*(adjacency+i*n+j);
+		}
+	}
+	return k/(double)n;
 }
 #endif
