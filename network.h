@@ -181,42 +181,40 @@ std::ostream& operator<<(std::ostream& o, Network& net)
 void Network::iterate(void)
 {
 	double sumelts=0;
-	double *newstate;
-	newstate = new double[n];
+	double newstate[n];
 
 	for (int i=0;i<n;i++)
 	{
-		*(newstate+i)=0;
+		newstate[i]=0;
 		for (int j=0;j<n;j++)
 		{
-			*(newstate+i)+=(double)*(adjacency+i*n+j) * *(state+j);
+			newstate[i]+=(double)*(adjacency+i*n+j) * *(state+j);
 			sumelts+=(double)*(adjacency+i*n+j);
 		}
-		*(newstate+i) = *(newstate+i)/sumelts;
+		*(newstate+i) = newstate[i]/sumelts;
 		sumelts = 0;
 	}
-	for (int i=0;i<n;i++) { *(state+i)=*(newstate+i); }
+	for (int i=0;i<n;i++) { *(state+i)=newstate[i]; }
 }
 
 void Network::iterate(int k)
 {
 	double sumelts=0;
-	double *newstate;
-	newstate = new double[n];
+	double newstate[n];
 	for (int it=0;it<k;it++)
 	{
 		for (int i=0;i<n;i++)
 		{
-			*(newstate+i)=0;
+			newstate[i]=0;
 			for (int j=0;j<n;j++)
 			{
-				*(newstate+i)+=(double)*(adjacency+i*n+j) * *(state+j);
+				newstate[i]+=(double)*(adjacency+i*n+j) * *(state+j);
 				sumelts+=(double)*(adjacency+i*n+j);
 			}
-			*(newstate+i) = *(newstate+i)/sumelts;
+			newstate[i] = newstate[i]/sumelts;
 			sumelts = 0;
 		}
-		for (int i=0;i<n;i++) { *(state+i)=*(newstate+i); }
+		for (int i=0;i<n;i++) { *(state+i)=newstate[i]; }
 	}
 }
 

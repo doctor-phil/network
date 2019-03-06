@@ -1,16 +1,18 @@
 #include "network.h"
 #include <iostream>
 
-int main()
+int main(int argc,char* argv[])
 {
-	int n = 10;
+	int en;
+	if (argc==1) { en=10; } else { en=atoi(argv[1]); }
+	
 	int iterations=0;
 	int converged;
 	Network network;
-	network.generate_scalefree(n,3,2);
+	network.generate_scalefree(en,3,2);
 	network.genstate_normal(0,1);
 	
-	double *oldstate = new double[n];
+	double oldstate[en];
 	
 	std::cout << "The current state vector is:\n";
 	network.print_state();
@@ -20,15 +22,19 @@ int main()
 
 	do {
 		converged = 1;
-		for (int i=0;i<n;i++) { *(oldstate+i) = network.state[i]; } 
+		for (int i=0;i<en;i++) { oldstate[i] = network.state[i]; } 
+
 		network.iterate();
-		for (int i=0;i<n;i++)
+		for (int i=0;i<en;i++)
 		{
-			if ((float)network.state[i]!=(float)oldstate[i]) { converged = 0; }
+			if (network.state[i]-oldstate[i] > 0.000001) { converged = 0; }
 		}
 		iterations+=1;
-	} while (iterations<=100000&&converged==0);
-	
-	std::cout << "\nAfter " << iterations-1 << " iterations, state is:\n";
+
+	} while (iterations<=1000000&&converged==0);
+
+	std::cout << "\nAfter " << iterations << " iterations, state is:\n";
 	network.print_state();
+
+	return 0;
 }
