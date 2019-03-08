@@ -30,21 +30,30 @@ class Network
 		void iterate(int k);						//iterate k times
 	
 									//Operations:
-		double average_degree(void);
+		double average_degree(void);					//return average degree of network
 	
 		int *adjacency;						//Stores adjacency matrix as nxn integer array
-		double *state;						//Store the state vector of all nodes
+		double *state;						//Store the state vector of all nodes nx1
+		double *config;						//A coupling matrix between nodes and controllers nxm
+		double *input;						//Control input vector mx1
 		int n;							//Number of nodes in the network
+		int m;							//Number of external controllers
 };
 
 Network::Network(void)							//init 10 node empty network
 {
 	n=10;
+	m=10;
 	state = new double[10];
 	for (int i=0;i<10;i++) { state[i] = 0; }
 
 	adjacency = new int[100];
 	for (int i=0;i<100;i++) { adjacency[i] = 0; }
+	
+	config = new double [m];
+	input = new double [m];
+	
+	for (int i=0;i<100;i++) { input[i] = 0; config[i] = 0; }
 }
 
 Network::Network(int a)							//init a node empty network
@@ -235,7 +244,7 @@ double Network::average_degree(void)
 	double k;
 	for (int i=0;i<n;i++)
 	{
-		for (int j=0;j<n;j++)
+		for (int j=0;j<i;j++)
 		{
 			k+=(double)*(adjacency+i*n+j);
 		}
