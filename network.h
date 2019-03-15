@@ -19,23 +19,24 @@ class Network
 									
 									//Output:
 		void print_adjacency(void);					//Print adjacency matrix to stdout
-		void print_state(void);
-		void print_state(std::ostream& o);
+		void print_state(void);						//Print the state vector to stdout
 		void print_adjacency(std::ostream& o);				//Print adjacency matrix to given output stream
+		void print_state(std::ostream& o);				//Print the state vector to given output stream
 		friend std::ostream& operator<<(std::ostream& os, Network& net);//<< operator
 
 									//Simulate Dynamical Processes:
 		void genstate_normal(double mean, double stddev);		//draw states for each node from iid normal dist
 		void iterate(void);						//iterate dynamical process once
 		void iterate(int k);						//iterate k times
+		void iterate_input(double *inp);				//iterate once with a given m-array of controller inputs
 	
 									//Operations:
 		double average_degree(void);					//return average degree of network
 	
 		int *adjacency;						//Stores adjacency matrix as nxn integer array
 		double *state;						//Store the state vector of all nodes nx1
-		double *config;						//A coupling matrix between nodes and controllers nxm
-		double *input;						//Control input vector mx1
+		double *coupling;					//A coupling matrix between nodes and controllers nxm
+		double *input;
 		int n;							//Number of nodes in the network
 		int m;							//Number of external controllers
 };
@@ -50,10 +51,10 @@ Network::Network(void)							//init 10 node empty network
 	adjacency = new int[100];
 	for (int i=0;i<100;i++) { adjacency[i] = 0; }
 	
-	config = new double [m];
+	coupling = new double [m];
 	input = new double [m];
 	
-	for (int i=0;i<100;i++) { input[i] = 0; config[i] = 0; }
+	for (int i=0;i<100;i++) { input[i] = 0; coupling[i] = 0; }
 }
 
 Network::Network(int a)							//init a node empty network
@@ -150,7 +151,7 @@ void Network::generate_er(int a, double k)				//overwrite network with a randoml
 	}
 }
 
-void Network::print_adjacency(void) 
+void Network::print_adjacency(void)
 {
 	for (int i=0;i<n;i++)
 	{
@@ -269,4 +270,30 @@ void Network::print_state(std::ostream& o)
 		if (i<(n-1)) { o << ","; } else { std::cout << "\n"; }
 	}
 }
+
+void Network::iterate_input(double* inp)
+{
+	for (int i=0;i<m;i++) { *(input+i)=*(inp+i); }
+
+	double sumelts=0;
+	double newstate[n];
+
+	for (int i=0;i<n;i++)
+	{
+		newstate[i]=0;
+		for (int j=0;j<n;j++)
+		{
+			newstate[i]+=(double)*(adjacency+i*n+j) * *(state+j);
+			sumelts+=(double)*(adjacency+i*n+j);
+		}
+		
+		for (int j=0;j<m;j++) { newstate[i]+=*(coupling+m*j+i) * *(input+j); }
+		
+		newstate[i] = newstate[i]/sumelts;
+		sumelts = 0;
+	}
+
+	for (int i=0;i<n;i++) { *(state+i)=newstate[i]; }
+}
+
 #endif
