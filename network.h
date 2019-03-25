@@ -5,6 +5,15 @@
 #include <random>
 #include <cmath>
 
+/*------------------------------------------------------------------------------------------------
+This library defines network objects that are capable of simulating linear dynamical processes with arbitrary control sequences. First generate Barabasi-Albert or Erdos-Renyi random networks with one of the generate functions, then iterate the process by a single (or multiple) time interval(s).
+
+Controllers are connected through the coupling buffer, and arbitrary inputs can be sent to any controller using iteration with an input buffer address.
+
+This Code was written by Philip Solimine https://github.com/doctor-phil
+This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.
+--------------------------------------------------------------------------------------------------*/
+
 class Network
 {
 	public:
