@@ -60,30 +60,46 @@ Network::Network(void)							//init 10 node empty network
 	adjacency = new int[100];
 	for (int i=0;i<100;i++) { adjacency[i] = 0; }
 	
-	coupling = new double [m];
+	coupling = new double [m*m];
 	input = new double [m];
 	
-	for (int i=0;i<100;i++) { input[i] = 0; coupling[i] = 0; }
+	for (int i=0;i<m;i++) { input[i] = 0; }
+	for (int i=0;i<m*m;i++) { coupling[i] = 0; }
 }
 
 Network::Network(int a)							//init a node empty network
 {
 	n = a;
-	state = new double[10];
+	m = a;
+	state = new double[n];
 	for (int i=0;i<10;i++) { state[i] = 0; }
 
-	adjacency = new int[a];
+	adjacency = new int[n*n];
 	for (int i=0;i<a*a;i++) { adjacency[i] = 0; }
+	
+	coupling = new double [m*m];
+	input = new double [m];
+
+	for (int i=0;i<m;i++) { input[i] = 0; }
+	for (int i=0;i<m*m;i++) { coupling[i] = 0; }
 }
 
 Network::Network(const Network &net)					//copy existing network
 {
 	n = net.n;
+	m = net.m;
+
 	state = new double[10];
 	for (int i=0;i<10;i++) { state[i] = net.state[i]; }
 
 	adjacency = new int[n*n];
 	for (int i=0;i<n*n;i++) { adjacency[i] = net.adjacency[i]; }	
+
+	coupling = new double [m*m];
+	input = new double [m];
+
+	for (int i=0;i<m;i++) { input[i] = 0; }
+	for (int i=0;i<m*m;i++) { coupling[i] = 0; }
 }
 
 void Network::generate_scalefree(int a,int m0, int m)			//overwrite network with a randomly-drawn scale-free network
