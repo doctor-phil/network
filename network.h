@@ -45,7 +45,7 @@ class Network
 		int *adjacency;						//Stores adjacency matrix as nxn integer array
 		double *state;						//Store the state vector of all nodes nx1
 		double *coupling;					//A coupling matrix between nodes and controllers nxm
-		double *input;
+		double *input;						//
 		int n;							//Number of nodes in the network
 		int m;							//Number of external controllers
 };
