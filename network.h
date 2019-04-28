@@ -65,6 +65,7 @@ Network::Network(void)							//init 10 node empty network
 	
 	for (int i=0;i<m;i++) { input[i] = 0; }
 	for (int i=0;i<m*m;i++) { coupling[i] = 0; }
+	for (int i=0;i<m;i++) { coupling[i*i]=1; }			//coupling is the identity (may cause problems in input.cpp)
 }
 
 Network::Network(int a)							//init a node empty network
