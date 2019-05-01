@@ -45,7 +45,7 @@ class Network
 		int *adjacency;						//Stores adjacency matrix as nxn integer array
 		double *state;						//Store the state vector of all nodes nx1
 		double *coupling;					//A coupling matrix between nodes and controllers nxm
-		double *input;
+		double *input;						//
 		int n;							//Number of nodes in the network
 		int m;							//Number of external controllers
 };
@@ -65,6 +65,7 @@ Network::Network(void)							//init 10 node empty network
 	
 	for (int i=0;i<m;i++) { input[i] = 0; }
 	for (int i=0;i<m*m;i++) { coupling[i] = 0; }
+	for (int i=0;i<m;i++) { coupling[i*i]=1; }			//coupling is the identity (may cause problems in input.cpp)
 }
 
 Network::Network(int a)							//init a node empty network
