@@ -8,8 +8,11 @@
 #include "directed_graph.h"
 
 /*
- * This main is strictly for testing purposes only. To be removed once code is finalized.
+ * This main is strictly for testing purposes and to serve as an example of how to use the Directed Graph struct only. 
+ * This is to be removed once code is finalized.
  */
+
+/*
 int main(int argc, char** argv)
 {
 	DirectedGraph* graph = initialize_digraph(sizeof(int), "Vertex");
@@ -42,7 +45,7 @@ int main(int argc, char** argv)
 //		printf("Vertex %d holds data %d\n", (i+1), *(int*)v->data);
 	}
 
-/*	printf("Testing remove_vertex now\n");
+	printf("Testing remove_vertex now\n");
 
 	int otherThree = 3;
 	int* otherThreePtr = &otherThree;
@@ -56,7 +59,7 @@ int main(int argc, char** argv)
 		Vertex* v = linked_list_get(newList, i);
 		printf("Vertex %d holds data %d\n", (i+1), *(int*)v->data);
 	}
-*/
+
 	
 	add_arc(graph, onePtr, twoPtr, 1);
 	add_arc(graph, onePtr, threePtr, 2.5);
@@ -90,7 +93,7 @@ int main(int argc, char** argv)
 		Arc* arc = (Arc*) linked_list_get(threeArcs, i);
 //		printf("V3 has an arc to %d with weight %f\n", *(int*)arc->vertex->data, arc->weight);
 	}
-/*	printf("\n changing arc weights now\n\n");	
+	printf("\n changing arc weights now\n\n");	
 	change_arc_weight(graph, onePtr, twoPtr, 195);
 	change_arc_weight(graph, threePtr, fourPtr, 137);
 	change_arc_weight(graph, onePtr, fivePtr, 455);
@@ -131,8 +134,8 @@ int main(int argc, char** argv)
 		Arc* a = (Arc*) linked_list_get(arc3, i);
 		printf("V3 has arc to %d with weight %f\n", *(int*)a->vertex->data, a->weight);
 	}
-*/
-/*
+
+
 	int oneSource = connected_vertices_count(graph, onePtr);
 
 	int threeSource = connected_vertices_count(graph, threePtr);
@@ -154,7 +157,7 @@ int main(int argc, char** argv)
 	printf("Vertices connected to V5 are %d | expected %d\n", fiveSource, 0);	
 
 	printf("Vertices connected to V2 are %d | expected %d\n", twoSource, 3);	
-*/	
+	
 	printf("\nDijkstra algo testing now\n");
 	printf("Shortest path from V1 to V4\n");
 	LinkedList* dList = dijkstra(graph, onePtr, fourPtr);
@@ -169,7 +172,7 @@ int main(int argc, char** argv)
 
 
 	return 0;
-}
+}*/
 
 /*
  * Creates and returns a Directed Graph pointer.
@@ -177,10 +180,12 @@ int main(int argc, char** argv)
 DirectedGraph* initialize_digraph(int dataSize, char* dataTypeName)
 {
 	DirectedGraph* graph = malloc(sizeof(*graph));
-	
+
+	// If allocation request unsuccessful, then return NULL.	
 	if(graph == NULL)
 		return NULL;
 
+	// Initialize the linkedList struct and assign the valueSize variable.
 	graph->vertexList = linked_list_initialize(sizeof(Vertex), dataTypeName);
 	graph->valueSize  = dataSize;
 	
@@ -188,7 +193,8 @@ DirectedGraph* initialize_digraph(int dataSize, char* dataTypeName)
 }
 
 /* 
- * Takes a graph pointer and returns the number of vertices in the directed graph structure.
+ * Takes a Directed Graph pointer and if the Directed Graph pointer is not NULL, the number
+ * if vertices in the Directed Graph struct is returned, otherwise -1 is returned.
  */ 
 int digraph_size(DirectedGraph* graph)
 {
@@ -203,22 +209,27 @@ int digraph_size(DirectedGraph* graph)
 }
 
 /*
- * This function searches the Directed Graph for a vertex and returns a pointer
- * to that vertex if it exists, and returns NULL if not.
+ * This function searches the Directed Graph for a vertex and, if it exists in the Directed Graph struct,
+ * returns a pointer to that vertex, otherwise NULL is returned.
  */ 
 Vertex* get_vertex(DirectedGraph* graph, void* element)
 {
 	if(graph == NULL || element == NULL)
 		return NULL;
 
+	// Retrieve a local pointer of the Directed Graph's vertex list.
 	LinkedList* list = graph->vertexList;
 	
+	// For each vertex in the vertex list.
 	for(int i = 0; i < linked_list_size(list); i++)
 	{
+		// Retrieve the vertex at index i in the vertex list.
 		Vertex* v = (Vertex*) linked_list_get(list, i);
 
+		// If the data fieled variable in the vertex is equal to the element parameter. 
 		if(memcmp(v->data, element, graph->valueSize) == 0)
 		{
+			// Return this vertex.
 			return v;
 		}
 	}
@@ -228,14 +239,19 @@ Vertex* get_vertex(DirectedGraph* graph, void* element)
 
 /*
  * The add vertex function creates a Vertex* pointer and adds it to the Directed Graph struct.
+ * True is returned if the vertex was successfully added to the Directed Graph. Otherwie false 
+ * is returned.
  */
 bool add_vertex(DirectedGraph* graph, void* element)
 {
+	// If either parameter is NULL, return false.
 	if(graph == NULL || element == NULL)
 		return false;
 
+	// Instantiate a Vertex struct while passing in the element parameter.
 	Vertex* v = create_vertex(element);
 
+	// Return the call to linkedlist add last function while passing in Directed Graph's vertex list and the instantiated vertex.
 	return	linked_list_add_last(graph->vertexList, v);
 }
 
@@ -244,25 +260,29 @@ bool add_vertex(DirectedGraph* graph, void* element)
  */
 bool remove_vertex(DirectedGraph* graph, void* element)
 {
+	// If either parameter is NULL, return false.
 	if(graph == NULL || element == NULL)
 		return false;
 	
-		
+	// Store vertex list's current size in a local variable.	
 	int prevSize = linked_list_size(graph->vertexList);
 
+	// For each vertex in the vertex list.
 	for(int i = 0; i < prevSize; i++)
 	{
+		// Retrieve the vertex in the vertex list at index i.
 		Vertex* v = (Vertex*) linked_list_get(graph->vertexList, i);
 
 		// If this vertex is equivalent to the element parameter		
 		if(memcmp(v->data, element, graph->valueSize) == 0)
 		{
+			// Remove this vertex from the vertex list and break from loop.
 			linked_list_remove(graph->vertexList, i);
 			break;
 		}
 	}
 
-	// If the previous size minus the current size equals 1
+	// If the previous size minus the current size equals 1 return true, else return false.
 	if((prevSize - linked_list_size(graph->vertexList)) == 1)
 	{
 		return true;
@@ -291,28 +311,35 @@ LinkedList* get_arcs(DirectedGraph* graph, void* element)
 {
 	if(graph == NULL || element == NULL)
 	{
-		printf("returning NULL from get_arcs\n");
 		return NULL;
 	}
+
+	// Retrieve vertex pointer from graph associated with the element parameter.
 	Vertex* v = get_vertex(graph, element);
 
+	// Return this vertex's arc list.
 	return get_arc_list(v);	
 }
 
 /*
- * The add arc function takes a DirectedGraph* struct pointer, and void* pointer to 
+ * The add arc function takes a DirectedGraph* struct pointer, a void* pointer to 
  * the origin vertex, a void* pointer to the destination vertex, and a float value
  * representing the weight of the arc. The function then creates an arc from the
  * origin vertex to the destination vertex with the appropriate weight assigned.
+ * This function returns true if the arc between origin and destination was added
+ * to the Directed Graph struct successfully, otherwise false is returned.
  */
 bool add_arc(DirectedGraph* graph, void* origin, void* destination, float cost)
 {
+	// If any one of the graph, origin, or destination parameter is NULL, return false.
 	if(graph == NULL || origin == NULL || destination == NULL)
 		return false;
 
+	// Otherwise retrieve the Vertices associated with the origin and destination parameters.
 	Vertex* start = get_vertex(graph, origin);
 	Vertex* end   = get_vertex(graph, destination);
 
+	// Return the call to add vertex arc function with the two vertices and the arc weight.
 	return add_vertex_arc(start, end, cost);
 }
 
@@ -373,7 +400,7 @@ int connected_vertices_count(DirectedGraph* graph, void* origin)
 	if(graph == NULL || origin == NULL)
 		return -1;
 
-	int count  = _connected_vertices_count_recursive(graph, origin) - 1; // Is the - 1 here proper?	
+	int count  = _connected_vertices_count_recursive(graph, origin) - 1; 	
 	set_visited_field(graph, false);
 
 	return count;
@@ -384,43 +411,43 @@ int connected_vertices_count(DirectedGraph* graph, void* origin)
  * and a void* origin pointer to a vertex. This function recursively visits each vertex 
  * traversable via the vertx's arc list that has already not been visited and counts the
  * number of vertices. The count of the number of vertices visited is returned to the client.
+ * If either parameter is NULL, -1 is returned.
  */
 int _connected_vertices_count_recursive(DirectedGraph* graph, void* origin)
 {
+	// If either parameter is NULL, return -1.
 	if(graph == NULL || origin == NULL)
 		return -1;
 
-	int count = 0;
-	
+	// Temporary count and start vertex variables.
+	int count     = 0;
 	Vertex* start = get_vertex(graph, origin);
-	printf("Current Vertex: %d\n", *(int*)start->data);	// code here for testing
+	
+	// If this start vertex has not been visited.
 	if(!(been_visited(start)))
 	{
+		/*
+ 		 * Set this start vertex visited flag to true, count assigned to 1, 
+ 		 * and retrieve the arc list of this vertex.
+ 		 */
 		set_visited(start, true);
-		count = 1;
+		count            = 1;
+		LinkedList* list = get_arc_list(start);  
 
-		LinkedList* list = get_arc_list(start);  		// changed this method from get_arc_list(start);
-
-		// This printing and for loop here are strictly for testing
-		printf("diGraph.c: Arc List size: %d\n", linked_list_size(list));
+		// For each arc in this vertex's arc list.
 		for(int i = 0; i < linked_list_size(list); i++)
 		{
+			// Retrieve the arc struct at index i.
 			Arc* arc = (Arc*) linked_list_get(list, i);
-			printf("%d | ", *(int*)arc->vertex->data);
-		}
-		printf("\n");
-		// End of testing for loop		
-
-		for(int i = 0; i < linked_list_size(list); i++)
-		{
-			Arc* arc = (Arc*) linked_list_get(list, i);
-			printf("Visiting %d\n", *(int*)arc->vertex->data);    // code here for testing
 			
-			// If the next vertex in the arc list has not been visited
+			// If the vertex in the arc struct has not been visited.
 			if(!(been_visited(arc->vertex)))
 			{	
+				// Cast the data of this vertex to a void pointer local variable.
 				void* ptr = (void*) arc->vertex->data;				
-				count += _connected_vertices_count_recursive(graph, ptr);	
+
+				// count in incremented by a call to connected_vertices_count_recursive function.
+				count    += _connected_vertices_count_recursive(graph, ptr);	
 			}
 		}		
 	}
@@ -428,66 +455,63 @@ int _connected_vertices_count_recursive(DirectedGraph* graph, void* origin)
 	return count;
 }
 
-/*
- *  
- */
-bool is_strongly_connected(DirectedGraph* graph)
-{
-
-}
 
 /*
  * The source_vertex function takes a DirectedGraph* struct pointer parameter and
  * traverses the Directed Graph structure from each vertex. The vertex from which
- * all vertices can be visited is returned.
+ * all vertices can be visited is returned. If no such vertex exists, then NULL
+ * is returned.
  */
 void* source_vertex(DirectedGraph* graph)
 {
 	if(graph == NULL)
 		return NULL;
 
+	// Retrieve the vertex list from the Dorected Graph struct.
 	LinkedList* list = get_vertices(graph);
 
+	// For each vertex in the vertex list.
 	for(int i = 0; i < linked_list_size(list); i++)
 	{
+		// Retrieve the vertex at index i.
 		void* v   = linked_list_get(list, i);
+
+		// Retrieve the count of the call to connected_verteices_count function from this vertex.
 		int count = connected_vertices_count(graph, v);
 				
-		// If the number of vertices visited is equal to the number of
-		// of vertices in the graph.
+		// If number of vertices visited equals number of vertices in the graph.
 		if(count == linked_list_size(list))
 		{
+			// Set the visieted falg for all vertices to false and return this vertex.
 			set_visited_field(graph, false);
-		
 			return v;
 		}
 
+		// Set the visited flag for all vertices in the graph to false. 
 		set_visited_field(graph, false);
 	}
 
 	return NULL;
 }
 
-/*
- *
- */
-bool has_cycle(DirectedGraph* graph)
-{
-
-}
 
 /*
  * The set_visited_field function changes the visited data member for all
- * vertex structs within the DirectedGraph* struct to hte bool value parameter.
+ * vertex structs within the DirectedGraph* struct to the value of the bool parameter.
  */
 void set_visited_field(DirectedGraph* graph, bool value)
 {
+	// If the graph is null, immediately return.
 	if(graph == NULL)
 		return;
 
+	// For each vertex in the Directed Graph's vertex list.
 	for(int i = 0; i < linked_list_size(graph->vertexList); i++)
 	{
+		// Retrieve the vertex struct at index i.
 		Vertex* v  = (Vertex*) linked_list_get(graph->vertexList, i);
+
+		// Set the visited falg of this vertex to the value parameter.
 		set_visited(v, value);
 	}
 }
@@ -498,12 +522,17 @@ void set_visited_field(DirectedGraph* graph, bool value)
  */
 void reset_parent_links(DirectedGraph* graph)
 {
+	// If the graph parameter is NULL, immediately return.
 	if(graph == NULL)
 		return;
 
+	// For each vertex in the Directed Graph's vertex list.
 	for(int i = 0; i < linked_list_size(graph->vertexList); i++)
 	{
+		// Retrieve a reference to the vertex struct at index i.
 		Vertex* v = (Vertex*) linked_list_get(graph->vertexList, i);
+
+		// Assign the vertex's parent reference to NULL.
 		v->parent = NULL;
 	}
 }
@@ -518,6 +547,7 @@ int compareVertex(void* a, void* b)
 	if(a == NULL || b == NULL)
 		return -1;
 
+	// Casting void* paremeters to Vertex pointers.
 	Vertex* v1 = (Vertex*) a;
 	Vertex* v2 = (Vertex*) b;
 
@@ -581,10 +611,9 @@ void buildTree(DirectedGraph* graph, void* origin)
 			Vertex* vtex   = arc->vertex;
 
 			// Calculate a new distance.
-			float distance = get_vertex_distance(v) + arc->weight; // changed the get_vertex_distance( ) from vtex to v
+			float distance = get_vertex_distance(v) + arc->weight; 
 
 			// If the vertex's diatance is greater than the calculated distance.
-			printf("vertex current distance %f calculated distance %f\n", get_vertex_distance(vtex), distance);
 			if(get_vertex_distance(vtex) > distance)
 			{
 				/*
@@ -595,7 +624,6 @@ void buildTree(DirectedGraph* graph, void* origin)
 				set_vertex_distance(vtex, distance);
 				set_vertex_parent(vtex, v);
 				pQueue_enqueue(pq, vtex);
-				printf("parent %d has child %d with distance %f\n", *(int*)v->data, *(int*)vtex->data, distance);
 			}
 		}	
 	} 
@@ -612,20 +640,30 @@ LinkedList* dijkstra(DirectedGraph* graph, void* origin, void* destination)
 	if(graph == NULL || origin == NULL || destination == NULL)
 		return NULL;
 
+	// Instantiate a Linkedlist struct to hold Vertex pointers.
 	LinkedList* vList = linked_list_initialize(sizeof(Vertex), "Vertex");
 
+	// Call to build a tree of parent links from the origin vertex within the Directed Graph.
 	buildTree(graph, origin);
+
+	// Retrieve the destination vertex from the Directed Graph. 
 	Vertex* end = get_vertex(graph, destination);
 
+	// While the end vertex variable is not NULL.
 	while(end != NULL)
 	{
-		linked_list_add_first(vList, end); // Should this be adding pointers to the Vertex data members instead?
+		// Add the end variable vertex reference to the linkedlist struct.
+		linked_list_add_first(vList, end); 
+
+		// The end variable is updated to be the parent reference of the previous end variable.
 		end = get_vertex_parent(end);
 	}	
 
+	// Reset all parent links and the visited field of each vertex to false.
 	reset_parent_links(graph);
 	set_visited_field(graph, false);
 
+	// Return the vertex list of the shortest path, in order, from origin vertex to destination vertex.
 	return vList;
 }
 
