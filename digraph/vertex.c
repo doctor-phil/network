@@ -70,7 +70,7 @@ bool remove_vertex_arc(Vertex* origin, Vertex* destination)
 		Arc* arc = linked_list_get(list, i);
 		Vertex* elem = (Vertex*) arc->vertex;
 
-		if(elem == destination) // May need to define how to compare Vertex structs here
+		if(elem == destination) 
 		{
 			linked_list_remove(list, i);
 			break;
