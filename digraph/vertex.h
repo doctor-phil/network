@@ -41,6 +41,7 @@ void	    set_vertex_distance(Vertex*, float);
 float	    get_vertex_distance(Vertex*);
 void	    set_vertex_parent(Vertex*, Vertex*);
 Vertex*	    get_vertex_parent(Vertex*);
+bool	    has_arc_to_vertex(Vertex*, Vertex*);
 
 Arc*        create_arc(Vertex*, float);
 void        set_arc_weight(Arc*, float);
