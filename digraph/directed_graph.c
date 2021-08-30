@@ -174,6 +174,75 @@ int main(int argc, char** argv)
 	return 0;
 }*/
 
+float* all_pairs_shortest_paths(DirectedGraph* graph)
+{
+	if(graph == NULL)
+	{
+		float zero = 0;
+		float* space = malloc(sizeof(*space));
+		space = &zero;
+		return space;
+	}
+
+	// This segment of code creates the adjacency matrix for the DirectedGraph* struct.
+	LinkedList* vertices = get_vertices(graph);
+	int n = linked_list_size(vertices);
+
+	// Creating an n x n matrix where n is the number of vertices in the DirectedGraph.
+	float adjMtx[n][n];
+
+	// For each vertex in the graph.
+	for(int i = 0; i < n; i ++)
+	{
+		// Retrieve the vertex at index i.
+		Vertex* source = linked_list_get(vertices,i);
+
+		// For each vertex in the graph.
+		for(int j = 0; j < n; j++)
+		{
+			// Retrieve the vertex at index j.
+			Vertex* destination = linked_list_get(vertices, j);
+
+			// If an Arc exists from the source to destination vertex.
+			if(has_arc_to_vertex(source, destination))
+			{
+				// Then insert the Arc's weight into the adjacency matrix table.
+				adjMtx[i][j] = get_weight(source, destination);
+
+			// Otherwise, insert the largest float value into the adjacency matrix table.
+			} else {
+				adjMtx[i][j] = FLT_MAX;
+			}
+		}
+	}
+
+	// This segment of code implements the Floyd Warshall algorithm.
+	
+	// For each vertex in the graph.
+	for(int k = 0; k < n; k++)
+	{
+		// For each vertex row in the square adjacency matrix.
+		for(int i = 0; i < n; i++)
+		{
+			// For each vertex column in the square adjacency matrix.
+			for(int j = 0; j < n; j++)
+			{
+				// Let the i,j index equal the minimum of the adjacency matrix i,j element or the sum of elements i,k and k,j.
+				adjMtx[i][j] = (adjMtx[i][j] < (adjMtx[i][k] + adjMtx[k][j])) ? adjMtx[i][j] : (adjMtx[i][k] + adjMtx[k][j]);
+			}
+		}
+	}
+
+	// Return a pointer to the first element in the shortest paths matrix.
+	//return &adjMtx[0][0];
+	
+	// TEMPORARY FIX FOR BUG TESTING
+	float* space = malloc(sizeof(*space));
+	float value = 1.0;
+	space = &value;
+	return space;
+}
+
 /*
  * Creates and returns a Directed Graph pointer.
  */

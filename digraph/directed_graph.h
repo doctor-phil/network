@@ -42,5 +42,7 @@ float		get_arc_weight(DirectedGraph*, void*, void*);
 void		reset_parent_links(DirectedGraph*);
 int		compareVertex(void*, void*);
 LinkedList*	dijkstra(DirectedGraph*, void*, void*);
+float*		all_pairs_shortest_paths(DirectedGraph*);
+
 
 #endif
