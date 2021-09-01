@@ -53,7 +53,10 @@ float** all_pairs_shortest_paths(DirectedGraph* graph)
 }
 
 /*
- * Creates and returns a Directed Graph pointer.
+ * Creates and returns a Directed Graph pointer. The int dataSize parameter is
+ * the number of bytes of the data type to be stored in the DirectedGraph. The
+ * number of bytes can be retrieved from the "sizeof(type)" function where
+ * "type" is the data type ot be stored in the DirectedGraph. 
  */
 DirectedGraph* initialize_digraph(int dataSize, char* dataTypeName)
 {
@@ -72,7 +75,7 @@ DirectedGraph* initialize_digraph(int dataSize, char* dataTypeName)
 }
 
 /*
- * This funciton creates an adjacency matrix of the vertices in the DirectedGraph struct
+ * This function creates an adjacency matrix of the vertices in the DirectedGraph struct
  * and has the graph's adjacencyMatrix struct variable point to this allocated adjacency matrix.
  */
 void create_adjacency_matrix(DirectedGraph* graph)

@@ -7,7 +7,7 @@ COMPILER = gcc
 CSTD = --std=c18
 
 # Specifying the c files to compile with
-C_FILES = linked_list.c vertex.c priority_queue.c
+C_FILES = linked_list.c vertex.c priority_queue.c directed_graph.c
 
 # Specifying the header files to compile with
 H_FILES = linked_list.h vertex.h priority_queue.h directed_graph.h
@@ -16,7 +16,7 @@ H_FILES = linked_list.h vertex.h priority_queue.h directed_graph.h
 LIB_FLAGS = -g 
 
 # Specifying the c file that hold the main
-MAIN = directed_graph.c
+MAIN = main.c
 
 # Defining the call to make
 all: digraph
