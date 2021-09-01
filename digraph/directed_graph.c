@@ -12,7 +12,7 @@
  * This is to be removed once code is finalized.
  */
 
-
+/*
 int main(int argc, char** argv)
 {
 	DirectedGraph* graph = initialize_digraph(sizeof(int), "Vertex");
@@ -34,34 +34,35 @@ int main(int argc, char** argv)
 	bool r4 = add_vertex(graph, fourPtr);
 //	bool r5 = add_vertex(graph, fivePtr);
 
-//	if(r1 && r2 && r3 && r4 && r5)
-//		printf("add_vertex returned true for each vertex added!\n");
 
-//	LinkedList* vList = get_vertices(graph);
+	if(r1 && r2 && r3 && r4 && r5)
+		printf("add_vertex returned true for each vertex added!\n");
 
-//	for(int i = 0; i < digraph_size(graph); i++)
-//	{	
-//		Vertex* v = (Vertex*) linked_list_get(vList, i);
-//		printf("Vertex %d holds data %d\n", (i+1), *(int*)v->data);
-//	}
+	LinkedList* vList = get_vertices(graph);
 
-//	printf("Testing remove_vertex now\n");
+	for(int i = 0; i < digraph_size(graph); i++)
+	{	
+		Vertex* v = (Vertex*) linked_list_get(vList, i);
+		printf("Vertex %d holds data %d\n", (i+1), *(int*)v->data);
+	}
 
-//	int otherThree = 3;
-//	int* otherThreePtr = &otherThree;
-//
-//	remove_vertex(graph, otherThreePtr);
+	printf("Testing remove_vertex now\n");
 
-//	LinkedList* newList = get_vertices(graph);
+	int otherThree = 3;
+	int* otherThreePtr = &otherThree;
 
-//	for(int i = 0; i < digraph_size(graph); i++)
-//	{
-//		Vertex* v = linked_list_get(newList, i);
-//		printf("Vertex %d holds data %d\n", (i+1), *(int*)v->data);
-//	}
+	remove_vertex(graph, otherThreePtr);
 
+	LinkedList* newList = get_vertices(graph);
+
+	for(int i = 0; i < digraph_size(graph); i++)
+	{
+		Vertex* v = linked_list_get(newList, i);
+		printf("Vertex %d holds data %d\n", (i+1), *(int*)v->data);
+	}
+*/
 	// Adding Arcs to vertices	
-	add_arc(graph, onePtr, twoPtr, 3);
+/*	add_arc(graph, onePtr, twoPtr, 3);
 	add_arc(graph, onePtr, fourPtr, 7);
 
 	add_arc(graph, twoPtr, onePtr, 8);
@@ -71,9 +72,9 @@ int main(int argc, char** argv)
 	add_arc(graph, threePtr, fourPtr, 1);
 
 	add_arc(graph, fourPtr, onePtr, 2);
-
+*/
 	// Testing Adjacency Matrix
-	create_adjacency_matrix(graph);
+/*	create_adjacency_matrix(graph);
 	
 	float** adj = get_adjacency_matrix(graph);
 
@@ -89,6 +90,7 @@ int main(int argc, char** argv)
 		printf("\n");
 	}
 
+	// Testing all pairs shortest paths algorithm
 	printf("Shorest Path algorithm returns:\n");
 
 	float** shortestPaths = all_pairs_shortest_paths(graph);
@@ -101,35 +103,36 @@ int main(int argc, char** argv)
 		}
 		printf("\n");
 	}
+*/
 
-
-//	LinkedList* oneArcs = get_arcs(graph, onePtr);
-//	LinkedList* twoArcs = get_arcs(graph, twoPtr);
-//	LinkedList* threeArcs = get_arcs(graph, threePtr);
+/*	LinkedList* oneArcs = get_arcs(graph, onePtr);
+	LinkedList* twoArcs = get_arcs(graph, twoPtr);
+	LinkedList* threeArcs = get_arcs(graph, threePtr);
 	
-//	printf("V1 arc list size = %d, V2 arc list size = %d, and V3 arc list size = %d\n",
-//	 linked_list_size(oneArcs), linked_list_size(twoArcs), linked_list_size(threeArcs));
-//	for(int i = 0; i < linked_list_size(oneArcs); i++)
-//	{
-//		Arc* onearc = (Arc*) linked_list_get(oneArcs, i);
-//		printf("V1 has an arc to %d with weight %f\n", *(int*)onearc->vertex->data, onearc->weight);
-//	}
-//	printf("\n");
-//	for(int i = 0; i < linked_list_size(twoArcs); i++)
-//	{
-//		Arc* twoarc = (Arc*) linked_list_get(twoArcs, i);
-//		printf("V2 has an arc to %d with weight %f\n", *(int*)twoarc->vertex->data, twoarc->weight);
-//	}
-//	printf("\n");
-//	for(int i = 0; i < linked_list_size(threeArcs); i++)
-//	{
-//		Arc* arc = (Arc*) linked_list_get(threeArcs, i);
-//		printf("V3 has an arc to %d with weight %f\n", *(int*)arc->vertex->data, arc->weight);
-//	}
-//	printf("\n changing arc weights now\n\n");	
-//	change_arc_weight(graph, onePtr, twoPtr, 195);
-//	change_arc_weight(graph, threePtr, fourPtr, 137);
-//	change_arc_weight(graph, onePtr, fivePtr, 455);
+	printf("V1 arc list size = %d, V2 arc list size = %d, and V3 arc list size = %d\n",
+	 linked_list_size(oneArcs), linked_list_size(twoArcs), linked_list_size(threeArcs));
+	for(int i = 0; i < linked_list_size(oneArcs); i++)
+	{
+		Arc* onearc = (Arc*) linked_list_get(oneArcs, i);
+		printf("V1 has an arc to %d with weight %f\n", *(int*)onearc->vertex->data, onearc->weight);
+	}
+	printf("\n");
+	for(int i = 0; i < linked_list_size(twoArcs); i++)
+	{
+		Arc* twoarc = (Arc*) linked_list_get(twoArcs, i);
+		printf("V2 has an arc to %d with weight %f\n", *(int*)twoarc->vertex->data, twoarc->weight);
+	}
+	printf("\n");
+	for(int i = 0; i < linked_list_size(threeArcs); i++)
+	{
+		Arc* arc = (Arc*) linked_list_get(threeArcs, i);
+		printf("V3 has an arc to %d with weight %f\n", *(int*)arc->vertex->data, arc->weight);
+	}
+	printf("\n changing arc weights now\n\n");	
+	change_arc_weight(graph, onePtr, twoPtr, 195);
+	change_arc_weight(graph, threePtr, fourPtr, 137);
+	change_arc_weight(graph, onePtr, fivePtr, 455);
+*/
 
 /*	LinkedList* A1 = get_arcs(graph, onePtr);
 	for(int i = 0; i < linked_list_size(A1); i++)
@@ -203,10 +206,16 @@ int main(int argc, char** argv)
 	printf("\n");
 */
 
-
+/*
 	return 0;
-}
+}*/
 
+/*
+ * The all_pairs_shortest_paths function implements the Floyd-Warshall algorithm that finds the shortest path
+ * of all pairs of vertices in a graph in O(n^3) time. This funciton returns an allocated 2D array matrix 
+ * representation of the shortes path of any pair of vertices. Note: this matrix can be interpreted as the
+ * shortest path from the i row vertex to the j column vertex and not vice versa. 
+ */
 float** all_pairs_shortest_paths(DirectedGraph* graph)
 {
 	// If the graph parameter is NULL, immediately return NULL.
@@ -225,11 +234,8 @@ float** all_pairs_shortest_paths(DirectedGraph* graph)
 		create_adjacency_matrix(graph);
 	}
 
-
 	// Call get_adjacency_matrix function on the graph parameter.
 	float** adjMtx = get_adjacency_matrix(graph);
-
-	// This segment of code implements the Floyd Warshall algorithm.
 	
 	// For each vertex in the graph.
 	for(int k = 0; k < n; k++)
@@ -262,22 +268,26 @@ DirectedGraph* initialize_digraph(int dataSize, char* dataTypeName)
 		return NULL;
 
 	// Initialize the linkedList struct and assign the valueSize variable.
-	graph->vertexList = linked_list_initialize(sizeof(Vertex), dataTypeName);
-	graph->valueSize  = dataSize;
+	graph->vertexList      = linked_list_initialize(sizeof(Vertex), dataTypeName);
+	graph->valueSize       = dataSize;
 	graph->adjacencyMatrix = NULL;
 	
 	return graph;
 }
 
-
+/*
+ * This funciton creates an adjacency matrix of the vertices in the DirectedGraph struct
+ * and has the graph's adjacencyMatrix struct variable point to this allocated adjacency matrix.
+ */
 void create_adjacency_matrix(DirectedGraph* graph)
 {
 	// If the graph parameter is NULL, return immediately.
 	if(graph == NULL)
 		return;
+
 	// Retrieve the vertex list and its size from the graph parameter.
 	LinkedList* vertices = get_vertices(graph);
-	int n = linked_list_size(vertices);
+	int n                = linked_list_size(vertices);
 
 	// Declaring the adjacency matrix variable to hold n arrays of n elements. 
 	float** adjMtx = (float**) malloc( n * sizeof(float*));
