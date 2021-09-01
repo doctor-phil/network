@@ -8,209 +8,6 @@
 #include "directed_graph.h"
 
 /*
- * This main is strictly for testing purposes and to serve as an example of how to use the Directed Graph struct only. 
- * This is to be removed once code is finalized.
- */
-
-/*
-int main(int argc, char** argv)
-{
-	DirectedGraph* graph = initialize_digraph(sizeof(int), "Vertex");
-
-	int one = 1;
-	int* onePtr = &one;
-	int two = 2;
-	int* twoPtr = &two;
-	int three = 3;
-	int* threePtr = &three;
-	int four = 4;
-	int* fourPtr = &four;
-//	int five = 5;
-//	int* fivePtr = &five;
-
-	bool r1 = add_vertex(graph, onePtr);
-	bool r2 = add_vertex(graph, twoPtr);
-	bool r3 = add_vertex(graph, threePtr);
-	bool r4 = add_vertex(graph, fourPtr);
-//	bool r5 = add_vertex(graph, fivePtr);
-
-
-	if(r1 && r2 && r3 && r4 && r5)
-		printf("add_vertex returned true for each vertex added!\n");
-
-	LinkedList* vList = get_vertices(graph);
-
-	for(int i = 0; i < digraph_size(graph); i++)
-	{	
-		Vertex* v = (Vertex*) linked_list_get(vList, i);
-		printf("Vertex %d holds data %d\n", (i+1), *(int*)v->data);
-	}
-
-	printf("Testing remove_vertex now\n");
-
-	int otherThree = 3;
-	int* otherThreePtr = &otherThree;
-
-	remove_vertex(graph, otherThreePtr);
-
-	LinkedList* newList = get_vertices(graph);
-
-	for(int i = 0; i < digraph_size(graph); i++)
-	{
-		Vertex* v = linked_list_get(newList, i);
-		printf("Vertex %d holds data %d\n", (i+1), *(int*)v->data);
-	}
-*/
-	// Adding Arcs to vertices	
-/*	add_arc(graph, onePtr, twoPtr, 3);
-	add_arc(graph, onePtr, fourPtr, 7);
-
-	add_arc(graph, twoPtr, onePtr, 8);
-	add_arc(graph, twoPtr, threePtr, 2);
-
-	add_arc(graph, threePtr, onePtr, 5);
-	add_arc(graph, threePtr, fourPtr, 1);
-
-	add_arc(graph, fourPtr, onePtr, 2);
-*/
-	// Testing Adjacency Matrix
-/*	create_adjacency_matrix(graph);
-	
-	float** adj = get_adjacency_matrix(graph);
-
-
-	printf("\nAdjacency Matrix Retrieved in main holds:\n");
-
-	for(int i = 0; i < 4; i++)
-	{
-		for(int j = 0; j < 4; j++)
-		{
-			printf("%.0f ", adj[i][j]); 
-		}
-		printf("\n");
-	}
-
-	// Testing all pairs shortest paths algorithm
-	printf("Shorest Path algorithm returns:\n");
-
-	float** shortestPaths = all_pairs_shortest_paths(graph);
-
-	for(int i = 0; i < 4; i++)
-	{
-		for(int j = 0; j < 4; j++)
-		{
-			printf("%.0f ", shortestPaths[i][j]);
-		}
-		printf("\n");
-	}
-*/
-
-/*	LinkedList* oneArcs = get_arcs(graph, onePtr);
-	LinkedList* twoArcs = get_arcs(graph, twoPtr);
-	LinkedList* threeArcs = get_arcs(graph, threePtr);
-	
-	printf("V1 arc list size = %d, V2 arc list size = %d, and V3 arc list size = %d\n",
-	 linked_list_size(oneArcs), linked_list_size(twoArcs), linked_list_size(threeArcs));
-	for(int i = 0; i < linked_list_size(oneArcs); i++)
-	{
-		Arc* onearc = (Arc*) linked_list_get(oneArcs, i);
-		printf("V1 has an arc to %d with weight %f\n", *(int*)onearc->vertex->data, onearc->weight);
-	}
-	printf("\n");
-	for(int i = 0; i < linked_list_size(twoArcs); i++)
-	{
-		Arc* twoarc = (Arc*) linked_list_get(twoArcs, i);
-		printf("V2 has an arc to %d with weight %f\n", *(int*)twoarc->vertex->data, twoarc->weight);
-	}
-	printf("\n");
-	for(int i = 0; i < linked_list_size(threeArcs); i++)
-	{
-		Arc* arc = (Arc*) linked_list_get(threeArcs, i);
-		printf("V3 has an arc to %d with weight %f\n", *(int*)arc->vertex->data, arc->weight);
-	}
-	printf("\n changing arc weights now\n\n");	
-	change_arc_weight(graph, onePtr, twoPtr, 195);
-	change_arc_weight(graph, threePtr, fourPtr, 137);
-	change_arc_weight(graph, onePtr, fivePtr, 455);
-*/
-
-/*	LinkedList* A1 = get_arcs(graph, onePtr);
-	for(int i = 0; i < linked_list_size(A1); i++)
-	{
-		Arc* a = (Arc*) linked_list_get(A1, i);
-		printf("V1 has an arc to %d with weight %f\n", *(int*)a->vertex->data, a->weight);
-		printf("call on get arc weight %f\n", get_arc_weight(graph, onePtr, a->vertex->data));
-	}
-	printf("\n");
-	LinkedList* a3 = get_arcs(graph, threePtr);
-	for(int i = 0; i < linked_list_size(a3); i++)
-	{
-		Arc* a = (Arc*) linked_list_get(a3, i);
-		printf("V3 has an arc to %d with weight %f\n", *(int*)a->vertex->data, a->weight);
-		printf("call on get arc weight %f\n", get_arc_weight(graph, threePtr, a->vertex->data));
-	}
-	
-	printf("\n Testing the remove arc functionality now\n\n");
-
-	remove_arc(graph, onePtr, threePtr);
-	remove_arc(graph, threePtr, twoPtr);
-	remove_arc(graph, fivePtr, fourPtr);
-	remove_arc(graph, threePtr, fourPtr);
-
-	LinkedList* arc1 = get_arcs(graph, onePtr);
-	for(int i = 0; i < linked_list_size(arc1); i++)
-	{
-		Arc* a = (Arc*) linked_list_get(arc1, i);
-		printf("V1 has arc to %d with weight %f\n", *(int*)a->vertex->data, a->weight);
-	}
-
-	LinkedList* arc3 = get_arcs(graph, threePtr);
-	for(int i = 0; i < linked_list_size(arc3); i++)
-	{
-		Arc* a = (Arc*) linked_list_get(arc3, i);
-		printf("V3 has arc to %d with weight %f\n", *(int*)a->vertex->data, a->weight);
-	}
-
-
-	int oneSource = connected_vertices_count(graph, onePtr);
-
-	int threeSource = connected_vertices_count(graph, threePtr);
-
-	int fiveSource = connected_vertices_count(graph, fivePtr);
-
-	int twoSource = connected_vertices_count(graph, twoPtr);
-
-	printf("V1 mem location %p\n", onePtr);
-	printf("V2 mem location %p\n", twoPtr);
-	printf("V3 mem location %p\n", threePtr);
-	printf("V4 mem location %p\n", fourPtr);
-	printf("V5 mem location %p\n", fivePtr);
-	
-	printf("Vertices connected to V1 are %d | expected %d\n", oneSource, 4);
-
-	printf("Vertices connected to V3 are %d | expected %d\n", threeSource, 3);
-
-	printf("Vertices connected to V5 are %d | expected %d\n", fiveSource, 0);	
-
-	printf("Vertices connected to V2 are %d | expected %d\n", twoSource, 3);	
-	
-	printf("\nDijkstra algo testing now\n");
-	printf("Shortest path from V1 to V4\n");
-	LinkedList* dList = dijkstra(graph, onePtr, fourPtr);
-
-	for(int i = 0; i < linked_list_size(dList); i++)
-	{
-		Vertex* v = linked_list_get(dList, i);
-		printf("%d |", *(int*)v->data);
-	}
-	printf("\n");
-*/
-
-/*
-	return 0;
-}*/
-
-/*
  * The all_pairs_shortest_paths function implements the Floyd-Warshall algorithm that finds the shortest path
  * of all pairs of vertices in a graph in O(n^3) time. This funciton returns an allocated 2D array matrix 
  * representation of the shortes path of any pair of vertices. Note: this matrix can be interpreted as the
@@ -224,9 +21,8 @@ float** all_pairs_shortest_paths(DirectedGraph* graph)
 		return NULL;
 	}
 
-	// This segment of code creates the adjacency matrix for the DirectedGraph* struct.
-	LinkedList* vertices = get_vertices(graph);
-	int n                = linked_list_size(vertices);
+	// Retrieve the number of vertices in the graph struct.
+	int n = digraph_size(graph);
 
 	// If the adjacency matrix is not yet created, call the function to create it.
 	if(graph->adjacencyMatrix == NULL)
@@ -285,9 +81,9 @@ void create_adjacency_matrix(DirectedGraph* graph)
 	if(graph == NULL)
 		return;
 
-	// Retrieve the vertex list and its size from the graph parameter.
+	// Retrieve the vertex list and size of the graph struct parameter.
 	LinkedList* vertices = get_vertices(graph);
-	int n                = linked_list_size(vertices);
+	int n                = digraph_size(graph);
 
 	// Declaring the adjacency matrix variable to hold n arrays of n elements. 
 	float** adjMtx = (float**) malloc( n * sizeof(float*));
