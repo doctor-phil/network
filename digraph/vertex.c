@@ -87,6 +87,11 @@ bool remove_vertex_arc(Vertex* origin, Vertex* destination)
 	}
 }
 
+/**
+ * The get_data function returns the data field of the vertex* parameter.
+ * If the vertex pointer parameter is null, null is returned. Otherwise,
+ * the data stored in the vertex pointer is returned.
+ */
 void* get_data(Vertex* v)
 {
 	if(v == NULL)
@@ -216,6 +221,39 @@ Vertex* get_vertex_parent(Vertex* v)
 		return NULL;
 
 	return v->parent;
+}
+
+/*
+ * The has_arc_to_vertex funciton takes a source and destination vertex pointers, searches
+ * the Arc list of the source vertex and returns true if the destination vertex is found in
+ * the Arc list. Otherwise false is returned.
+ */
+bool has_arc_to_vertex(Vertex* source, Vertex* destination)
+{
+	// If either the source or destination vertex are null, return false.
+	if(source == NULL || destination == NULL)
+		return false;
+
+	// Retrieve the list of Arcs from the source vertex.
+	LinkedList* list = get_arc_list(source);
+
+	// For each Arc in the Arc list.
+	for(int i = 0; i < linked_list_size(list); i++)
+	{
+		// Retrieve the Arc at index i in the list of Arcs.
+		Arc* arc = (Arc*) linked_list_get(list, i);
+		
+		// If this Arc's vertex is equal to the destination vertex.
+		if(memcmp(arc->vertex, destination, sizeof(destination)) == 0)
+		{
+			// Immediately return true.
+			return true;
+		}
+	}
+
+	// Otherwise, the destination vertex is not found in the Arc list, return false.
+	return false;
+	
 }
 
 Arc* create_arc(Vertex* v, float price)
