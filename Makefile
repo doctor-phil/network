@@ -1,3 +1,3 @@
 all:
-	g++ --std=c++17 -o test test.cpp digraph/*.c digraph/*.h ;
+	g++ --std=c++17 -o test test.cpp sequence.h digraph/*.c digraph/*.h ;
 	
