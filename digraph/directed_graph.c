@@ -53,10 +53,12 @@ float** all_pairs_shortest_paths(DirectedGraph* graph)
 }
 
 /*
- * Creates and returns a Directed Graph pointer. The int dataSize parameter is
+ * Creates and returns a DirectedGraph pointer. The int dataSize parameter is
  * the number of bytes of the data type to be stored in the DirectedGraph. The
  * number of bytes can be retrieved from the "sizeof(type)" function where
- * "type" is the data type ot be stored in the DirectedGraph. 
+ * "type" is the data type to be stored in the DirectedGraph. The char*
+ * dataTypeName represents the name of the data type being stored in the 
+ * DirectedGraph structure. 
  */
 DirectedGraph* initialize_digraph(int dataSize, char* dataTypeName)
 {
@@ -237,6 +239,55 @@ bool remove_vertex(DirectedGraph* graph, void* element)
 	{
 		return false;
 	}
+}
+
+
+/*
+ * The create_digraph_from_file function takes a char* fileName parameter and creates
+ * a DirectedGraph* struct via the adjacency matrix representation of a directed graph
+ * in the file fileName. The file format is csv. Please see an example of the file
+ * format below:
+ *
+ * 0,2,3,4
+ * 1,0,0,2
+ * 4,5,0,1
+ * 0,0,3,0
+ *
+ * A DirectedGraph* struct pointer is returned with each vertex having an arc with its
+ * noted weight to the corresponding vertex, as noted in the file.
+ */
+DirectedGraph* create_digraph_from_file(char* fileName)
+{
+	FILE* fp = fopen(fileName, "r");
+	
+	// If file pointer not successfully opened or fileName is NULL, return NULL.
+	if(fp == NULL || fileName == NULL)
+	{
+		return NULL;
+	}
+
+	DirectedGraph* digraph = initialize_digraph(sizeof(int), "int");
+
+	// Buffer to read each line of characters into.
+	char elements[2000];
+
+	int thisVertex = 1;
+	
+	// While fgets does not read eof or the new line character.
+	while(fgets(elements, sizeof(elements), fp) != NULL)
+	{
+		int inVertex = 1;
+		for(int i = 0; i < strlen(elements); i+= 2)
+		{
+			inVertex++;
+		}
+
+		thisVertex++;
+	}
+
+	fclose(fp);
+	
+	return digraph;
 }
 
 /*
