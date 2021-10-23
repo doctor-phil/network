@@ -47,6 +47,6 @@ float**		all_pairs_shortest_paths(DirectedGraph*);
 void		create_adjacency_matrix(DirectedGraph*);
 float**		get_adjacency_matrix(DirectedGraph*);
 DirectedGraph*  create_digraph_from_file(char*);
-
+bool		contains_vertex(DirectedGraph*, void*);
 
 #endif

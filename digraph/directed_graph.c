@@ -291,6 +291,36 @@ DirectedGraph* create_digraph_from_file(char* fileName)
 }
 
 /*
+ * The contains_vertex function takes a DirectedGraph struct pointer and a void
+ * pointer to a data point to search for in the DirectedGraph. If the data point
+ * is found true is returned, otherwise false is returned.
+ */
+bool contains_vertex(DirectedGraph* digraph, void* vertex)
+{
+	// If digraph or vertex are NULL, return false.
+	if(graph == NULL || vertex == NULL)
+		return false;
+
+	// Retrieve a local pointer to the DirectedGraph's vertex list.
+	LinkedList* list = digraph->vertexList;
+
+	// For each vertex in the vertex list.
+	for(int i = 0; i < linked_list_size(list); i++)
+	{
+		// Retrieve the vertex at index i in the vertex list.
+		Vertex* v = linked_list_get(list, i);
+
+		// If the vetex parameter is the same as vertex v.
+		if(memcmp(v->data, vertex, graph->valueSize) == 0)
+		{
+			return true;
+		}
+	}
+	
+	return false;
+}
+
+/*
  * This function returns the list of vertices within the Directed Graph struct.
  */
 LinkedList* get_vertices(DirectedGraph* graph)
