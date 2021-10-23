@@ -271,18 +271,30 @@ DirectedGraph* create_digraph_from_file(char* fileName)
 	// Buffer to read each line of characters into.
 	char elements[2000];
 
-	int thisVertex = 1;
+	int vertexCounter = 1;
 	
 	// While fgets does not read eof or the new line character.
 	while(fgets(elements, sizeof(elements), fp) != NULL)
 	{
-		int inVertex = 1;
+		int inVertexCounter = 1;
+
+		int* thisVertex = &vertexCounter;
+
+		add_vertex(digraph, thisVertex);		
+
 		for(int i = 0; i < strlen(elements); i+= 2)
 		{
-			inVertex++;
+
+			int* inVertex = &inVertexCounter;
+			
+			add_vertex(digraph, inVertex);
+			
+			add_arc(digraph, thisVertex, inVertex, atof(&elements[i]));
+
+			inVertexCounter++;
 		}
 
-		thisVertex++;
+		vertexCounter++;
 	}
 
 	fclose(fp);
