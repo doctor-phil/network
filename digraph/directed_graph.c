@@ -279,17 +279,33 @@ DirectedGraph* create_digraph_from_file(char* fileName)
 		int inVertexCounter = 1;
 
 		int* thisVertex = &vertexCounter;
+		
+		if(!(contains_vertex(digraph, thisVertex)))
+		{
+			add_vertex(digraph, thisVertex);		
+		}
 
-		add_vertex(digraph, thisVertex);		
 
 		for(int i = 0; i < strlen(elements); i+= 2)
 		{
 
 			int* inVertex = &inVertexCounter;
 			
-			add_vertex(digraph, inVertex);
+			// If inVertex is not found in the digraph, add it to digraph.
+			if(!(contains_vertex(digraph, inVertex)))
+			{
+				//printf("Cannot find vertex: %d\n", *inVertex);
+				add_vertex(digraph, inVertex);
+			}
+
+			float weight = atof(&elements[i]);
 			
-			add_arc(digraph, thisVertex, inVertex, atof(&elements[i]));
+			printf("Read weight: %f\n", weight);
+
+			if(weight != 0)
+			{
+				add_arc(digraph, thisVertex, inVertex, weight);
+			}
 
 			inVertexCounter++;
 		}
@@ -310,7 +326,7 @@ DirectedGraph* create_digraph_from_file(char* fileName)
 bool contains_vertex(DirectedGraph* digraph, void* vertex)
 {
 	// If digraph or vertex are NULL, return false.
-	if(graph == NULL || vertex == NULL)
+	if(digraph == NULL || vertex == NULL)
 		return false;
 
 	// Retrieve a local pointer to the DirectedGraph's vertex list.
@@ -323,7 +339,7 @@ bool contains_vertex(DirectedGraph* digraph, void* vertex)
 		Vertex* v = linked_list_get(list, i);
 
 		// If the vetex parameter is the same as vertex v.
-		if(memcmp(v->data, vertex, graph->valueSize) == 0)
+		if(memcmp(v->data, vertex, digraph->valueSize) == 0)
 		{
 			return true;
 		}
