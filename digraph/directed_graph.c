@@ -274,7 +274,7 @@ DirectedGraph* create_digraph_from_file(char* fileName)
 	int vertexCounter = 1;
 	
 	// While fgets does not read eof or the new line character.
-	while(fgets(elements, sizeof(elements), fp) != NULL)
+	while(fgets(elements, sizeof(elements), fp) != NULL)  
 	{
 		int inVertexCounter = 1;
 
@@ -286,6 +286,8 @@ DirectedGraph* create_digraph_from_file(char* fileName)
 		}
 
 
+/*		First method to read in floats
+ 
 		for(int i = 0; i < strlen(elements); i+= 2)
 		{
 
@@ -298,6 +300,7 @@ DirectedGraph* create_digraph_from_file(char* fileName)
 				add_vertex(digraph, inVertex);
 			}
 
+			// Perhaps here is where a call to a function should be to calculate the weight.
 			float weight = atof(&elements[i]);
 			
 			printf("Read weight: %f\n", weight);
@@ -311,12 +314,63 @@ DirectedGraph* create_digraph_from_file(char* fileName)
 		}
 
 		vertexCounter++;
+
+	// Alternative method to read in floats
+*/
+
 	}
 
 	fclose(fp);
 	
 	return digraph;
 }
+
+float* float_arr_from_str(char* str)
+{
+	int size   = strlen(str);
+	int values = count_values(str);
+
+	float* arr = malloc(sizeof(*arr) * values);
+
+	int index = 0;
+	int start = 0;
+	int end   = 0;
+
+	for(int i = 0; i < size; i++)
+	{
+		if(buffer[i] == ',' || (i + 1) == size)
+		{
+			if(i + 1 != size)
+			{
+				end = i;
+			} else {
+				end = i + 1;
+			}
+
+			arr[index++] = extract_values(start, end, buffer);
+			start        = i + 2;
+		}
+	}	
+
+	return arr;
+}
+
+float extract_value(int start, int end, char* buffer)
+{
+	int size  = end - start;
+	int index = start;
+
+	char val[size];
+
+	for(int i = 0; i < size; i++)
+	{
+		val[i] = buffer[index++];
+	}
+
+	return atof(&val[0]);
+}
+
+
 
 /*
  * The contains_vertex function takes a DirectedGraph struct pointer and a void
