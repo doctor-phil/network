@@ -285,39 +285,24 @@ DirectedGraph* create_digraph_from_file(char* fileName)
 			add_vertex(digraph, thisVertex);		
 		}
 
+		float* edgeWeights = float_arr_from_str(elements);
+		int numWeights     = value_count(elements);
 
-/*		First method to read in floats
- 
-		for(int i = 0; i < strlen(elements); i+= 2)
+		for(int i = 0; i < numWeights; i++)
 		{
-
 			int* inVertex = &inVertexCounter;
-			
-			// If inVertex is not found in the digraph, add it to digraph.
+
 			if(!(contains_vertex(digraph, inVertex)))
 			{
-				//printf("Cannot find vertex: %d\n", *inVertex);
 				add_vertex(digraph, inVertex);
 			}
 
-			// Perhaps here is where a call to a function should be to calculate the weight.
-			float weight = atof(&elements[i]);
-			
-			printf("Read weight: %f\n", weight);
-
-			if(weight != 0)
-			{
-				add_arc(digraph, thisVertex, inVertex, weight);
-			}
-
+			float weight = edgeWeights[i];
+			add_arc(digraph, thisVertex, inVertex, weight);
 			inVertexCounter++;
 		}
 
 		vertexCounter++;
-
-	// Alternative method to read in floats
-*/
-
 	}
 
 	fclose(fp);
@@ -328,9 +313,12 @@ DirectedGraph* create_digraph_from_file(char* fileName)
 float* float_arr_from_str(char* str)
 {
 	int size   = strlen(str);
-	int values = count_values(str);
+	int values = value_count(str);
 
 	float* arr = malloc(sizeof(*arr) * values);
+
+	for(int i = 0; i < values; i++)
+		arr[i] = 0;
 
 	int index = 0;
 	int start = 0;
@@ -338,16 +326,16 @@ float* float_arr_from_str(char* str)
 
 	for(int i = 0; i < size; i++)
 	{
-		if(buffer[i] == ',' || (i + 1) == size)
+		if(str[i] == ',' || (i + 1) == size)
 		{
-			if(i + 1 != size)
+			if((i + 1) != size)
 			{
 				end = i;
 			} else {
 				end = i + 1;
 			}
-
-			arr[index++] = extract_values(start, end, buffer);
+			
+			arr[index++] = extract_value(start, end, str);
 			start        = i + 2;
 		}
 	}	
@@ -355,22 +343,54 @@ float* float_arr_from_str(char* str)
 	return arr;
 }
 
+
+/**
+ * The extract_value function takes a start and end index pointer, and a char*
+ * buffer and takes all characters between start (inclusive) and end (exclusive),
+ * relocates these characters into an array, and then returns the float conversion
+ * of this temporary array.
+ */
 float extract_value(int start, int end, char* buffer)
 {
 	int size  = end - start;
 	int index = start;
 
-	char val[size];
+	// Allocate a character pointer.
+	char* val = malloc(sizeof(*val) * size);
 
+	// For each character allocate the array index and relocate value from buffer.
 	for(int i = 0; i < size; i++)
 	{
+		val[i] = *(char*) malloc(sizeof(*val));
 		val[i] = buffer[index++];
 	}
 
-	return atof(&val[0]);
+	float* answer = malloc(sizeof(float));
+	*answer       = atof(&val[0]);
+
+	return *answer;
 }
 
+/**
+ * The value_count function takes a char* parameter and counts the number of 
+ * values in the parameter string. This is equivalent to the number of commas
+ * plus one. The function returns the one plus the number of commas in the parameter
+ * string, the number of values in the string.
+ */
+int value_count(char* buffer)
+{
+	int commas = 0;
+	int size   = strlen(buffer);
 
+	for(int i = 0; i < size; i++)
+	{
+		if(buffer[i] == ',')
+			commas++;
+	}
+	commas++;
+
+	return commas;
+}
 
 /*
  * The contains_vertex function takes a DirectedGraph struct pointer and a void
