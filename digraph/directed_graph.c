@@ -280,33 +280,47 @@ DirectedGraph* create_digraph_from_file(char* fileName)
 
 		int* thisVertex = &vertexCounter;
 		
+		// If thisVertex does not exist in the graph, add the vertex.
 		if(!(contains_vertex(digraph, thisVertex)))
 		{
 			add_vertex(digraph, thisVertex);		
 		}
 
+		// Convert string to float and get the number of float values in this string.
 		float* edgeWeights = float_arr_from_str(elements);
 		int numWeights     = value_count(elements);
 
+		// For each number of float values.
 		for(int i = 0; i < numWeights; i++)
 		{
 			int* inVertex = &inVertexCounter;
 
+			// If the inVertex does not exist in graph, then add the vertex.
 			if(!(contains_vertex(digraph, inVertex)))
 			{
 				add_vertex(digraph, inVertex);
 			}
 
+			// Retrieve the edge weight at index i.
 			float weight = edgeWeights[i];
-			add_arc(digraph, thisVertex, inVertex, weight);
+			
+			// If weight is not 0, then add edge with this weight from thisVertex to inVertex.
+			// Otherwise the edge is 0, meaning there is no edge from thisVertex to inVertex.
+			if(weight != 0.0)
+			{
+				add_arc(digraph, thisVertex, inVertex, weight);
+			}
+
 			inVertexCounter++;
 		}
 
 		vertexCounter++;
 	}
 
+	// Close the file.
 	fclose(fp);
 	
+	// Return the pointer to the digraph struct.
 	return digraph;
 }
 
