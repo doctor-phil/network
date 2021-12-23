@@ -57,7 +57,7 @@ int main(int argc, char** argv)
 	for(int i = 0; i < linked_list_size(vertexList); i++)
 	{
 		Vertex* u = linked_list_get(vertexList, i);
-		printf("%d  ", *(int*) get_data(u));
+		printf("%d        ", *(int*) get_data(u));
 	}
 	printf("\n");
 

@@ -310,24 +310,35 @@ DirectedGraph* create_digraph_from_file(char* fileName)
 	return digraph;
 }
 
+/**
+ * The float_arr_from_str function converts a string parameter to a float 
+ * array and returns this array of floats. 
+ */
 float* float_arr_from_str(char* str)
 {
+	// Retrieve number of characters and numerical values.
 	int size   = strlen(str);
 	int values = value_count(str);
 
+	// Allocate memory for float array.
 	float* arr = malloc(sizeof(*arr) * values);
 
+	// For each value, assign it to 0 in the float array.
 	for(int i = 0; i < values; i++)
 		arr[i] = 0;
 
+	// Declaring index references for the arrays.
 	int index = 0;
 	int start = 0;
 	int end   = 0;
 
+	// For each character in the string parameter.
 	for(int i = 0; i < size; i++)
 	{
+		// If the character at index i is a ',' or 1 less than size.
 		if(str[i] == ',' || (i + 1) == size)
 		{
+			// If the index is not 1 less than size.
 			if((i + 1) != size)
 			{
 				end = i;
@@ -335,11 +346,14 @@ float* float_arr_from_str(char* str)
 				end = i + 1;
 			}
 			
+			// Extract the value in string from start and end indicies and
+			// store this value into float array arr.
 			arr[index++] = extract_value(start, end, str);
-			start        = i + 2;
+			start        = i + 1;
 		}
 	}	
 
+	// Return the float array.
 	return arr;
 }
 
@@ -358,13 +372,13 @@ float extract_value(int start, int end, char* buffer)
 	// Allocate a character pointer.
 	char* val = malloc(sizeof(*val) * size);
 
-	// For each character allocate the array index and relocate value from buffer.
+	// For each character relocate character from buffer to char array.
 	for(int i = 0; i < size; i++)
 	{
-		val[i] = *(char*) malloc(sizeof(*val));
 		val[i] = buffer[index++];
 	}
 
+	// Allocate memory for float value to be returned.
 	float* answer = malloc(sizeof(float));
 	*answer       = atof(&val[0]);
 
