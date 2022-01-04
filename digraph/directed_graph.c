@@ -9,7 +9,7 @@
 
 /*
  * The all_pairs_shortest_paths function implements the Floyd-Warshall algorithm that finds the shortest path
- * of all pairs of vertices in a graph in O(n^3) time. This funciton returns an allocated 2D array matrix 
+ * of all pairs of vertices in a graph in O(n^3) time. This functon returns an allocated 2D array matrix 
  * representation of the shortes path of any pair of vertices. Note: this matrix can be interpreted as the
  * shortest path from the i row vertex to the j column vertex and not vice versa. 
  */
@@ -62,7 +62,7 @@ float** all_pairs_shortest_paths(DirectedGraph* graph)
  */
 DirectedGraph* initialize_digraph(int dataSize, char* dataTypeName)
 {
-	DirectedGraph* graph = malloc(sizeof(*graph));
+	DirectedGraph* graph = (DirectedGraph*)malloc(sizeof(*graph));
 
 	// If allocation request unsuccessful, then return NULL.	
 	if(graph == NULL)
@@ -100,13 +100,13 @@ void create_adjacency_matrix(DirectedGraph* graph)
 		adjMtx[i] = (float*) malloc(n * sizeof(float));
 
 		// Retrieve the source vertex at index i.
-		Vertex* source = linked_list_get(vertices, i);
+		Vertex* source = (Vertex*)linked_list_get(vertices, i);
 		
 		// For each vertex in the vertex list.
 		for(int j = 0; j < n; j++)
 		{
 			// Retrieve the destination vertex at index j;
-			Vertex* destination = linked_list_get(vertices, j);
+			Vertex* destination = (Vertex*)linked_list_get(vertices, j);
 			
 			// If there is an arc from the source to destination vertex.
 			if(has_arc_to_vertex(source, destination))
@@ -734,7 +734,7 @@ void buildTree(DirectedGraph* graph, void* origin)
 	}
 
 	// Initializing the PriorityQueue struct with the compareVertex function as a parameter.
-	PriorityQueue* pq = pQueue_initialize(sizeof(Vertex), "Vertex", compareVertex);
+	PriorityQueue* pq = pQueue_initialize(sizeof(Vertex), (char*)"Vertex", compareVertex);
 	Vertex* start     = get_vertex(graph, origin);
 	
 	// These two lines of code are for setting up dijkstra's algorithim (below).
@@ -798,7 +798,7 @@ LinkedList* dijkstra(DirectedGraph* graph, void* origin, void* destination)
 		return NULL;
 
 	// Instantiate a Linkedlist struct to hold Vertex pointers.
-	LinkedList* vList = linked_list_initialize(sizeof(Vertex), "Vertex");
+	LinkedList* vList = linked_list_initialize(sizeof(Vertex), (char*)"Vertex");
 
 	// Call to build a tree of parent links from the origin vertex within the Directed Graph.
 	buildTree(graph, origin);
@@ -824,3 +824,29 @@ LinkedList* dijkstra(DirectedGraph* graph, void* origin, void* destination)
 	return vList;
 }
 
+
+/*
+ * The << operator (associated with an output stream) prints the adjacency matrix of the
+ * directed graph in comma-separated format. 
+ *
+ * Important: adjacency element i,j corresponds
+ * with the link FROM i TO j
+ */
+std::ostream& operator<<(std::ostream& o, DirectedGraph& net)
+{
+	int link = 0;
+	LinkedList* v = get_vertices(&net);
+	int size = v->size;
+        create_adjacency_matrix(&net);
+	float** A = get_adjacency_matrix(&net);
+	for (int i=0;i<size;i++)
+	{
+		for (int j=0;j<size;j++)
+		{
+			if (A[i][j] != FLT_MAX) { o << A[i][j]; } else { o << 0; };
+			if (j<(size-1)) { o << ","; } else { o << "\n"; }
+			
+		}
+	}
+	return (o);
+}

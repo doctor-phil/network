@@ -7,7 +7,7 @@
 
 LinkedList* linked_list_initialize(int item, char* name)
 {
-	LinkedList* list = malloc(sizeof(*list));
+	LinkedList* list = (LinkedList*)malloc(sizeof(*list));
 	
 	if(list == NULL)
 		return NULL;
@@ -16,7 +16,7 @@ LinkedList* linked_list_initialize(int item, char* name)
 	list->last     = NULL;
 	list->size     = 0;
 	list->itemSize = item;
-	list->typeName = malloc(strlen(name));
+	list->typeName = (char*)malloc(strlen(name));
 
 	strcpy(list->typeName, name);
 
@@ -31,7 +31,7 @@ bool linked_list_add_at(LinkedList* list, int index, void* element)
 	if(index < 0 || index > list->size)
 		return false;
 
-	Node* node = malloc(sizeof(*node));
+	Node* node = (Node*)malloc(sizeof(*node));
 	node->data = malloc(list->itemSize);
 
 	memcpy(node->data, element, list->itemSize);
