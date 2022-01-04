@@ -11,7 +11,7 @@
  */
 Vertex* create_vertex(void* element)
 {
-	Vertex* v = malloc(sizeof(*v));
+	Vertex* v = (Vertex*)malloc(sizeof(*v));
 
 	if(v == NULL)
 		return NULL;
@@ -19,7 +19,7 @@ Vertex* create_vertex(void* element)
 	v->data = malloc(sizeof(element));
 	memcpy(v->data, element, sizeof(element));
 
-	v->arcList  = linked_list_initialize(sizeof(Arc), "Arc");
+	v->arcList  = linked_list_initialize(sizeof(Arc), (char*)"Arc");
 	v->visited  = false;
 	v->distance = 0;	
 	v->parent   = NULL;
@@ -67,7 +67,7 @@ bool remove_vertex_arc(Vertex* origin, Vertex* destination)
 
 	for(int i = 0; i < linked_list_size(list); i++)
 	{
-		Arc* arc = linked_list_get(list, i);
+		Arc* arc = (Arc*)linked_list_get(list, i);
 		Vertex* elem = (Vertex*) arc->vertex;
 
 		if(elem == destination) 
@@ -258,7 +258,7 @@ bool has_arc_to_vertex(Vertex* source, Vertex* destination)
 
 Arc* create_arc(Vertex* v, float price)
 {
-	Arc* arc = malloc(sizeof(*arc));
+	Arc* arc = (Arc*)malloc(sizeof(*arc));
 	
 	if(arc == NULL || v == NULL)
 		return NULL;

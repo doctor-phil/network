@@ -6,6 +6,7 @@
 #ifndef __DIRECTED_GRAPH_HEADER
 #define __DIRECTED_GRAPH_HEADER
 
+#include <iostream>
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
@@ -46,5 +47,6 @@ LinkedList*	dijkstra(DirectedGraph*, void*, void*);
 float**		all_pairs_shortest_paths(DirectedGraph*);
 void		create_adjacency_matrix(DirectedGraph*);
 float**		get_adjacency_matrix(DirectedGraph*);
+std::ostream& 	operator<<(std::ostream& o, DirectedGraph& net);
 
 #endif
