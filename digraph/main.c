@@ -7,7 +7,7 @@
 int main(int argc, char** argv)
 {
 	// Instantiating a DirectedGraph struct.
-	DirectedGraph* digraph = initialize_digraph(sizeof(char),"char");
+/*	DirectedGraph* digraph = initialize_digraph(sizeof(char),"char");
 
 	// Creating elements to add to grapg
 	char* a = "a";
@@ -38,6 +38,9 @@ int main(int argc, char** argv)
 	add_arc(digraph, e, b, 2);
 	add_arc(digraph, e, f, 1);
 	add_arc(digraph, f, d, 3);
+*/
+
+	DirectedGraph* digraph = create_digraph_from_file("testFile");
 
 	// Retrieving a linkedlist of the vertices.
 	LinkedList* vertexList = get_vertices(digraph);
@@ -55,7 +58,7 @@ int main(int argc, char** argv)
 	for(int i = 0; i < linked_list_size(vertexList); i++)
 	{
 		Vertex* u = linked_list_get(vertexList, i);
-		printf("%s ", get_data(u));
+		printf("%d        ", *(int*) get_data(u));
 	}
 	printf("\n");
 
@@ -63,7 +66,7 @@ int main(int argc, char** argv)
 	for(int i = 0; i < digraph_size(digraph); i++)
 	{
 		Vertex* u = linked_list_get(vertexList, i);
-		printf("%s | ", get_data(u));
+		printf("%d | ", *(int*) get_data(u));
 	
 		for(int j = 0; j < digraph_size(digraph); j++)
 		{
@@ -76,7 +79,7 @@ int main(int argc, char** argv)
 
 			// Otherwise print the edge value.
 			} else {
-				printf("%.0f ", adjMtx[i][j]);
+				printf("%f ", adjMtx[i][j]);
 			}
 		}
 		printf("\n");
@@ -86,7 +89,7 @@ int main(int argc, char** argv)
 
 
 	// Calling all pairs shortest paths algorithm, retrieved as a 2D array.	
-	float** paths = all_pairs_shortest_paths(digraph);
+/*	float** paths = all_pairs_shortest_paths(digraph);
 
 	// Formatting for all pairs shortest paths matrix.
 	printf("    ");
@@ -109,7 +112,7 @@ int main(int argc, char** argv)
 		}
 		printf("\n");
 	}
-
+*/
 
 	
 	return 0;
