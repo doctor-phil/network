@@ -9,7 +9,7 @@
 
 /*
  * The all_pairs_shortest_paths function implements the Floyd-Warshall algorithm that finds the shortest path
- * of all pairs of vertices in a graph in O(n^3) time. This funciton returns an allocated 2D array matrix 
+ * of all pairs of vertices in a graph in O(n^3) time. This functon returns an allocated 2D array matrix 
  * representation of the shortes path of any pair of vertices. Note: this matrix can be interpreted as the
  * shortest path from the i row vertex to the j column vertex and not vice versa. 
  */
@@ -53,14 +53,16 @@ float** all_pairs_shortest_paths(DirectedGraph* graph)
 }
 
 /*
- * Creates and returns a Directed Graph pointer. The int dataSize parameter is
+ * Creates and returns a DirectedGraph pointer. The int dataSize parameter is
  * the number of bytes of the data type to be stored in the DirectedGraph. The
  * number of bytes can be retrieved from the "sizeof(type)" function where
- * "type" is the data type ot be stored in the DirectedGraph. 
+ * "type" is the data type to be stored in the DirectedGraph. The char*
+ * dataTypeName represents the name of the data type being stored in the 
+ * DirectedGraph structure. 
  */
 DirectedGraph* initialize_digraph(int dataSize, char* dataTypeName)
 {
-	DirectedGraph* graph = malloc(sizeof(*graph));
+	DirectedGraph* graph = (DirectedGraph*)malloc(sizeof(*graph));
 
 	// If allocation request unsuccessful, then return NULL.	
 	if(graph == NULL)
@@ -98,13 +100,13 @@ void create_adjacency_matrix(DirectedGraph* graph)
 		adjMtx[i] = (float*) malloc(n * sizeof(float));
 
 		// Retrieve the source vertex at index i.
-		Vertex* source = linked_list_get(vertices, i);
+		Vertex* source = (Vertex*)linked_list_get(vertices, i);
 		
 		// For each vertex in the vertex list.
 		for(int j = 0; j < n; j++)
 		{
 			// Retrieve the destination vertex at index j;
-			Vertex* destination = linked_list_get(vertices, j);
+			Vertex* destination = (Vertex*)linked_list_get(vertices, j);
 			
 			// If there is an arc from the source to destination vertex.
 			if(has_arc_to_vertex(source, destination))
@@ -237,6 +239,215 @@ bool remove_vertex(DirectedGraph* graph, void* element)
 	{
 		return false;
 	}
+}
+
+
+/*
+ * The create_digraph_from_file function takes a char* fileName parameter and creates
+ * a DirectedGraph* struct via the adjacency matrix representation of a directed graph
+ * in the file fileName. The file format is csv. Please see an example of the file
+ * format below:
+ *
+ * 0,2,3,4
+ * 1,0,0,2
+ * 4,5,0,1
+ * 0,0,3,0
+ *
+ * A DirectedGraph* struct pointer is returned with each vertex having an arc with its
+ * noted weight to the corresponding vertex, as noted in the file.
+ */
+DirectedGraph* create_digraph_from_file(char* fileName)
+{
+	FILE* fp = fopen(fileName, "r");
+	
+	// If file pointer not successfully opened or fileName is NULL, return NULL.
+	if(fp == NULL || fileName == NULL)
+	{
+		return NULL;
+	}
+
+	DirectedGraph* digraph = initialize_digraph(sizeof(int), "int");
+
+	// Buffer to read each line of characters into.
+	char elements[2000];
+
+	int vertexCounter = 1;
+	
+	// While fgets does not read eof or the new line character.
+	while(fgets(elements, sizeof(elements), fp) != NULL)  
+	{
+		int inVertexCounter = 1;
+
+		int* thisVertex = &vertexCounter;
+		
+		// If thisVertex does not exist in the graph, add the vertex.
+		if(!(contains_vertex(digraph, thisVertex)))
+		{
+			add_vertex(digraph, thisVertex);		
+		}
+
+		// Convert string to float and get the number of float values in this string.
+		float* edgeWeights = float_arr_from_str(elements);
+		int numWeights     = value_count(elements);
+
+		// For each number of float values.
+		for(int i = 0; i < numWeights; i++)
+		{
+			int* inVertex = &inVertexCounter;
+
+			// If the inVertex does not exist in graph, then add the vertex.
+			if(!(contains_vertex(digraph, inVertex)))
+			{
+				add_vertex(digraph, inVertex);
+			}
+
+			// Retrieve the edge weight at index i.
+			float weight = edgeWeights[i];
+			
+			// If weight is not 0, then add edge with this weight from thisVertex to inVertex.
+			// Otherwise the edge is 0, meaning there is no edge from thisVertex to inVertex.
+			if(weight != 0.0)
+			{
+				add_arc(digraph, thisVertex, inVertex, weight);
+			}
+
+			inVertexCounter++;
+		}
+
+		vertexCounter++;
+	}
+
+	// Close the file.
+	fclose(fp);
+	
+	// Return the pointer to the digraph struct.
+	return digraph;
+}
+
+/**
+ * The float_arr_from_str function converts a string parameter to a float 
+ * array and returns this array of floats. 
+ */
+float* float_arr_from_str(char* str)
+{
+	// Retrieve number of characters and numerical values.
+	int size   = strlen(str);
+	int values = value_count(str);
+
+	// Allocate memory for float array.
+	float* arr = malloc(sizeof(*arr) * values);
+
+	// For each value, assign it to 0 in the float array.
+	for(int i = 0; i < values; i++)
+		arr[i] = 0;
+
+	// Declaring index references for the arrays.
+	int index = 0;
+	int start = 0;
+	int end   = 0;
+
+	// For each character in the string parameter.
+	for(int i = 0; i < size; i++)
+	{
+		// If the character at index i is a ',' or 1 less than size.
+		if(str[i] == ',' || (i + 1) == size)
+		{
+			// If the index is not 1 less than size.
+			if((i + 1) != size)
+			{
+				end = i;
+			} else {
+				end = i + 1;
+			}
+			
+			// Extract the value in string from start and end indicies and
+			// store this value into float array arr.
+			arr[index++] = extract_value(start, end, str);
+			start        = i + 1;
+		}
+	}	
+
+	// Return the float array.
+	return arr;
+}
+
+
+/**
+ * The extract_value function takes a start and end index pointer, and a char*
+ * buffer and takes all characters between start (inclusive) and end (exclusive),
+ * relocates these characters into an array, and then returns the float conversion
+ * of this temporary array.
+ */
+float extract_value(int start, int end, char* buffer)
+{
+	int size  = end - start;
+	int index = start;
+
+	// Allocate a character pointer.
+	char* val = malloc(sizeof(*val) * size);
+
+	// For each character relocate character from buffer to char array.
+	for(int i = 0; i < size; i++)
+	{
+		val[i] = buffer[index++];
+	}
+
+	// Allocate memory for float value to be returned.
+	float* answer = malloc(sizeof(float));
+	*answer       = atof(&val[0]);
+
+	return *answer;
+}
+
+/**
+ * The value_count function takes a char* parameter and counts the number of 
+ * values in the parameter string. This is equivalent to the number of commas
+ * plus one. The function returns the one plus the number of commas in the parameter
+ * string, the number of values in the string.
+ */
+int value_count(char* buffer)
+{
+	int commas = 0;
+	int size   = strlen(buffer);
+
+	for(int i = 0; i < size; i++)
+	{
+		if(buffer[i] == ',')
+			commas++;
+	}
+	commas++;
+
+	return commas;
+}
+
+/*
+ * The contains_vertex function takes a DirectedGraph struct pointer and a void
+ * pointer to a data point to search for in the DirectedGraph. If the data point
+ * is found true is returned, otherwise false is returned.
+ */
+bool contains_vertex(DirectedGraph* digraph, void* vertex)
+{
+	// If digraph or vertex are NULL, return false.
+	if(digraph == NULL || vertex == NULL)
+		return false;
+
+	// Retrieve a local pointer to the DirectedGraph's vertex list.
+	LinkedList* list = digraph->vertexList;
+
+	// For each vertex in the vertex list.
+	for(int i = 0; i < linked_list_size(list); i++)
+	{
+		// Retrieve the vertex at index i in the vertex list.
+		Vertex* v = linked_list_get(list, i);
+
+		// If the vetex parameter is the same as vertex v.
+		if(memcmp(v->data, vertex, digraph->valueSize) == 0)
+		{
+			return true;
+		}
+	}
+	
+	return false;
 }
 
 /*
@@ -523,7 +734,7 @@ void buildTree(DirectedGraph* graph, void* origin)
 	}
 
 	// Initializing the PriorityQueue struct with the compareVertex function as a parameter.
-	PriorityQueue* pq = pQueue_initialize(sizeof(Vertex), "Vertex", compareVertex);
+	PriorityQueue* pq = pQueue_initialize(sizeof(Vertex), (char*)"Vertex", compareVertex);
 	Vertex* start     = get_vertex(graph, origin);
 	
 	// These two lines of code are for setting up dijkstra's algorithim (below).
@@ -587,7 +798,7 @@ LinkedList* dijkstra(DirectedGraph* graph, void* origin, void* destination)
 		return NULL;
 
 	// Instantiate a Linkedlist struct to hold Vertex pointers.
-	LinkedList* vList = linked_list_initialize(sizeof(Vertex), "Vertex");
+	LinkedList* vList = linked_list_initialize(sizeof(Vertex), (char*)"Vertex");
 
 	// Call to build a tree of parent links from the origin vertex within the Directed Graph.
 	buildTree(graph, origin);
@@ -613,3 +824,29 @@ LinkedList* dijkstra(DirectedGraph* graph, void* origin, void* destination)
 	return vList;
 }
 
+
+/*
+ * The << operator (associated with an output stream) prints the adjacency matrix of the
+ * directed graph in comma-separated format. 
+ *
+ * Important: adjacency element i,j corresponds
+ * with the link FROM i TO j
+ */
+std::ostream& operator<<(std::ostream& o, DirectedGraph& net)
+{
+	int link = 0;
+	LinkedList* v = get_vertices(&net);
+	int size = v->size;
+        create_adjacency_matrix(&net);
+	float** A = get_adjacency_matrix(&net);
+	for (int i=0;i<size;i++)
+	{
+		for (int j=0;j<size;j++)
+		{
+			if (A[i][j] != FLT_MAX) { o << A[i][j]; } else { o << 0; };
+			if (j<(size-1)) { o << ","; } else { o << "\n"; }
+			
+		}
+	}
+	return (o);
+}

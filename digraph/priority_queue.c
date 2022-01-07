@@ -19,7 +19,7 @@
 
 PriorityQueue* pQueue_initialize(int itemSize, char* typeName, int (*compareFunction)(void*,void*))
 {
-	PriorityQueue* pq = malloc(sizeof(*pq));
+	PriorityQueue* pq = (PriorityQueue*)malloc(sizeof(*pq));
 
 	if(pq == NULL)
 		return NULL;
