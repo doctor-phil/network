@@ -1,5 +1,8 @@
 # network
 
+## Project Description
+  This project aims to provide a library of services for network related activities. 
+  
 This package contains 4 files, not including this README. One is the Makefile which contains the compilation directive for the C program. 
 
 The library header file network.h defines the class Scalefree for a scalefree network. Within this header file is the definition of the Scalefree() constructor which uses the Barabasi-Albert model of preferential attachment to draw a network with a scale-free degree distribution.
