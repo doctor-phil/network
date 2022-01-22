@@ -17,7 +17,9 @@ The command `make digraph` can be used to compile from a command line environmen
   
 #### Initializing 
 The DiGraph struct is initialized based on the size of the type to be stored in the vertices. For example, here is a directed graph that stores char types.
-`DirectedGraph* digraph = initialize_digraph(sizeof(char),"char");`
+```
+DirectedGraph* digraph = initialize_digraph(sizeof(char),"char");
+```
 
 #### Creating Vertices
 The DiGraph accepts pointers ot the data to be stored in each vertex. After creating the pointers to the data to be stored in each vertex, the `add_vertex()` function will create the vertex, initialize its variables, and add it to the sigraph structure. An example can be found below.
