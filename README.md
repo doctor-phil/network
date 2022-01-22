@@ -1,7 +1,7 @@
 # network
 
 ## Project Description
-  This project aims to provide a library of services for network related activities. 
+  This project aims to provide a library of services for network related activities. The directed_graph.c file implements a directed graph and can represent node adjacncies in both the adjacency list and adjacency matrix representations. Dijkstra's shortest path and Floyd-Warshall's all pairs shortest paths algorithms have been implemented. In addiiton, reading adjacency matrix files to build the directed graph structure is also supported.
   
 This package contains 4 files, not including this README. One is the Makefile which contains the compilation directive for the C program. 
 
