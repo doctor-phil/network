@@ -832,6 +832,8 @@ LinkedList* dijkstra(DirectedGraph* graph, void* origin, void* destination)
  * Important: adjacency element i,j corresponds
  * with the link FROM i TO j
  */
+
+/*
 std::ostream& operator<<(std::ostream& o, DirectedGraph& net)
 {
 	int link = 0;
@@ -850,3 +852,5 @@ std::ostream& operator<<(std::ostream& o, DirectedGraph& net)
 	}
 	return (o);
 }
+*/
+
