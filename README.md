@@ -13,5 +13,6 @@ network.h/scalefree.cpp - requires C++ <random> library, <iostream> and <fstream
 
 plotgraph.r - requires "igraph" and "ggplot2" libraries for R
   
-## Licence
+## Licence & Copyright
   Licensed under the [MIT License](LICENSE).
+  Copyright (c) 2021 Philip Solimine and Michael St. Denis
