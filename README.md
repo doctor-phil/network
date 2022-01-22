@@ -32,7 +32,7 @@ add_vertex(digraph, b);
 add_vertex(digraph, c);
 ```
 #### Adding Arcs
-To add arcs between vertices, both vertices must exist in the DiGraph structure. The `add_arc()` function will create an arc in the DiGraph between the two vertices with the specified weight. An exmaple can be found below.
+To add arcs between vertices, both vertices must exist in the DiGraph structure. The `add_arc()` function will create an arc in the DiGraph between two vertices with a specified weight. An exmaple can be found below.
 ```
 add_arc(digraph, a, b, 4.005);
 add_arc(digraph, a, c, 253);
