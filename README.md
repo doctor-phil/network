@@ -3,17 +3,17 @@
 ## Project Description
 This project aims to provide a library of services for network related activities. The directed_graph.c file implements a directed graph and can represent node adjacencies in both the adjacency list and adjacency matrix representations. Dijkstra's shortest path and Floyd-Warshall's all pairs shortest paths algorithms have been implemented. In addition, reading adjacency matrix representations from files to construct the directed graph structure is also supported.
   
-## Installing and Running
+## Installing & Running
 Clone the repository as appropriate for your machine. Instructions on how to clone a repository for your specific machine can be found at this [GitHub webpage](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository). 
 <br />
 <br />
 To use the DiGraph structure and its features, write your code in the file main.c. All services for the DiGraph structure are supported in this file. 
 
-### Compiling and Using the DiGraph
+### Compiling & Using the DiGraph
 What follows in this section is examples of how to compile from the command line, initialize the structure, create and add vertices to the structure, and add arcs between vertices in the structure.
 <br />
 #### Compiling
-The command `make digraph` can be used to compile from a command line environment. 
+The command `make digraph` can be used to compile from a command line environment. The resulting `digraph` executable file will be created.
   
 #### Initializing 
 The DiGraph struct is initialized based on the size of the type to be stored in the vertices. For example, here is a directed graph that stores char types.
@@ -32,12 +32,20 @@ add_vertex(digraph, b);
 add_vertex(digraph, c);
 ```
 #### Adding Arcs
-To add arcs between vertices, both vertices must exist in the DiGraph structure. The `add_arc()` function will create an arc in the DiGraph between two vertices with a specified weight. An exmaple can be found below.
+To add arcs between vertices, both vertices must exist in the DiGraph structure. The `add_arc()` function will create an arc in the DiGraph from the first vertex to the second with the specified weight. An exmaple can be found below.
 ```
 add_arc(digraph, a, b, 4.005);
 add_arc(digraph, a, c, 253);
 ```
-  
+#### Adjacency Representations
+The DiGraph structure initially represents all arcs between vertices as an adjacency list. To construct the adjacency matrix representation, the `create_adjacency_matrix()` function must be called. The function `get_adjacency_matrix()` returns a 2D array, representing the adjacency matrix. An example of each function call follows.
+```
+create_adjacency_matrix(digraph);
+
+float** adjMtx = get_adjacency_matrix(digraph);
+```
+
+
 This package contains 4 files, not including this README. One is the Makefile which contains the compilation directive for the C program. 
 
 The library header file network.h defines the class Scalefree for a scalefree network. Within this header file is the definition of the Scalefree() constructor which uses the Barabasi-Albert model of preferential attachment to draw a network with a scale-free degree distribution.
