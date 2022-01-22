@@ -10,7 +10,7 @@ Clone the repository as appropriate for your machine. Instructions on how to clo
 To use the DiGraph structure and its features, write your code in the file main.c. All services for the DiGraph structure are supported in this file. 
 
 ### Compiling & Using the DiGraph
-What follows in this section is examples of how to compile from the command line, initialize the structure, create and add vertices to the structure, and add arcs between vertices in the structure.
+What follows in this section is examples of how to compile from the command line, initialize the structure, create and add vertices to the structure, add weighted arcs between vertices in the structure, and a note on adjacency representations. For more detail regarding the functions cited mentioned below, please see the appropriate files in the repository.
 <br />
 #### Compiling
 The command `make digraph` can be used to compile from a command line environment. The resulting `digraph` executable file will be created.
