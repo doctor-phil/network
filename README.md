@@ -12,3 +12,6 @@ Dependencies:
 network.h/scalefree.cpp - requires C++ <random> library, <iostream> and <fstream>, and <cmath>
 
 plotgraph.r - requires "igraph" and "ggplot2" libraries for R
+  
+## Licence
+  Licensed under the [MIT License](LICENSE).
