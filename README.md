@@ -4,7 +4,7 @@
 This project aims to provide a library of services for network related activities. The directed_graph.c file implements a directed graph and can represent node adjacncies in both the adjacency list and adjacency matrix representations. Dijkstra's shortest path and Floyd-Warshall's all pairs shortest paths algorithms have been implemented. In addition, reading adjacency matrix files to build the directed graph structure is also supported.
   
 ## Installing and Running
-Clone the repository as appropriate for your machine. Instructions on how to clone a repository for your specific machine can be found at this [Github webpage](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository). <br />
+Clone the repository as appropriate for your machine. Instructions on how to clone a repository for your specific machine can be found at this [GitHub webpage](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository). <br />
 <br />
 To use the DiGraph structure and its features, write your code in the file main.c. All services for the DiGraph structure are supported in main.c. The command `make digraph` can be used to compile from a command line environment. 
   
