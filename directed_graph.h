@@ -6,7 +6,7 @@
 #ifndef __DIRECTED_GRAPH_HEADER
 #define __DIRECTED_GRAPH_HEADER
 
-#include <iostream>
+//#include <iostream>
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
@@ -52,6 +52,6 @@ DirectedGraph*  create_digraph_from_file(char*);
 float		extract_value(int, int, char*);
 float*		float_arr_from_str(char*);
 int		value_count(char*);
-std::ostream& 	operator<<(std::ostream& o, DirectedGraph& net);
+//std::ostream& 	operator<<(std::ostream& o, DirectedGraph& net);
 
 #endif

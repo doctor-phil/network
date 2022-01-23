@@ -1,4 +1,3 @@
-/*
 #include <stdio.h>
 #include "linked_list.h"
 #include "priority_queue.h"
@@ -89,14 +88,14 @@ int main(int argc, char** argv)
 
 
 	// Calling all pairs shortest paths algorithm, retrieved as a 2D array.	
-/*	float** paths = all_pairs_shortest_paths(digraph);
+	float** paths = all_pairs_shortest_paths(digraph);
 
 	// Formatting for all pairs shortest paths matrix.
 	printf("    ");
 	for(int i = 0; i < linked_list_size(vertexList); i++)
 	{
 		Vertex* u = linked_list_get(vertexList, i);
-		printf("%s ", get_data(u));
+		printf("%s ", (char*)get_data(u));
 	}
 	printf("\n");
 
@@ -104,7 +103,7 @@ int main(int argc, char** argv)
 	for(int i = 0; i < digraph_size(digraph); i++)
 	{
 		Vertex* v = linked_list_get(vertexList, i);
-		printf("%s | ",get_data(v));
+		printf("%s | ",(char*)get_data(v));
 	
 		for(int j = 0; j < digraph_size(digraph); j++)
 		{
@@ -112,10 +111,9 @@ int main(int argc, char** argv)
 		}
 		printf("\n");
 	}
-*/
+
 
 	
 	return 0;
 }
-*/
 
