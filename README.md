@@ -47,7 +47,7 @@ LinkedList* vList = dijkstra(a, b);
 float** allPairs  = all_pairs_shortest_paths(digraph);
 ```
 #### Building a DiGraph From a File
-To construct a DiGraph from a file that holding an adjacency matrix representation, the `create_digraph_from_file()` function could be used. This file must follow a specific format. Please see the function description in [directed_graph.c](directed_graph.c). Once this function completes, the structure will hold all vertices in an adjacency list representation. To retrieve the adjacency matrix from the structure, see the section above on [Adjacency Representations](https://github.com/michaelaah/network#adjacency-representations).
+To construct a DiGraph from a file that holding an adjacency matrix representation, the `create_digraph_from_file()` function could be used. This file must follow a specific format. Please see the function description in [directed_graph.c](directed_graph.c). Once this function completes, the structure will hold all vertices in an adjacency list representation. To retrieve the adjacency matrix from the structure, see the section above on [Adjacency Representations](#Adjacency-Representations).
 ```
 DirectedGraph* digraph = create_digraph_from_file("fileName");
 ```
