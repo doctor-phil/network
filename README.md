@@ -35,12 +35,17 @@ add_arc(digraph, a, b, 4.005);
 add_arc(digraph, a, c, 253);
 ```
 #### Adjacency Representations
-The DiGraph structure initially represents all arcs between vertices as an adjacency list. To construct the adjacency matrix representation, the `create_adjacency_matrix()` function must be called. The function `get_adjacency_matrix()` returns a 2D array, representing the adjacency matrix. An example of each function call follows.
+The DiGraph structure initially represents all arcs between vertices as an adjacency list. To construct the adjacency matrix representation, the `create_adjacency_matrix()` function must be called. The function `get_adjacency_matrix()` returns a 2D array, representing the adjacency matrix. The adjacency matrix entry at (i,j) is the weight of the arc from vertex *i* to vertex *j*. An example of each function call follows.
 ```
 create_adjacency_matrix(digraph);
 float** adjMtx = get_adjacency_matrix(digraph);
 ```
-
+#### Shortest Paths
+To retrieve the shortest path from vertex *a* to vertex *b*, the `dijkstra()` function should be used. This function returns a linkedlist structure of the vertices from *a* to *b*. The `all_pairs_shortest_paths()` function will compute and return a matrix of the shortest paths for all pairs of vertices in the graph structure where the matrix entry (i,j) is the weight of the arc from vertex *i* to vertex *j*. Examples of calling these functions follow.
+```
+LinkedList* vList = dijkstra(a, b);
+float** allPairs  = all_pairs_shortest_paths(digraph);
+```
 ## Licence & Copyright
 Licensed under the [MIT License](LICENSE). <br />
 Copyright (c) 2021 Philip Solimine and Michael St. Denis
