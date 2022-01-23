@@ -1,7 +1,7 @@
 # network
 
 ## Project Description
-This project aims to provide a library of services for network related activities. The [directed_graph.c](firected_graph.c) file implements a directed graph, referred to as the "DiGraph" or "the structure", and can represent node adjacencies in both the adjacency list and adjacency matrix representations. Dijkstra's shortest path and Floyd-Warshall's all pairs shortest paths algorithms have been implemented. In addition, reading adjacency matrix representations from files to construct the directed graph structure is also supported.
+This project aims to provide a library of services for network related activities. The [directed_graph.c](firected_graph.c) file implements a directed graph, referred to as the "DiGraph" or "the structure" from here forward, and can represent node adjacencies in both the adjacency list and adjacency matrix representations. Dijkstra's shortest path and Floyd-Warshall's all pairs shortest paths algorithms have been implemented. In addition, reading adjacency matrix representations from files to construct the directed graph structure is also supported.
 
 ## Installing & Running
 Clone the repository as appropriate for your machine. Instructions on how to clone a repository for your specific machine can be found at this [GitHub webpage](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository). 
