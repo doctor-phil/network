@@ -12,14 +12,14 @@ To use the DiGraph structure and its features, write your code in the file [main
 What follows in this section is examples of how to compile from the command line, initialize the structure, create and add vertices to the structure, add weighted arcs between vertices in the structure, a note on adjacency representations, how to use the shortest path functions, and how to constructe a DiGraph from a file. For more detail regarding the functions cited mentioned below, please see the appropriate files in the repository.
 <br />
 #### Compiling
-The command `make digraph` can be used to compile from a command line environment. The resulting `digraph` executable file will be created.
+The command `make` can be used to compile from a command line environment. The resulting `digraph` executable file will be created. The assocaited [Makefile](Makefile) uses the gcc compiler and the C18 standard.
 #### Initializing 
-The DiGraph struct is initialized based on the size of the type to be stored in the vertices. For example, here is a directed graph that stores char types.
+The DiGraph structure is initialized based on the size of the type to be stored in the vertices. The structure uses void pointers, specifically `void*`, to perform operations within. Because a void pointer cannot be dereferenced in the C programming language, the size of the type must be specified when initializing the DiGraph structure. The benefit of using void pointers is that it allows the user to store any type as the data for the vertices in the graph. For example, here is a directed graph that stores char types.
 ```
 DirectedGraph* digraph = initialize_digraph(sizeof(char),"char");
 ```
 #### Creating Vertices
-The DiGraph accepts pointers ot the data to be stored in each vertex. After creating the pointers to the data to be stored in each vertex, the `add_vertex()` function will create the vertex, initialize its variables, and add it to the sigraph structure. An example can be found below.
+The DiGraph accepts pointers to the data to be stored in each vertex. After creating the pointers to the data to be stored in each vertex, the `add_vertex()` function will create the vertex, initialize its variables, and add it to the digraph structure. An example can be found below.
 ```
 char* a = "a";
 char* b = "b";
@@ -29,7 +29,7 @@ add_vertex(digraph, b);
 add_vertex(digraph, c);
 ```
 #### Adding Arcs
-To add arcs between vertices, both vertices must exist in the DiGraph structure. The `add_arc()` function will create an arc in the DiGraph from the first vertex to the second with the specified weight. An exmaple can be found below.
+To add arcs between vertices, both vertices must exist in the DiGraph structure. The `add_arc()` function will create an arc in the DiGraph from the first vertex to the second with the specified weight. Specifically, if we were to call `add_arc(digraph, a, b, .1000056)` when vertices *a* and *b* exist in the structure *digraph*, the `add_arc()` function would create an Arc struct, which is a structure that holds a pointer to the destination vertex, *b*, and a weight, *.1000056* in this example, and add this Arc structure to the origin's arc list, *a* in this case. Arc weights are of type float. For more detail about the Arc structure, please see the code and documentation in [vertex.c](vertex.c). An example can be found below.
 ```
 add_arc(digraph, a, b, 4.005);
 add_arc(digraph, a, c, 253);
@@ -47,7 +47,7 @@ LinkedList* vList = dijkstra(a, b);
 float** allPairs  = all_pairs_shortest_paths(digraph);
 ```
 #### Building a DiGraph From a File
-To construct a DiGraph from a file that holding an adjacency matrix representation, the `create_digraph_from_file()` function could be used. This file must follow a specific format. Please see the function description in [directed_graph.c](directed_graph.c). Once this function completes, the structure will hold all vertices in an adjacency list representation. To retrieve the adjacency matrix from the structure, see the section above on [Adjacency Representations](#Adjacency-Representations).
+To construct a DiGraph from a file that holds an adjacency matrix representation, the `create_digraph_from_file()` function could be used. This function only takes name of the file as an argument. This file must follow a specific format for the adjacency matrix to be read. Please see the function description in [directed_graph.c](directed_graph.c) for details regarding the specific adjacency matrix format needed. Once this function completes, the structure will hold all vertices in an adjacency list representation. To retrieve the adjacency matrix from the structure, see the section above on [Adjacency Representations](#Adjacency-Representations).
 ```
 DirectedGraph* digraph = create_digraph_from_file("fileName");
 ```
