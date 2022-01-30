@@ -1,10 +1,10 @@
 # This is a Makefile for compiling the directed graph project.
 
 # Defining the compiler
-COMPILER = gcc
+COMPILER = g++
 
 # Defining the c standard
-CSTD = --std=c18
+CSTD = --std=c++17
 
 # Specifying the c files to compile with
 C_FILES = linked_list.c vertex.c priority_queue.c directed_graph.c
