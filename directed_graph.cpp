@@ -266,7 +266,7 @@ DirectedGraph* create_digraph_from_file(char* fileName)
 		return NULL;
 	}
 
-	DirectedGraph* digraph = initialize_digraph(sizeof(int), "int");
+	DirectedGraph* digraph = initialize_digraph(sizeof(int), (char*)"int");
 
 	// Buffer to read each line of characters into.
 	char elements[2000];
@@ -335,7 +335,7 @@ float* float_arr_from_str(char* str)
 	int values = value_count(str);
 
 	// Allocate memory for float array.
-	float* arr = malloc(sizeof(*arr) * values);
+	float* arr = (float*)malloc(sizeof(*arr) * values);
 
 	// For each value, assign it to 0 in the float array.
 	for(int i = 0; i < values; i++)
@@ -384,7 +384,7 @@ float extract_value(int start, int end, char* buffer)
 	int index = start;
 
 	// Allocate a character pointer.
-	char* val = malloc(sizeof(*val) * size);
+	char* val = (char*)malloc(sizeof(*val) * size);
 
 	// For each character relocate character from buffer to char array.
 	for(int i = 0; i < size; i++)
@@ -393,7 +393,7 @@ float extract_value(int start, int end, char* buffer)
 	}
 
 	// Allocate memory for float value to be returned.
-	float* answer = malloc(sizeof(float));
+	float* answer = (float*)malloc(sizeof(float));
 	*answer       = atof(&val[0]);
 
 	return *answer;
@@ -438,7 +438,7 @@ bool contains_vertex(DirectedGraph* digraph, void* vertex)
 	for(int i = 0; i < linked_list_size(list); i++)
 	{
 		// Retrieve the vertex at index i in the vertex list.
-		Vertex* v = linked_list_get(list, i);
+		Vertex* v = (Vertex*)linked_list_get(list, i);
 
 		// If the vetex parameter is the same as vertex v.
 		if(memcmp(v->data, vertex, digraph->valueSize) == 0)
@@ -833,7 +833,6 @@ LinkedList* dijkstra(DirectedGraph* graph, void* origin, void* destination)
  * with the link FROM i TO j
  */
 
-/*
 std::ostream& operator<<(std::ostream& o, DirectedGraph& net)
 {
 	int link = 0;
@@ -852,5 +851,4 @@ std::ostream& operator<<(std::ostream& o, DirectedGraph& net)
 	}
 	return (o);
 }
-*/
 

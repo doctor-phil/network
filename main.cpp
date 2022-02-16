@@ -39,7 +39,7 @@ int main(int argc, char** argv)
 	add_arc(digraph, f, d, 3);
 */
 
-	DirectedGraph* digraph = create_digraph_from_file("testFile");
+	DirectedGraph* digraph = create_digraph_from_file((char*)"test_adjacency.csv");
 
 	// Retrieving a linkedlist of the vertices.
 	LinkedList* vertexList = get_vertices(digraph);
@@ -56,7 +56,7 @@ int main(int argc, char** argv)
 	printf("    ");
 	for(int i = 0; i < linked_list_size(vertexList); i++)
 	{
-		Vertex* u = linked_list_get(vertexList, i);
+		Vertex* u = (Vertex*)linked_list_get(vertexList, i);
 		printf("%d        ", *(int*) get_data(u));
 	}
 	printf("\n");
@@ -64,12 +64,12 @@ int main(int argc, char** argv)
 	// Printing adjacency matrix.
 	for(int i = 0; i < digraph_size(digraph); i++)
 	{
-		Vertex* u = linked_list_get(vertexList, i);
+		Vertex* u = (Vertex*)linked_list_get(vertexList, i);
 		printf("%d | ", *(int*) get_data(u));
 	
 		for(int j = 0; j < digraph_size(digraph); j++)
 		{
-			Vertex* v = linked_list_get(vertexList, j);
+			Vertex* v = (Vertex*)linked_list_get(vertexList, j);
 			
 			// If this edge weight is less than my max edge weight, print 0.
 			if(!(has_arc_to_vertex(u, v)))
@@ -86,7 +86,8 @@ int main(int argc, char** argv)
 	printf("\n");
 
 
-
+	std::cout << *digraph << std::endl;
+	
 	// Calling all pairs shortest paths algorithm, retrieved as a 2D array.	
 	float** paths = all_pairs_shortest_paths(digraph);
 
@@ -94,7 +95,7 @@ int main(int argc, char** argv)
 	printf("    ");
 	for(int i = 0; i < linked_list_size(vertexList); i++)
 	{
-		Vertex* u = linked_list_get(vertexList, i);
+		Vertex* u = (Vertex*)linked_list_get(vertexList, i);
 		printf("%s ", (char*)get_data(u));
 	}
 	printf("\n");
@@ -102,7 +103,7 @@ int main(int argc, char** argv)
 	// Printing all pairs shortest paths matrix.
 	for(int i = 0; i < digraph_size(digraph); i++)
 	{
-		Vertex* v = linked_list_get(vertexList, i);
+		Vertex* v = (Vertex*)linked_list_get(vertexList, i);
 		printf("%s | ",(char*)get_data(v));
 	
 		for(int j = 0; j < digraph_size(digraph); j++)
