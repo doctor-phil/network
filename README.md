@@ -1,7 +1,7 @@
 # network
 
 ## Project Description
-This project aims to provide a library of services for network related activities. The [directed_graph.cpp](firected_graph.cpp) file implements a directed graph, referred to as the "DiGraph" or "the structure" from here forward, and can represent node adjacencies in both the adjacency list and adjacency matrix representations. Dijkstra's shortest path and Floyd-Warshall's all pairs shortest paths algorithms have been implemented. In addition, reading adjacency matrix representations from files to construct the directed graph structure is also supported.
+This project aims to provide a library of services for network related activities. The [directed_graph.cpp](directed_graph.cpp) file implements a directed graph, referred to as the "DiGraph" or "the structure" from here forward, and can represent node adjacencies in both the adjacency list and adjacency matrix representations. Dijkstra's shortest path and Floyd-Warshall's all pairs shortest paths algorithms have been implemented. In addition, reading adjacency matrix representations from files to construct the directed graph structure is also supported.
 
 ## Installing & Running
 Clone the repository as appropriate for your machine. Instructions on how to clone a repository for your specific machine can be found at this [GitHub webpage](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository). 
@@ -12,9 +12,9 @@ To use the DiGraph structure and its features, write your code in the file [main
 What follows in this section is examples of how to compile from the command line, initialize the structure, create and add vertices to the structure, add weighted arcs between vertices in the structure, a note on adjacency representations, how to use the shortest path functions, and how to constructe a DiGraph from a file. For more detail regarding the functions cited mentioned below, please see the appropriate files in the repository.
 <br />
 #### Compiling
-The command `make` can be used to compile from a command line environment. The resulting `digraph` executable file will be created. The assocaited [Makefile](Makefile) uses the gcc compiler and the C18 standard.
+The command `make` can be used to compile from a command line environment. The resulting `digraph` executable file will be created. The assocaited [Makefile](Makefile) uses the g++ compiler and the C++ 17 standard.
 #### Initializing 
-The DiGraph structure is initialized based on the size of the type to be stored in the vertices. The structure uses void pointers, specifically `void*`, to perform operations within. Because a void pointer cannot be dereferenced in the C programming language, the size of the type must be specified when initializing the DiGraph structure. The benefit of using void pointers is that it allows the user to store any type as the data for the vertices in the graph. For example, here is a directed graph that stores char types.
+The DiGraph structure is initialized based on the size of the type to be stored in the vertices. The structure uses void pointers, specifically `void*`, to perform operations within. Because a void pointer cannot be dereferenced in the C/C++ programming language, the size of the type must be specified when initializing the DiGraph structure. The benefit of using void pointers is that it allows the user to store any type as the data for the vertices in the graph. For example, here is a directed graph that stores char types.
 ```
 DirectedGraph* digraph = initialize_digraph(sizeof(char),"char");
 ```
