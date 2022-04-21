@@ -36,7 +36,7 @@ int 	    linked_list_index_of(LinkedList*, void*);
 void* 	    linked_list_remove(LinkedList*, int);
 void* 	    linked_list_remove_first(LinkedList*);
 void* 	    linked_list_remove_last(LinkedList*); 
-int	        linked_list_size(LinkedList*);
+int	    linked_list_size(LinkedList*);
 void	    linked_list_swap(LinkedList*, int, int);
 
 #endif
