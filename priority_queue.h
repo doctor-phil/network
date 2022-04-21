@@ -16,12 +16,12 @@ typedef struct _PriorityQueue
 } PriorityQueue;
 
 PriorityQueue*	pQueue_initialize(int, char*, int (*)(void*, void*));
-bool		pQueue_enqueue(PriorityQueue*, void*);
-void*		pQueue_dequeue(PriorityQueue*);
-void*		pQueue_peek(PriorityQueue*);
-int		pQueue_size(PriorityQueue*);
-bool		pQueue_contains(PriorityQueue*, void*);
-void		_pQueue_sort(PriorityQueue*);
+bool		    pQueue_enqueue(PriorityQueue*, void*);
+void*		    pQueue_dequeue(PriorityQueue*);
+void*		    pQueue_peek(PriorityQueue*);
+int		        pQueue_size(PriorityQueue*);
+bool		    pQueue_contains(PriorityQueue*, void*);
+void		    _pQueue_sort(PriorityQueue*);
 
 
 #endif
