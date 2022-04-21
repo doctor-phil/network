@@ -8,7 +8,7 @@ int main(int argc, char** argv)
 	// Instantiating a DirectedGraph struct.
 /*	DirectedGraph* digraph = initialize_digraph(sizeof(char),"char");
 
-	// Creating elements to add to graph
+	// Creating elements to add to graph.
 	char* a = "a";
 	char* b = "b";
 	char* c = "c";
