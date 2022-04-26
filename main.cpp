@@ -8,7 +8,7 @@ int main(int argc, char** argv)
 	// Instantiating a DirectedGraph struct.
 /*	DirectedGraph* digraph = initialize_digraph(sizeof(char),"char");
 
-	// Creating elements to add to grapg
+	// Creating elements to add to graph.
 	char* a = "a";
 	char* b = "b";
 	char* c = "c";
@@ -38,6 +38,11 @@ int main(int argc, char** argv)
 	add_arc(digraph, e, f, 1);
 	add_arc(digraph, f, d, 3);
 */
+    /*
+     * The code below demonstrates how to create a DiGraph from a csv file, create, retrieve and print the
+     * adjacency matrix, print the String representation of a DiGraph to standard output, and compute and print
+     * the all pairs' shortest paths algorithm (Floyd-Warshall) to standard output.
+     */
 
 	DirectedGraph* digraph = create_digraph_from_file((char*)"test_adjacency.csv");
 
@@ -85,7 +90,7 @@ int main(int argc, char** argv)
 	}
 	printf("\n");
 
-
+    // The code below prints a String representation of a Digraph to standard output.
 	std::cout << *digraph << std::endl;
 	
 	// Calling all pairs shortest paths algorithm, retrieved as a 2D array.	
