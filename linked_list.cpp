@@ -276,19 +276,30 @@ void LinkedList::swap(int index1, int index2)
 	linked_list_add_at(this, index2, temp1);
 }
 
-
+/*
+ * This function returns a pointer to the first in the list structure.
+ */
 Node* LinkedList::getFirst() {
     return this->first;
 }
 
+/*
+ * This function returns a pointer to the last node in the list structure.
+ */
 Node* LinkedList::getLast() {
     return this->last;
 }
 
+/*
+ * Returns the byte size of the item being stored in the list.
+ */
 int LinkedList::getItemSize() {
     return this->itemSize;
 }
 
+/*
+ * Returns the name of the type being stored in the list.
+ */
 char* LinkedList::getTypeName() {
     return this->typeName;
 }
