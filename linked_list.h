@@ -23,8 +23,8 @@ public:
     LinkedList(int, char*);
     bool 	    linked_list_add_at(LinkedList*, int, void*);
     bool 	    linked_list_add_first(LinkedList*, void*);
-    bool	    linked_list_add_last(LinkedList*, void*);
-    void* 	    linked_list_get(LinkedList*, int);
+    bool	    add_last(void*);
+    void* 	    get(int);
     int 	    linked_list_index_of(LinkedList*, void*);
     void* 	    linked_list_remove(LinkedList*, int);
     void* 	    linked_list_remove_first(LinkedList*);

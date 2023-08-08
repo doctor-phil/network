@@ -87,41 +87,41 @@ bool linked_list_add_first(LinkedList* list, void* element)
 	}
 }
 
-bool linked_list_add_last(LinkedList* list, void* element)
+bool LinkedList::add_last(void* element)
 {
-	if(list == NULL || element == NULL)
+	if(this == nullptr|| element == nullptr)
 	{
 		return false;
 	}
 
 	else 
 	{
-		return linked_list_add_at(list, list->size, element);
+		return linked_list_add_at(this, this->size, element);
 	}
 
 }
 
-void* linked_list_get(LinkedList* list, int index)
+void* LinkedList::get(int index)
 {
-	if(list == NULL)
-		return NULL;
+	if(this == nullptr)
+		return nullptr;
 
-	if(index < 0 |index >= list->size)
-		return NULL;
+	if(index < 0 |index >= this->size)
+		return nullptr;
 
 	if(index == 0)
 	{
-		return list->first->data;
+		return this->first->data;
 	}	
 
-	else if(index == list->size)
+	else if(index == this->size)
 	{
-		return list->last->data;
+		return this->last->data;
 	}
 
 	else
 	{
-		Node* temp = list->first;
+		Node* temp = this->first;
 	
 		for(int i = 0; i < index; i++)
 			temp = temp->next;
