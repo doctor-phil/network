@@ -130,16 +130,16 @@ void* LinkedList::get(int index)
 	}
 }
 
-int linked_list_index_of(LinkedList* list, void* element)
+int LinkedList::index_of(void* element)
 {
-	if(list == NULL || element == NULL)
+	if(this == nullptr || element == nullptr)
 		return -1;
 	
-	Node* temp = list->first;
+	Node* temp = this->first;
 
-	for(int i = 0; i < list->size; i++)
+	for(int i = 0; i < this->size; i++)
 	{
-		if(memcmp(temp->data, element, list->itemSize) == 0)
+		if(memcmp(temp->data, element, this->itemSize) == 0)
 			return i;
 
 		temp = temp->next;
@@ -149,28 +149,28 @@ int linked_list_index_of(LinkedList* list, void* element)
 }
 
 /*
- * The linked_list_remove function removes an element fron the linledlist struct
+ * The linked_list_remove function removes an element from the linkedlist struct
  * at a specific index. The data value stored at this index is returned to the caller.
  */
-void* linked_list_remove(LinkedList* list, int index)
+void* LinkedList::remove(int index)
 {
 	// If the list is NULL or if the index is out of bounds, return immediately.
-	if(list == NULL || index < 0 || index >= list->size)
-		return NULL;
+	if(this == nullptr || index < 0 || index >= this->size)
+		return nullptr;
 
 	// Allocate memory for the data value to be returned.
-	void* element = malloc(list->itemSize);
+	void* element = malloc(this->itemSize);
 	
 	// If the list contains only 1 element.
-	if(list->size == 1)
+	if(this->size == 1)
 	{
 		// Copy the data from first element, make first and last references NULL.
-		memcpy(element,list->first->data, list->itemSize);
-		list->first = NULL;
-		list->last  = NULL;
+		memcpy(element,this->first->data, this->itemSize);
+		this->first = NULL;
+		this->last  = NULL;
 
 		// Decrement the size of the list and return the element.
-		list->size--;
+		this->size--;
 
 		return element;
 	}
@@ -178,27 +178,27 @@ void* linked_list_remove(LinkedList* list, int index)
 	else if(index == 0)
 	{
 		// Copy the data from first into the element variable.
-		memcpy(element, list->first->data, list->itemSize);
+		memcpy(element, this->first->data, this->itemSize);
 		
 		// Make first now point to the second element in the list.
-		list->first       = list->first->next;
-		list->first->prev = NULL;
+		this->first       = this->first->next;
+		this->first->prev = NULL;
 
-		list->size--;
+		this->size--;
 
 		return element;
 	}
 	// Else if the index is the last element in the list.
-	else if(index == list->size - 1)
+	else if(index == this->size - 1)
 	{
 		// Copy the data from last into the element.
-		memcpy(element, list->last->data, list->itemSize);
+		memcpy(element, this->last->data, this->itemSize);
 		
 		// Make the new last reference the second to last element.
-		list->last       = list->last->prev;
-		list->last->next = NULL;
+		this->last       = this->last->prev;
+		this->last->next = NULL;
 	
-		list->size--;
+		this->size--;
 
 		return element;
 	}
@@ -206,27 +206,27 @@ void* linked_list_remove(LinkedList* list, int index)
 	else
 	{
 		// Creating a local temporary Node reference to walk the list.
-		Node* temp = list->first;
+		Node* temp = this->first;
 
 		// For each Node in the list less that the index, walk Node reference through the list.
 		for(int i = 0; i < index; i++)
 			temp = temp->next;
 
 		// Copy the data value into the element variable.
-		memcpy(element, temp->data, list->itemSize);
+		memcpy(element, temp->data, this->itemSize);
 
 		// Adjust next and prev references to remove the temp node reference from the list.
 		temp->prev->next = temp->next;
 		temp->next->prev = temp->prev;
 
-		list->size--;
+		this->size--;
 	
 		return element;
 	}
 }
 
 /*
- * The linked_list_remove_first funciton removes the first elemnt of the linkedlist struct.
+ * The linked_list_remove_first function removes the first element of the Linkedlist struct.
  */
 void* linked_list_remove_first(LinkedList* list)
 {

@@ -25,8 +25,8 @@ public:
     bool 	    linked_list_add_first(LinkedList*, void*);
     bool	    add_last(void*);
     void* 	    get(int);
-    int 	    linked_list_index_of(LinkedList*, void*);
-    void* 	    linked_list_remove(LinkedList*, int);
+    int 	    index_of(void*);
+    void* 	    remove(int);
     void* 	    linked_list_remove_first(LinkedList*);
     void* 	    linked_list_remove_last(LinkedList*);
     void	    swap(int, int);
