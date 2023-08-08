@@ -21,8 +21,8 @@ class LinkedList
 {
 public:
     LinkedList(int, char*);
-    bool 	    linked_list_add_at(LinkedList*, int, void*);
-    bool 	    linked_list_add_first(LinkedList*, void*);
+    bool 	    add_at(int, void*);
+    bool 	    add_first(void*);
     bool	    add_last(void*);
     void* 	    get(int);
     int 	    index_of(void*);

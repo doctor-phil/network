@@ -16,47 +16,47 @@ LinkedList::LinkedList(int item, char* name)
 	strcpy(this->typeName, name);
 }
 
-bool linked_list_add_at(LinkedList* list, int index, void* element)
+bool LinkedList::add_at(int index, void* element)
 {
-	if(list == NULL || element == NULL)
+	if(this == nullptr || element == nullptr)
 		return false;
 
-	if(index < 0 || index > list->size)
+	if(index < 0 || index > this->size)
 		return false;
 
 	Node* node = (Node*)malloc(sizeof(*node));
-	node->data = malloc(list->itemSize);
+	node->data = malloc(this->itemSize);
 
-	memcpy(node->data, element, list->itemSize);
+	memcpy(node->data, element, this->itemSize);
 
-	if(list->size == 0)
+	if(this->size == 0)
 	{
-		list->first = node;
-		list->last  = node;
-		node->next  = NULL;
-		node->prev  = NULL;
+		this->first = node;
+		this->last  = node;
+		node->next  = nullptr;
+		node->prev  = nullptr;
 	}
 
 	else if(index == 0)
 	{
-		node->next        = list->first;
-		node->prev        = NULL;
-		list->first->prev = node;
-		list->first       = node;
+		node->next        = this->first;
+		node->prev        = nullptr;
+		this->first->prev = node;
+		this->first       = node;
 	}
 
-	else if(index == list->size)
+	else if(index == this->size)
 	{
-		node->prev       = list->last;
-		node->next       = NULL;
-		list->last->next = node;
-		list->last       = node;	
+		node->prev       = this->last;
+		node->next       = nullptr;
+		this->last->next = node;
+		this->last       = node;
 	}
 
 	else 
 	{
 		int i = 0;
-		Node* temp = list->first;
+		Node* temp = this->first;
 		while(i < index)
 		{
 			temp = temp->next;
@@ -69,21 +69,21 @@ bool linked_list_add_at(LinkedList* list, int index, void* element)
 		temp->prev       = node;
 	}
 
-	list->size++;
+	this->size++;
 	
 	return true;
 }
 
-bool linked_list_add_first(LinkedList* list, void* element)
+bool LinkedList::add_first(void* element)
 {
-	if(list == NULL || element == NULL)
+	if(this == nullptr || element == nullptr)
 	{
 		return false;
 	}
 
 	else 
 	{
-		return linked_list_add_at(list,0,element);
+		return add_at(0,element);
 	}
 }
 
@@ -96,7 +96,7 @@ bool LinkedList::add_last(void* element)
 
 	else 
 	{
-		return linked_list_add_at(this, this->size, element);
+		return add_at(this->size, element);
 	}
 
 }
@@ -261,7 +261,7 @@ int LinkedList::getSize() {
 }
 
 /*
- * The linked_list_swap function swaps the elements in two specific indexes within the linkedlist struct.
+ * The linked_list_swap function swaps the elements in two specific indexes within the linkedlist.
  */
 void LinkedList::swap(int index1, int index2)
 {
@@ -269,11 +269,11 @@ void LinkedList::swap(int index1, int index2)
 	if(this == nullptr || index1 > this->size - 1 || index2 > this->size - 1)
 		return;
 
-	void* temp1 = linked_list_remove(this,index1);
-	void* temp2 = linked_list_remove(this, index2 - 1);
+	void* temp1 = remove(index1);
+	void* temp2 = remove(index2 - 1);
 
-	linked_list_add_at(this, index1, temp2);
-	linked_list_add_at(this, index2, temp1);
+	this->add_at(index1, temp2);
+	this->add_at(index2, temp1);
 }
 
 /*
