@@ -228,28 +228,28 @@ void* LinkedList::remove(int index)
 /*
  * The linked_list_remove_first function removes the first element of the Linkedlist struct.
  */
-void* linked_list_remove_first(LinkedList* list)
+void* LinkedList::remove_first()
 {
-	if(list == NULL)
+	if(this == nullptr)
 	{
-		return NULL;
+		return nullptr;
 	} else
 	{
-		return linked_list_remove(list, 0);
+		return this->remove(0);
 	}
 }
 
 /*
  * The linked_list_remove_last function removes the last element of the linkedlist struct.
  */
-void* linked_list_remove_last(LinkedList* list)
+void* LinkedList::remove_last()
 {
-	if(list == NULL)
+	if(this == nullptr)
 	{
-		return NULL;
+		return nullptr;
 	} else 
 	{
-		return linked_list_remove(list, list->size - 1);
+		return this->remove(this->size - 1);
 	}
 }
 

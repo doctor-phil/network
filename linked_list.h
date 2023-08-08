@@ -27,8 +27,8 @@ public:
     void* 	    get(int);
     int 	    index_of(void*);
     void* 	    remove(int);
-    void* 	    linked_list_remove_first(LinkedList*);
-    void* 	    linked_list_remove_last(LinkedList*);
+    void* 	    remove_first();
+    void* 	    remove_last();
     void	    swap(int, int);
     Node*       getFirst();
     Node*       getLast();
