@@ -5,22 +5,15 @@
 
 #include "linked_list.h"
 
-LinkedList* linked_list_initialize(int item, char* name)
+LinkedList::LinkedList(int item, char* name)
 {
-	LinkedList* list = (LinkedList*)malloc(sizeof(*list));
-	
-	if(list == NULL)
-		return NULL;
+	this->first    = nullptr;
+	this->last     = nullptr;
+	this->size     = 0;
+	this->itemSize = item;
+	//this->typeName = (char*)malloc(strlen(name));
 
-	list->first    = NULL;
-	list->last     = NULL;
-	list->size     = 0;
-	list->itemSize = item;
-	list->typeName = (char*)malloc(strlen(name));
-
-	strcpy(list->typeName, name);
-
-	return list;
+	strcpy(this->typeName, name);
 }
 
 bool linked_list_add_at(LinkedList* list, int index, void* element)
@@ -263,41 +256,32 @@ void* linked_list_remove_last(LinkedList* list)
 /*
  * the linked_list_size returns the size of the linked list struct.
  */
-int linked_list_size(LinkedList* list)
-{
-	if(list == NULL)
-	{
-		return -1;
-	} else {
-		return list->size;
-	}
+int LinkedList::getSize() {
+    return this->size;
 }
 
 /*
  * The linked_list_swap function swaps the elements in two specific indexes within the linkedlist struct.
  */
-void linked_list_swap(LinkedList* list, int index1, int index2)
+void LinkedList::swap(int index1, int index2)
 {
 	// If the list variable is NULL, or if either index references are out of bounds, return immediately.
-	if(list == NULL || index1 > list->size - 1 || index2 > list->size - 1)
+	if(this == nullptr || index1 > this->size - 1 || index2 > this->size - 1)
 		return;
 
-	void* temp1 = linked_list_remove(list,index1);
-	void* temp2 = linked_list_remove(list, index2 - 1);
+	void* temp1 = linked_list_remove(this,index1);
+	void* temp2 = linked_list_remove(this, index2 - 1);
 
-	linked_list_add_at(list, index1, temp2);
-	linked_list_add_at(list, index2, temp1);
+	linked_list_add_at(this, index1, temp2);
+	linked_list_add_at(this, index2, temp1);
 }
 
-int LinkedList::getSize() {
-    return this->size;
-}
 
-Node *LinkedList::getFirst() {
+Node* LinkedList::getFirst() {
     return this->first;
 }
 
-Node *LinkedList::getLast() {
+Node* LinkedList::getLast() {
     return this->last;
 }
 
@@ -305,6 +289,6 @@ int LinkedList::getItemSize() {
     return this->itemSize;
 }
 
-char *LinkedList::getTypeName() {
+char* LinkedList::getTypeName() {
     return this->typeName;
 }

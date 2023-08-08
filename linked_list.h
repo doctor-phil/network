@@ -20,7 +20,7 @@ public:
 class LinkedList
 {
 public:
-    LinkedList* linked_list_initialize(int, char*);
+    LinkedList(int, char*);
     bool 	    linked_list_add_at(LinkedList*, int, void*);
     bool 	    linked_list_add_first(LinkedList*, void*);
     bool	    linked_list_add_last(LinkedList*, void*);
@@ -29,8 +29,7 @@ public:
     void* 	    linked_list_remove(LinkedList*, int);
     void* 	    linked_list_remove_first(LinkedList*);
     void* 	    linked_list_remove_last(LinkedList*);
-    int	        linked_list_size(LinkedList*);
-    void	    linked_list_swap(LinkedList*, int, int);
+    void	    swap(int, int);
     Node*       getFirst();
     Node*       getLast();
     int         getSize();
