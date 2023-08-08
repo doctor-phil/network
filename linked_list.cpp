@@ -288,3 +288,23 @@ void linked_list_swap(LinkedList* list, int index1, int index2)
 	linked_list_add_at(list, index1, temp2);
 	linked_list_add_at(list, index2, temp1);
 }
+
+int LinkedList::getSize() {
+    return this->size;
+}
+
+Node *LinkedList::getFirst() {
+    return this->first;
+}
+
+Node *LinkedList::getLast() {
+    return this->last;
+}
+
+int LinkedList::getItemSize() {
+    return this->itemSize;
+}
+
+char *LinkedList::getTypeName() {
+    return this->typeName;
+}
