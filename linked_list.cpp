@@ -1,5 +1,5 @@
 /*
- * This file implements the functions decalred in the 
+ * This file implements the functions declared in the
  * linked_list.h header file - the behavior of a linked list data structure.
  */
 
@@ -11,11 +11,15 @@ LinkedList::LinkedList(int item, char* name)
 	this->last     = nullptr;
 	this->size     = 0;
 	this->itemSize = item;
-	//this->typeName = (char*)malloc(strlen(name));
+	this->typeName = (char*)malloc(strlen(name));
 
 	strcpy(this->typeName, name);
 }
 
+/*
+ * Adds the element parameter at the given index parameter to the list. True is returned
+ * if the element was successfully added to the list at the index.
+ */
 bool LinkedList::add_at(int index, void* element)
 {
 	if(this == nullptr || element == nullptr)
@@ -74,6 +78,9 @@ bool LinkedList::add_at(int index, void* element)
 	return true;
 }
 
+/*
+ * Adds the element parameter to be the first item in the list.
+ */
 bool LinkedList::add_first(void* element)
 {
 	if(this == nullptr || element == nullptr)
@@ -87,6 +94,9 @@ bool LinkedList::add_first(void* element)
 	}
 }
 
+/*
+ * Adds the element parameter to the list such that it is the last item.
+ */
 bool LinkedList::add_last(void* element)
 {
 	if(this == nullptr|| element == nullptr)
@@ -101,6 +111,10 @@ bool LinkedList::add_last(void* element)
 
 }
 
+/*
+ * Returns the value stored at the index parameter. If the index is out of bounds
+ * then nullptr is returned.
+ */
 void* LinkedList::get(int index)
 {
 	if(this == nullptr)
@@ -130,6 +144,10 @@ void* LinkedList::get(int index)
 	}
 }
 
+/*
+ * Returns the index of the first occurrence of the element parameter. If the element
+ * is not found, or if the element is a nullptr, then -1 is returned.
+ */
 int LinkedList::index_of(void* element)
 {
 	if(this == nullptr || element == nullptr)
@@ -149,7 +167,7 @@ int LinkedList::index_of(void* element)
 }
 
 /*
- * The linked_list_remove function removes an element from the linkedlist struct
+ * The linked_list_remove function removes an element from the Linkedlist struct
  * at a specific index. The data value stored at this index is returned to the caller.
  */
 void* LinkedList::remove(int index)
