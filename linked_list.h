@@ -30,8 +30,8 @@ public:
     void* 	      remove_first();
     void* 	      remove_last();
     void	      swap(int, int);
-    Node*         getFirst();
-    Node*         getLast();
+    T             getFirst();
+    T             getLast();
     int           getSize();
     int           getItemSize();
 

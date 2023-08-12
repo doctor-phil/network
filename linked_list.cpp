@@ -294,15 +294,15 @@ template<typename T> void LinkedList<T>::swap(int index1, int index2)
 /*
  * This function returns a pointer to the first in the list structure.
  */
-template<typename T> Node* LinkedList<T>::getFirst() {
-    return this->first;
+template<typename T> T LinkedList<T>::getFirst() {
+    return this->first->data;
 }
 
 /*
  * This function returns a pointer to the last node in the list structure.
  */
-template<typename T> Node* LinkedList<T>::getLast() {
-    return this->last;
+template<typename T> T LinkedList<T>::getLast() {
+    return this->last->data;
 }
 
 /*
