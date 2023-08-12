@@ -5,22 +5,19 @@
 
 #include "linked_list.h"
 
-LinkedList::LinkedList(int item, char* name)
+template<typename T> LinkedList<T>::LinkedList(int item)
 {
 	this->first    = nullptr;
 	this->last     = nullptr;
 	this->size     = 0;
 	this->itemSize = item;
-	this->typeName = (char*)malloc(strlen(name));
-
-	strcpy(this->typeName, name);
 }
 
 /*
  * Adds the element parameter at the given index parameter to the list. True is returned
  * if the element was successfully added to the list at the index.
  */
-bool LinkedList::add_at(int index, void* element)
+template<typename T> bool LinkedList<T>::add_at(int index, void* element)
 {
 	if(this == nullptr || element == nullptr)
 		return false;
@@ -81,7 +78,7 @@ bool LinkedList::add_at(int index, void* element)
 /*
  * Adds the element parameter to be the first item in the list.
  */
-bool LinkedList::add_first(void* element)
+template<typename T> bool LinkedList<T>::add_first(void* element)
 {
 	if(this == nullptr || element == nullptr)
 	{
@@ -97,7 +94,7 @@ bool LinkedList::add_first(void* element)
 /*
  * Adds the element parameter to the list such that it is the last item.
  */
-bool LinkedList::add_last(void* element)
+template<typename T> bool LinkedList<T>::add_last(void* element)
 {
 	if(this == nullptr|| element == nullptr)
 	{
@@ -115,7 +112,7 @@ bool LinkedList::add_last(void* element)
  * Returns the value stored at the index parameter. If the index is out of bounds
  * then nullptr is returned.
  */
-void* LinkedList::get(int index)
+template<typename T> void* LinkedList<T>::get(int index)
 {
 	if(this == nullptr)
 		return nullptr;
@@ -148,7 +145,7 @@ void* LinkedList::get(int index)
  * Returns the index of the first occurrence of the element parameter. If the element
  * is not found, or if the element is a nullptr, then -1 is returned.
  */
-int LinkedList::index_of(void* element)
+template<typename T> int LinkedList<T>::index_of(void* element)
 {
 	if(this == nullptr || element == nullptr)
 		return -1;
@@ -170,7 +167,7 @@ int LinkedList::index_of(void* element)
  * The linked_list_remove function removes an element from the Linkedlist struct
  * at a specific index. The data value stored at this index is returned to the caller.
  */
-void* LinkedList::remove(int index)
+template<typename T> void* LinkedList<T>::remove(int index)
 {
 	// If the list is NULL or if the index is out of bounds, return immediately.
 	if(this == nullptr || index < 0 || index >= this->size)
@@ -246,7 +243,7 @@ void* LinkedList::remove(int index)
 /*
  * The linked_list_remove_first function removes the first element of the Linkedlist struct.
  */
-void* LinkedList::remove_first()
+template<typename T> void* LinkedList<T>::remove_first()
 {
 	if(this == nullptr)
 	{
@@ -258,9 +255,9 @@ void* LinkedList::remove_first()
 }
 
 /*
- * The linked_list_remove_last function removes the last element of the linkedlist struct.
+ * The remove_last function removes the last element of the linkedlist struct.
  */
-void* LinkedList::remove_last()
+template<typename T> void* LinkedList<T>::remove_last()
 {
 	if(this == nullptr)
 	{
@@ -272,16 +269,16 @@ void* LinkedList::remove_last()
 }
 
 /*
- * the linked_list_size returns the size of the linked list struct.
+ * The getSize returns the size of the linked list struct.
  */
-int LinkedList::getSize() {
+template<typename T> int LinkedList<T>::getSize() {
     return this->size;
 }
 
 /*
- * The linked_list_swap function swaps the elements in two specific indexes within the linkedlist.
+ * The swap function swaps the elements in two specific indexes within the linkedlist.
  */
-void LinkedList::swap(int index1, int index2)
+template<typename T> void LinkedList<T>::swap(int index1, int index2)
 {
 	// If the list variable is NULL, or if either index references are out of bounds, return immediately.
 	if(this == nullptr || index1 > this->size - 1 || index2 > this->size - 1)
@@ -297,27 +294,24 @@ void LinkedList::swap(int index1, int index2)
 /*
  * This function returns a pointer to the first in the list structure.
  */
-Node* LinkedList::getFirst() {
+template<typename T> Node* LinkedList<T>::getFirst() {
     return this->first;
 }
 
 /*
  * This function returns a pointer to the last node in the list structure.
  */
-Node* LinkedList::getLast() {
+template<typename T> Node* LinkedList<T>::getLast() {
     return this->last;
 }
 
 /*
  * Returns the byte size of the item being stored in the list.
  */
-int LinkedList::getItemSize() {
+template<typename T> int LinkedList<T>::getItemSize() {
     return this->itemSize;
 }
 
-/*
- * Returns the name of the type being stored in the list.
- */
-char* LinkedList::getTypeName() {
-    return this->typeName;
-}
+
+
+
