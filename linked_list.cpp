@@ -22,8 +22,11 @@ template<typename T> bool LinkedList<T>::add_at(int index, T element)
 	if(this == nullptr || element == nullptr)
 		return false;
 
-	if(index < 0 || index > this->size)
+	if(index < 0)
 		return false;
+
+    if(index > this->size)
+        return add_last(element);
 
 	Node* node = (Node*)malloc(sizeof(*node));
 	node->data = malloc(this->itemSize);
