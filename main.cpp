@@ -1,10 +1,27 @@
 #include <stdio.h>
 #include "linked_list.h"
-#include "priority_queue.h"
-#include "directed_graph.h"
+//#include "priority_queue.h"
+//#include "directed_graph.h"
 
 int main(int argc, char** argv)
 {
+
+    LinkedList<int>* list = new LinkedList<int>(sizeof(int));
+
+    list->add_first(0);
+    for(int i = 1; i < 99; i ++){
+        list->add_at(i,i);
+    }
+    list->add_last(99);
+
+    int size = list->getSize();
+
+    for (int i = 0; i < size; ++i) {
+        int item = list->get(i);
+        printf("%d\n", item);
+    }
+
+
 	// Instantiating a DirectedGraph struct.
 /*	DirectedGraph* digraph = initialize_digraph(sizeof(char),"char");
 
@@ -44,10 +61,10 @@ int main(int argc, char** argv)
      * the all pairs' shortest paths algorithm (Floyd-Warshall) to standard output.
      */
 
-	DirectedGraph* digraph = create_digraph_from_file((char*)"test_adjacency.csv");
+//	DirectedGraph* digraph = create_digraph_from_file((char*)"test_adjacency.csv");
 
 	// Retrieving a linkedlist of the vertices.
-	LinkedList* vertexList = get_vertices(digraph);
+	/*LinkedList* vertexList = get_vertices(digraph);
 
 	// Calling the void function to create the adjacency matrix for the digraph.
 	create_adjacency_matrix(digraph);
@@ -117,6 +134,7 @@ int main(int argc, char** argv)
 		}
 		printf("\n");
 	}
+	 */
 
 
 	
