@@ -17,7 +17,7 @@ template<typename T> LinkedList<T>::LinkedList(int item)
  * Adds the element parameter at the given index parameter to the list. True is returned
  * if the element was successfully added to the list at the index.
  */
-template<typename T> bool LinkedList<T>::add_at(int index, void* element)
+template<typename T> bool LinkedList<T>::add_at(int index, T element)
 {
 	if(this == nullptr || element == nullptr)
 		return false;
@@ -78,7 +78,7 @@ template<typename T> bool LinkedList<T>::add_at(int index, void* element)
 /*
  * Adds the element parameter to be the first item in the list.
  */
-template<typename T> bool LinkedList<T>::add_first(void* element)
+template<typename T> bool LinkedList<T>::add_first(T element)
 {
 	if(this == nullptr || element == nullptr)
 	{
@@ -94,7 +94,7 @@ template<typename T> bool LinkedList<T>::add_first(void* element)
 /*
  * Adds the element parameter to the list such that it is the last item.
  */
-template<typename T> bool LinkedList<T>::add_last(void* element)
+template<typename T> bool LinkedList<T>::add_last(T element)
 {
 	if(this == nullptr|| element == nullptr)
 	{
@@ -112,7 +112,7 @@ template<typename T> bool LinkedList<T>::add_last(void* element)
  * Returns the value stored at the index parameter. If the index is out of bounds
  * then nullptr is returned.
  */
-template<typename T> void* LinkedList<T>::get(int index)
+template<typename T> T LinkedList<T>::get(int index)
 {
 	if(this == nullptr)
 		return nullptr;
@@ -145,7 +145,7 @@ template<typename T> void* LinkedList<T>::get(int index)
  * Returns the index of the first occurrence of the element parameter. If the element
  * is not found, or if the element is a nullptr, then -1 is returned.
  */
-template<typename T> int LinkedList<T>::index_of(void* element)
+template<typename T> int LinkedList<T>::index_of(T element)
 {
 	if(this == nullptr || element == nullptr)
 		return -1;
@@ -167,22 +167,22 @@ template<typename T> int LinkedList<T>::index_of(void* element)
  * The linked_list_remove function removes an element from the Linkedlist struct
  * at a specific index. The data value stored at this index is returned to the caller.
  */
-template<typename T> void* LinkedList<T>::remove(int index)
+template<typename T> T LinkedList<T>::remove(int index)
 {
 	// If the list is NULL or if the index is out of bounds, return immediately.
 	if(this == nullptr || index < 0 || index >= this->size)
 		return nullptr;
 
 	// Allocate memory for the data value to be returned.
-	void* element = malloc(this->itemSize);
+	T element = malloc(this->itemSize);
 	
 	// If the list contains only 1 element.
 	if(this->size == 1)
 	{
 		// Copy the data from first element, make first and last references NULL.
 		memcpy(element,this->first->data, this->itemSize);
-		this->first = NULL;
-		this->last  = NULL;
+		this->first = nullptr;
+		this->last  = nullptr;
 
 		// Decrement the size of the list and return the element.
 		this->size--;
@@ -197,7 +197,7 @@ template<typename T> void* LinkedList<T>::remove(int index)
 		
 		// Make first now point to the second element in the list.
 		this->first       = this->first->next;
-		this->first->prev = NULL;
+		this->first->prev = nullptr;
 
 		this->size--;
 
@@ -211,7 +211,7 @@ template<typename T> void* LinkedList<T>::remove(int index)
 		
 		// Make the new last reference the second to last element.
 		this->last       = this->last->prev;
-		this->last->next = NULL;
+		this->last->next = nullptr;
 	
 		this->size--;
 
@@ -243,7 +243,7 @@ template<typename T> void* LinkedList<T>::remove(int index)
 /*
  * The linked_list_remove_first function removes the first element of the Linkedlist struct.
  */
-template<typename T> void* LinkedList<T>::remove_first()
+template<typename T> T LinkedList<T>::remove_first()
 {
 	if(this == nullptr)
 	{
@@ -257,7 +257,7 @@ template<typename T> void* LinkedList<T>::remove_first()
 /*
  * The remove_last function removes the last element of the linkedlist struct.
  */
-template<typename T> void* LinkedList<T>::remove_last()
+template<typename T> T LinkedList<T>::remove_last()
 {
 	if(this == nullptr)
 	{
@@ -280,7 +280,7 @@ template<typename T> int LinkedList<T>::getSize() {
  */
 template<typename T> void LinkedList<T>::swap(int index1, int index2)
 {
-	// If the list variable is NULL, or if either index references are out of bounds, return immediately.
+	// If the list variable is nullptr, or if either index references are out of bounds, return immediately.
 	if(this == nullptr || index1 > this->size - 1 || index2 > this->size - 1)
 		return;
 

@@ -21,14 +21,14 @@ template<typename T> class LinkedList
 
 public:
     LinkedList<T> (int);
-    bool 	      add_at(int, void*);
-    bool 	      add_first(void*);
-    bool	      add_last(void*);
-    void* 	      get(int);
-    int 	      index_of(void*);
-    void* 	      remove(int);
-    void* 	      remove_first();
-    void* 	      remove_last();
+    bool 	      add_at(int, T);
+    bool 	      add_first(T);
+    bool	      add_last(T);
+    T    	      get(int);
+    int 	      index_of(T);
+    T    	      remove(int);
+    T    	      remove_first();
+    T    	      remove_last();
     void	      swap(int, int);
     T             getFirst();
     T             getLast();
