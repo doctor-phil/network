@@ -13,7 +13,7 @@
 
 typedef struct _Vertex
 {
-	LinkedList* arcList;
+	//LinkedList* arcList;
 	void* data;
 	bool visited;
 	float distance;
@@ -32,7 +32,7 @@ Vertex*     create_vertex(void*);
 bool        add_vertex_arc(Vertex*, Vertex*, float);
 bool        remove_vertex_arc(Vertex*, Vertex*);
 void*       get_data(Vertex*);
-LinkedList* get_arc_list(Vertex*);
+//LinkedList* get_arc_list(Vertex*);
 bool	    been_visited(Vertex*);
 void        set_visited(Vertex*, bool);
 float       get_weight(Vertex*, Vertex*);

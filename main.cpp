@@ -6,7 +6,7 @@
 int main(int argc, char** argv)
 {
 
-    LinkedList<int>* list = new LinkedList<int>(sizeof(int));
+    LinkedList<int>* list = new LinkedList<int>(sizeof (int));
 
     list->add_first(0);
     for(int i = 1; i < 99; i ++){

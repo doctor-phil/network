@@ -11,7 +11,7 @@
 
 typedef struct _PriorityQueue
 {
-	LinkedList* list;
+//	LinkedList* list;
 	int(*compare)(void*, void*);
 } PriorityQueue;
 

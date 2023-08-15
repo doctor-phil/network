@@ -9,6 +9,7 @@
  * Creates and returns a Vertex* pointer. Takes a parameter void* pointer of a value
  * to be stored in the Vertex struct.
  */
+/*
 Vertex* create_vertex(void* element)
 {
 	Vertex* v = (Vertex*)malloc(sizeof(*v));
@@ -31,6 +32,7 @@ Vertex* create_vertex(void* element)
  * This function adds an arc struct going from the Vertex* origin parameter to the Vertex* dest parameter
  * with a weight of the float price parameter.   
  */
+/*
 bool add_vertex_arc(Vertex* origin, Vertex* dest, float price)
 {
 	if(origin == NULL || dest == NULL)
@@ -56,6 +58,7 @@ bool add_vertex_arc(Vertex* origin, Vertex* dest, float price)
  * Removes an arc going from the origin Vertex* to the destination Vertex*.
  * returns true if removes successfully.
  */
+/*
 bool remove_vertex_arc(Vertex* origin, Vertex* destination)
 {
 	if(origin == NULL || destination == NULL)
@@ -92,6 +95,7 @@ bool remove_vertex_arc(Vertex* origin, Vertex* destination)
  * If the vertex pointer parameter is null, null is returned. Otherwise,
  * the data stored in the vertex pointer is returned.
  */
+/*
 void* get_data(Vertex* v)
 {
 	if(v == NULL)
@@ -142,6 +146,7 @@ void set_visited(Vertex* v, bool value)
  * Vertex* destination vertex parameter and returns the weight of that arc 
  * if such an arc exists. -1 is returned if no such arc exists.
  */
+/*
 float get_weight(Vertex* origin, Vertex* destination)
 {
 	if(origin == NULL || destination == NULL)
@@ -167,7 +172,8 @@ float get_weight(Vertex* origin, Vertex* destination)
  * The change_vertex_weight function takes an origin and destination Vertex* and changes the
  * weight associated with the arc from the origin vertex to the destination vertex to the
  * value of the cost parameter. 
- */ 
+ */
+/*
 bool change_vertex_weight(Vertex* origin, Vertex* destination, float cost)
 {
 	if(origin == NULL || destination == NULL)
@@ -228,6 +234,7 @@ Vertex* get_vertex_parent(Vertex* v)
  * the Arc list of the source vertex and returns true if the destination vertex is found in
  * the Arc list. Otherwise false is returned.
  */
+/*
 bool has_arc_to_vertex(Vertex* source, Vertex* destination)
 {
 	// If either the source or destination vertex are null, return false.
@@ -255,6 +262,7 @@ bool has_arc_to_vertex(Vertex* source, Vertex* destination)
 	return false;
 	
 }
+
 
 Arc* create_arc(Vertex* v, float price)
 {
@@ -307,4 +315,7 @@ Vertex* get_arc_vertex(Arc* arc)
 	{
 		return arc->vertex;
 	}
+
+
 }
+ */

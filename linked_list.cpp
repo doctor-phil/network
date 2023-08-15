@@ -19,7 +19,7 @@ template<typename T> LinkedList<T>::LinkedList(int item)
  */
 template<typename T> bool LinkedList<T>::add_at(int index, T element)
 {
-	if(this == nullptr || element == nullptr)
+	if(this == nullptr || element == NULL)
 		return false;
 
 	if(index < 0)
@@ -29,9 +29,10 @@ template<typename T> bool LinkedList<T>::add_at(int index, T element)
         return add_last(element);
 
 	Node* node = (Node*)malloc(sizeof(*node));
-	node->data = malloc(this->itemSize);
+//	node->data = malloc(this->itemSize);
 
-	memcpy(node->data, element, this->itemSize);
+//	memcpy(node->data, element, this->itemSize);
+    node->data = element;
 
 	if(this->size == 0)
 	{
@@ -83,7 +84,7 @@ template<typename T> bool LinkedList<T>::add_at(int index, T element)
  */
 template<typename T> bool LinkedList<T>::add_first(T element)
 {
-	if(this == nullptr || element == nullptr)
+	if(this == nullptr || element == NULL)
 	{
 		return false;
 	}
@@ -99,7 +100,7 @@ template<typename T> bool LinkedList<T>::add_first(T element)
  */
 template<typename T> bool LinkedList<T>::add_last(T element)
 {
-	if(this == nullptr|| element == nullptr)
+	if(this == nullptr|| element == NULL)
 	{
 		return false;
 	}
@@ -118,10 +119,10 @@ template<typename T> bool LinkedList<T>::add_last(T element)
 template<typename T> T LinkedList<T>::get(int index)
 {
 	if(this == nullptr)
-		return nullptr;
+		return NULL;
 
 	if(index < 0 |index >= this->size)
-		return nullptr;
+		return NULL;
 
 	if(index == 0)
 	{
@@ -150,14 +151,15 @@ template<typename T> T LinkedList<T>::get(int index)
  */
 template<typename T> int LinkedList<T>::index_of(T element)
 {
-	if(this == nullptr || element == nullptr)
+	if(this == nullptr || element == NULL)
 		return -1;
 	
 	Node* temp = this->first;
 
 	for(int i = 0; i < this->size; i++)
 	{
-		if(memcmp(temp->data, element, this->itemSize) == 0)
+	//	if(memcmp((temp->data), element, this->itemSize) == 0)
+        if(temp->data == element)
 			return i;
 
 		temp = temp->next;
@@ -174,16 +176,18 @@ template<typename T> T LinkedList<T>::remove(int index)
 {
 	// If the list is NULL or if the index is out of bounds, return immediately.
 	if(this == nullptr || index < 0 || index >= this->size)
-		return nullptr;
+		return NULL;
 
 	// Allocate memory for the data value to be returned.
-	T element = malloc(this->itemSize);
+	//void* element = malloc(this->itemSize);
+    T element = NULL;
 	
 	// If the list contains only 1 element.
 	if(this->size == 1)
 	{
 		// Copy the data from first element, make first and last references NULL.
-		memcpy(element,this->first->data, this->itemSize);
+		//memcpy(static_cast<void *>(element),this->first->data, this->itemSize);
+        element = this->first->data;
 		this->first = nullptr;
 		this->last  = nullptr;
 
@@ -196,7 +200,8 @@ template<typename T> T LinkedList<T>::remove(int index)
 	else if(index == 0)
 	{
 		// Copy the data from first into the element variable.
-		memcpy(element, this->first->data, this->itemSize);
+	//	memcpy(static_cast<void *>(element), this->first->data, this->itemSize);
+        element = this->first->data;
 		
 		// Make first now point to the second element in the list.
 		this->first       = this->first->next;
@@ -210,8 +215,9 @@ template<typename T> T LinkedList<T>::remove(int index)
 	else if(index == this->size - 1)
 	{
 		// Copy the data from last into the element.
-		memcpy(element, this->last->data, this->itemSize);
-		
+		//memcpy(element, this->last->data, this->itemSize);
+		element = this->last->data;
+
 		// Make the new last reference the second to last element.
 		this->last       = this->last->prev;
 		this->last->next = nullptr;
@@ -231,7 +237,9 @@ template<typename T> T LinkedList<T>::remove(int index)
 			temp = temp->next;
 
 		// Copy the data value into the element variable.
-		memcpy(element, temp->data, this->itemSize);
+		//memcpy(element, temp->data, this->itemSize);
+
+        element = temp->data;
 
 		// Adjust next and prev references to remove the temp node reference from the list.
 		temp->prev->next = temp->next;
@@ -250,7 +258,7 @@ template<typename T> T LinkedList<T>::remove_first()
 {
 	if(this == nullptr)
 	{
-		return nullptr;
+		return NULL;
 	} else
 	{
 		return this->remove(0);
@@ -264,7 +272,7 @@ template<typename T> T LinkedList<T>::remove_last()
 {
 	if(this == nullptr)
 	{
-		return nullptr;
+		return NULL;
 	} else 
 	{
 		return this->remove(this->size - 1);
@@ -287,8 +295,8 @@ template<typename T> void LinkedList<T>::swap(int index1, int index2)
 	if(this == nullptr || index1 > this->size - 1 || index2 > this->size - 1)
 		return;
 
-	void* temp1 = remove(index1);
-	void* temp2 = remove(index2 - 1);
+	T temp1 = remove(index1);
+	T temp2 = remove(index2 - 1);
 
 	this->add_at(index1, temp2);
 	this->add_at(index2, temp1);
@@ -314,6 +322,8 @@ template<typename T> T LinkedList<T>::getLast() {
 template<typename T> int LinkedList<T>::getItemSize() {
     return this->itemSize;
 }
+
+template class LinkedList<int>;
 
 
 

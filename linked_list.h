@@ -20,7 +20,7 @@ template<typename T> class LinkedList
     };
 
 public:
-    LinkedList<T> (int);
+    LinkedList(int);
     bool 	      add_at(int, T);
     bool 	      add_first(T);
     bool	      add_last(T);
