@@ -9,7 +9,7 @@ int main(int argc, char** argv)
     LinkedList<int>* list = new LinkedList<int>(sizeof (int));
 
     list->add_first(0);
-    for(int i = 1; i < 99; i ++){
+    for(int i = 1; i < 99; i++){
         list->add_at(i,i);
     }
     list->add_last(99);
@@ -19,6 +19,17 @@ int main(int argc, char** argv)
     for (int i = 0; i < size; ++i) {
         int item = list->get(i);
         printf("%d\n", item);
+    }
+
+    int first = list->remove_first();
+    int last  = list->remove_last();
+    
+    printf("first %d\n", first);
+    printf("last %d\n", last);
+
+    for (int i = list->getSize()-1; i >=0; i--){
+        int element = list->remove(i);
+        printf("%d\n", element);
     }
 
 
