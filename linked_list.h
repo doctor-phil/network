@@ -41,5 +41,4 @@ private:
 	int   size;
 	int   itemSize;
 
-
 };
