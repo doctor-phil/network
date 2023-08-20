@@ -1,71 +1,61 @@
 /*
- * This file implements the functions decalred in the 
+ * This file implements the functions declared in the
  * linked_list.h header file - the behavior of a linked list data structure.
  */
 
 #include "linked_list.h"
+#include <string>
 
-LinkedList* linked_list_initialize(int item, char* name)
-{
-	LinkedList* list = (LinkedList*)malloc(sizeof(*list));
-	
-	if(list == NULL)
-		return NULL;
 
-	list->first    = NULL;
-	list->last     = NULL;
-	list->size     = 0;
-	list->itemSize = item;
-	list->typeName = (char*)malloc(strlen(name));
-
-	strcpy(list->typeName, name);
-
-	return list;
+template<typename T> LinkedList<T>::LinkedList(int item) {
+	this->first    = nullptr;
+	this->last     = nullptr;
+	this->size     = 0;
+	this->itemSize = item;
 }
 
-bool linked_list_add_at(LinkedList* list, int index, void* element)
-{
-	if(list == NULL || element == NULL)
+/*
+ * Adds the element parameter at the given index parameter to the list. True is returned
+ * if the element was successfully added to the list at the index.
+ */
+template<typename T> bool LinkedList<T>::add_at(int index, T element) {
+	if(this == nullptr)
 		return false;
 
-	if(index < 0 || index > list->size)
+	if(index < 0)
 		return false;
+
+    if(index > this->size)
+        return add_last(element);
 
 	Node* node = (Node*)malloc(sizeof(*node));
-	node->data = malloc(list->itemSize);
+//	node->data = malloc(this->itemSize);
 
-	memcpy(node->data, element, list->itemSize);
+//	memcpy(node->data, element, this->itemSize);
+    node->data = element;
 
-	if(list->size == 0)
-	{
-		list->first = node;
-		list->last  = node;
-		node->next  = NULL;
-		node->prev  = NULL;
-	}
+	if(this->size == 0)	{
+		this->first = node;
+		this->last  = node;
+		node->next  = nullptr;
+		node->prev  = nullptr;
 
-	else if(index == 0)
-	{
-		node->next        = list->first;
-		node->prev        = NULL;
-		list->first->prev = node;
-		list->first       = node;
-	}
+	} else if(index == 0)	{
+		node->next        = this->first;
+		node->prev        = nullptr;
+		this->first->prev = node;
+		this->first       = node;
 
-	else if(index == list->size)
-	{
-		node->prev       = list->last;
-		node->next       = NULL;
-		list->last->next = node;
-		list->last       = node;	
-	}
+	} else if(index == this->size) {
+		node->prev       = this->last;
+		node->next       = nullptr;
+		this->last->next = node;
+		this->last       = node;
 
-	else 
-	{
+	} else {
 		int i = 0;
-		Node* temp = list->first;
-		while(i < index)
-		{
+		Node* temp = this->first;
+		while(i < index) {
 			temp = temp->next;
 			i++;
 		}
@@ -76,59 +66,52 @@ bool linked_list_add_at(LinkedList* list, int index, void* element)
 		temp->prev       = node;
 	}
 
-	list->size++;
-	
+	this->size++;
 	return true;
 }
 
-bool linked_list_add_first(LinkedList* list, void* element)
-{
-	if(list == NULL || element == NULL)
-	{
+/*
+ * Adds the element parameter to be the first item in the list.
+ */
+template<typename T> bool LinkedList<T>::add_first(T element) {
+	if(this == nullptr)	{
 		return false;
-	}
-
-	else 
-	{
-		return linked_list_add_at(list,0,element);
+	} else {
+		return add_at(0,element);
 	}
 }
 
-bool linked_list_add_last(LinkedList* list, void* element)
-{
-	if(list == NULL || element == NULL)
-	{
-		return false;
-	}
-
-	else 
-	{
-		return linked_list_add_at(list, list->size, element);
+/*
+ * Adds the element parameter to the list such that it is the last item.
+ */
+template<typename T> bool LinkedList<T>::add_last(T element) {
+	if(this == nullptr) {
+        return false;
+    } else {
+		return add_at(this->size, element);
 	}
 
 }
 
-void* linked_list_get(LinkedList* list, int index)
-{
-	if(list == NULL)
+/*
+ * Returns the value stored at the index parameter. If the index is out of bounds
+ * then nullptr is returned.
+ */
+template<typename T> T LinkedList<T>::get(int index) {
+	if(this == nullptr)
 		return NULL;
 
-	if(index < 0 |index >= list->size)
+	if(index < 0 |index >= this->size)
 		return NULL;
 
-	if(index == 0)
-	{
-		return list->first->data;
-	}	
+	if(index == 0) {
+		return this->first->data;
 
-	else if(index == list->size)
-	{
-		return list->last->data;
-	}
+	} else if(index == this->size) {
+		return this->last->data;
 
-	else
-	{
-		Node* temp = list->first;
+	} else {
+		Node* temp = this->first;
 	
 		for(int i = 0; i < index; i++)
 			temp = temp->next;
@@ -137,16 +120,19 @@ void* linked_list_get(LinkedList* list, int index)
 	}
 }
 
-int linked_list_index_of(LinkedList* list, void* element)
-{
-	if(list == NULL || element == NULL)
+/*
+ * Returns the index of the first occurrence of the element parameter. If the element
+ * is not found, or if the element is a nullptr, then -1 is returned.
+ */
+template<typename T> int LinkedList<T>::index_of(T element) {
+	if(this == nullptr)
 		return -1;
 	
-	Node* temp = list->first;
+	Node* temp = this->first;
 
-	for(int i = 0; i < list->size; i++)
-	{
-		if(memcmp(temp->data, element, list->itemSize) == 0)
+	for(int i = 0; i < this->size; i++)	{
+	//	if(memcmp((temp->data), element, this->itemSize) == 0)
+        if(temp->data == element)
 			return i;
 
 		temp = temp->next;
@@ -156,135 +142,162 @@ int linked_list_index_of(LinkedList* list, void* element)
 }
 
 /*
- * The linked_list_remove function removes an element fron the linledlist struct
+ * The linked_list_remove function removes an element from the Linkedlist struct
  * at a specific index. The data value stored at this index is returned to the caller.
  */
-void* linked_list_remove(LinkedList* list, int index)
-{
+template<typename T> T LinkedList<T>::remove(int index){
+
 	// If the list is NULL or if the index is out of bounds, return immediately.
-	if(list == NULL || index < 0 || index >= list->size)
+	if(this == nullptr || index < 0 || index >= this->size)
 		return NULL;
 
 	// Allocate memory for the data value to be returned.
-	void* element = malloc(list->itemSize);
+	//void* element = malloc(this->itemSize);
+    T element = NULL;
 	
 	// If the list contains only 1 element.
-	if(list->size == 1)
-	{
+	if(this->size == 1)	{
 		// Copy the data from first element, make first and last references NULL.
-		memcpy(element,list->first->data, list->itemSize);
-		list->first = NULL;
-		list->last  = NULL;
+		//memcpy(static_cast<void *>(element),this->first->data, this->itemSize);
+        element = this->first->data;
+		this->first = nullptr;
+		this->last  = nullptr;
 
 		// Decrement the size of the list and return the element.
-		list->size--;
-
+		this->size--;
 		return element;
 	}
 	// Else if the list is greater than 1 element but the index is 0.
-	else if(index == 0)
-	{
+	else if(index == 0)	{
 		// Copy the data from first into the element variable.
-		memcpy(element, list->first->data, list->itemSize);
+	//	memcpy(static_cast<void *>(element), this->first->data, this->itemSize);
+        element = this->first->data;
 		
 		// Make first now point to the second element in the list.
-		list->first       = list->first->next;
-		list->first->prev = NULL;
+		this->first       = this->first->next;
+		this->first->prev = nullptr;
 
-		list->size--;
-
+		this->size--;
 		return element;
 	}
 	// Else if the index is the last element in the list.
-	else if(index == list->size - 1)
-	{
+	else if(index == this->size - 1) {
 		// Copy the data from last into the element.
-		memcpy(element, list->last->data, list->itemSize);
-		
+		//memcpy(element, this->last->data, this->itemSize);
+		element = this->last->data;
+
 		// Make the new last reference the second to last element.
-		list->last       = list->last->prev;
-		list->last->next = NULL;
+		this->last       = this->last->prev;
+		this->last->next = nullptr;
 	
-		list->size--;
+		this->size--;
 
 		return element;
 	}
 	// Else the element to remove is somewhere between the first and last element of the list.
-	else
-	{
+	else {
 		// Creating a local temporary Node reference to walk the list.
-		Node* temp = list->first;
+		Node* temp = this->first;
 
 		// For each Node in the list less that the index, walk Node reference through the list.
 		for(int i = 0; i < index; i++)
 			temp = temp->next;
 
 		// Copy the data value into the element variable.
-		memcpy(element, temp->data, list->itemSize);
+		//memcpy(element, temp->data, this->itemSize);
+
+        element = temp->data;
 
 		// Adjust next and prev references to remove the temp node reference from the list.
 		temp->prev->next = temp->next;
 		temp->next->prev = temp->prev;
 
-		list->size--;
+		this->size--;
 	
 		return element;
 	}
 }
 
 /*
- * The linked_list_remove_first funciton removes the first elemnt of the linkedlist struct.
+ * The linked_list_remove_first function removes the first element of the Linkedlist struct.
  */
-void* linked_list_remove_first(LinkedList* list)
-{
-	if(list == NULL)
-	{
+template<typename T> T LinkedList<T>::remove_first() {
+	if(this == nullptr)	{
 		return NULL;
-	} else
-	{
-		return linked_list_remove(list, 0);
-	}
-}
-
-/*
- * The linked_list_remove_last function removes the last element of the linkedlist struct.
- */
-void* linked_list_remove_last(LinkedList* list)
-{
-	if(list == NULL)
-	{
-		return NULL;
-	} else 
-	{
-		return linked_list_remove(list, list->size - 1);
-	}
-}
-
-/*
- * the linked_list_size returns the size of the linked list struct.
- */
-int linked_list_size(LinkedList* list)
-{
-	if(list == NULL)
-	{
-		return -1;
 	} else {
-		return list->size;
+		return this->remove(0);
 	}
 }
 
 /*
- * The linked_list_swap function swaps the elements in two specific indexes within the linkedlist struct.
+ * The remove_last function removes the last element of the linkedlist struct.
  */
-void linked_list_swap(LinkedList* list, int index1, int index2)
-{
-	// If the list variable is NULL, or if either index references are out of bounds, return immediately.
-	if(list == NULL || index1 > list->size - 1 || index2 > list->size - 1)
+template<typename T> T LinkedList<T>::remove_last() {
+	if(this == nullptr) {
+		return NULL;
+	} else {
+		return this->remove(this->size - 1);
+	}
+}
+
+/*
+ * The getSize returns the size of the linked list struct.
+ */
+template<typename T> int LinkedList<T>::getSize() {
+    return this->size;
+}
+
+/*
+ * The swap function swaps the elements in two specific indexes within the Linkedlist.
+ */
+template<typename T> void LinkedList<T>::swap(int index1, int index2) {
+	// If the list variable is nullptr, or if either indices are out of bounds, return immediately.
+	if(this == nullptr || index1 >= this->size || index2 >= this->size)
 		return;
 
-	void* temp1 = linked_list_remove(list,index1);
-	void* temp2 = linked_list_remove(list, index2 - 1);
+    if(index1 < 0 || index2 < 0)
+        return;
 
-	linked_list_add_at(list, index1, temp2);
-	linked_list_add_at(list, index2, temp1);
+	T temp1 = this->get(index1);
+	T temp2 = this->get(index2);
+
+    if(index1 > index2){
+        this->remove(index1);
+        this->remove(index2);
+        this->add_at(index2, temp1);
+        this->add_at(index1, temp2);
+    } else {
+        this->remove(index2);
+        this->remove(index1);
+        this->add_at(index1, temp2);
+        this->add_at(index2, temp1);
+    }
 }
+
+/*
+ * This function returns a pointer to the first in the list structure.
+ */
+template<typename T> T LinkedList<T>::getFirst() {
+    return this->first->data;
+}
+
+/*
+ * This function returns a pointer to the last node in the list structure.
+ */
+template<typename T> T LinkedList<T>::getLast() {
+    return this->last->data;
+}
+
+/*
+ * Returns the byte size of the item being stored in the list.
+ */
+template<typename T> int LinkedList<T>::getItemSize() {
+    return this->itemSize;
+}
+
+template class LinkedList<int>;
+template class LinkedList<char>;
+template class LinkedList<bool>;
+template class LinkedList<std::string>;
+template class LinkedList<float>;
+template class LinkedList<double>;

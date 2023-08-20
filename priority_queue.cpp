@@ -16,7 +16,7 @@
 #include "linked_list.h"
 #include <stdio.h>
 
-
+/*
 PriorityQueue* pQueue_initialize(int itemSize, char* typeName, int (*compareFunction)(void*,void*))
 {
 	PriorityQueue* pq = (PriorityQueue*)malloc(sizeof(*pq));
@@ -30,6 +30,7 @@ PriorityQueue* pQueue_initialize(int itemSize, char* typeName, int (*compareFunc
 	return pq;
 }
 
+
 bool pQueue_enqueue(PriorityQueue* pq, void* element)
 {
 	if(pq == NULL || element == NULL)
@@ -41,7 +42,8 @@ bool pQueue_enqueue(PriorityQueue* pq, void* element)
 
 	return result;
 }
-
+ */
+/*
 void* pQueue_dequeue(PriorityQueue* pq)
 {
 	if(pq == NULL)
@@ -100,3 +102,4 @@ void _pQueue_sort(PriorityQueue* pq)
 		}
 	}
 }
+*/

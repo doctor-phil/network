@@ -19,7 +19,7 @@
 
 typedef struct _DirectedGraph
 {
-	LinkedList* vertexList;
+	//LinkedList* vertexList;
 	int valueSize;
 	float** adjacencyMatrix;
 
@@ -30,8 +30,8 @@ int		    digraph_size(DirectedGraph*);
 Vertex*		    get_vertex(DirectedGraph*, void*);
 bool		    add_vertex(DirectedGraph*, void*);
 bool		    remove_vertex(DirectedGraph*, void*);
-LinkedList*	    get_vertices(DirectedGraph*);
-LinkedList*	    get_arcs(DirectedGraph*, void*);
+//LinkedList*	    get_vertices(DirectedGraph*);
+//LinkedList*	    get_arcs(DirectedGraph*, void*);
 bool		    add_arc(DirectedGraph*, void*, void*, float);
 bool		    remove_arc(DirectedGraph*, void*, void*);
 bool		    change_arc_weight(DirectedGraph*, void*, void*, float);
@@ -43,7 +43,7 @@ void		    buildTree(DirectedGraph*, void*);
 float		    get_arc_weight(DirectedGraph*, void*, void*);
 void		    reset_parent_links(DirectedGraph*);
 int		    compareVertex(void*, void*);
-LinkedList*	    dijkstra(DirectedGraph*, void*, void*);
+//LinkedList*	    dijkstra(DirectedGraph*, void*, void*);
 float**		    all_pairs_shortest_paths(DirectedGraph*);
 void		    create_adjacency_matrix(DirectedGraph*);
 float**		    get_adjacency_matrix(DirectedGraph*);

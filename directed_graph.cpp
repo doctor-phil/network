@@ -13,6 +13,7 @@
  * representation of the shortes path of any pair of vertices. Note: this matrix can be interpreted as the
  * shortest path from the i row vertex to the j column vertex and not vice versa. 
  */
+/*
 float** all_pairs_shortest_paths(DirectedGraph* graph)
 {
 	// If the graph parameter is NULL, immediately return NULL.
@@ -60,6 +61,7 @@ float** all_pairs_shortest_paths(DirectedGraph* graph)
  * dataTypeName represents the name of the data type being stored in the 
  * DirectedGraph structure. 
  */
+/*
 DirectedGraph* initialize_digraph(int dataSize, char* dataTypeName)
 {
 	DirectedGraph* graph = (DirectedGraph*)malloc(sizeof(*graph));
@@ -80,6 +82,7 @@ DirectedGraph* initialize_digraph(int dataSize, char* dataTypeName)
  * This function creates an adjacency matrix of the vertices in the DirectedGraph struct
  * and has the graph's adjacencyMatrix struct variable point to this allocated adjacency matrix.
  */
+/*
 void create_adjacency_matrix(DirectedGraph* graph)
 {
 	// If the graph parameter is NULL, return immediately.
@@ -130,6 +133,7 @@ void create_adjacency_matrix(DirectedGraph* graph)
  * If the graph parameter is NULL, NULL is returned. Otherwise the value stored in the graph's adjacency matrix
  * float pointer is returned.
  */
+/*
 float** get_adjacency_matrix(DirectedGraph* graph)
 {
 	// If the graph parameter is NULL, immediately return NULL.
@@ -143,7 +147,8 @@ float** get_adjacency_matrix(DirectedGraph* graph)
 /* 
  * Takes a Directed Graph pointer and if the Directed Graph pointer is not NULL, the number
  * if vertices in the Directed Graph struct is returned, otherwise -1 is returned.
- */ 
+ */
+/*
 int digraph_size(DirectedGraph* graph)
 {
 	if(graph == NULL)
@@ -159,7 +164,8 @@ int digraph_size(DirectedGraph* graph)
 /*
  * This function searches the Directed Graph for a vertex and, if it exists in the Directed Graph struct,
  * returns a pointer to that vertex, otherwise NULL is returned.
- */ 
+ */
+/*
 Vertex* get_vertex(DirectedGraph* graph, void* element)
 {
 	if(graph == NULL || element == NULL)
@@ -190,6 +196,7 @@ Vertex* get_vertex(DirectedGraph* graph, void* element)
  * True is returned if the vertex was successfully added to the Directed Graph. Otherwie false 
  * is returned.
  */
+/*
 bool add_vertex(DirectedGraph* graph, void* element)
 {
 	// If either parameter is NULL, return false.
@@ -206,6 +213,7 @@ bool add_vertex(DirectedGraph* graph, void* element)
 /*
  * The remove function removes a specific Vertex* pointer from the Directed Graph struct.
  */
+/*
 bool remove_vertex(DirectedGraph* graph, void* element)
 {
 	// If either parameter is NULL, return false.
@@ -256,6 +264,7 @@ bool remove_vertex(DirectedGraph* graph, void* element)
  * A DirectedGraph* struct pointer is returned with each vertex having an arc with its
  * noted weight to the corresponding vertex, as noted in the file.
  */
+/*
 DirectedGraph* create_digraph_from_file(char* fileName)
 {
 	FILE* fp = fopen(fileName, "r");
@@ -323,6 +332,7 @@ DirectedGraph* create_digraph_from_file(char* fileName)
 	// Return the pointer to the digraph struct.
 	return digraph;
 }
+*/
 
 /**
  * The float_arr_from_str function converts a string parameter to a float 
@@ -425,6 +435,7 @@ int value_count(char* buffer)
  * pointer to a data point to search for in the DirectedGraph. If the data point
  * is found true is returned, otherwise false is returned.
  */
+/*
 bool contains_vertex(DirectedGraph* digraph, void* vertex)
 {
 	// If digraph or vertex are NULL, return false.
@@ -453,6 +464,7 @@ bool contains_vertex(DirectedGraph* digraph, void* vertex)
 /*
  * This function returns the list of vertices within the Directed Graph struct.
  */
+/*
 LinkedList* get_vertices(DirectedGraph* graph)
 {
 	if(graph == NULL)
@@ -464,6 +476,7 @@ LinkedList* get_vertices(DirectedGraph* graph)
 /*
  * This function returns the list of arcs that the void* vertex points to.
  */
+/*
 LinkedList* get_arcs(DirectedGraph* graph, void* element)
 {
 	if(graph == NULL || element == NULL)
@@ -486,6 +499,7 @@ LinkedList* get_arcs(DirectedGraph* graph, void* element)
  * This function returns true if the arc between origin and destination was added
  * to the Directed Graph struct successfully, otherwise false is returned.
  */
+/*
 bool add_arc(DirectedGraph* graph, void* origin, void* destination, float cost)
 {
 	// If any one of the graph, origin, or destination parameter is NULL, return false.
@@ -504,6 +518,7 @@ bool add_arc(DirectedGraph* graph, void* origin, void* destination, float cost)
  * The remove arc function removes the arc in the specific DirectedGraph* struct pointer
  * that goes from the void* origin veretx to the void* destination vertex.
  */
+/*
 bool remove_arc(DirectedGraph* graph, void* origin, void* destination)
 {
 	if(graph == NULL || origin == NULL || destination == NULL)
@@ -514,12 +529,13 @@ bool remove_arc(DirectedGraph* graph, void* origin, void* destination)
 
 	return remove_vertex_arc(start, end);
 }
-
+*/
 /*
  * The change_arc_weight changes the weight of a specifc arc within the DirectedGraph* struct.
  * The specific arc's weight that is changed is the one from the void* origin vertex to the 
  * void* destination vertex.
  */
+/*
 bool change_arc_weight(DirectedGraph* graph, void* origin, void* destination, float cost)
 {
 	if(graph == NULL || origin == NULL || destination == NULL)
@@ -530,11 +546,12 @@ bool change_arc_weight(DirectedGraph* graph, void* origin, void* destination, fl
 	
 	return change_vertex_weight(start, end, cost);
 }
-
+*/
 /*
  * The get_arc_weight function returns the weight of the arc from the void* origin vertex to 
  * the void* destination vertex within the DirectedGraph* struct.
  */
+/*
 float get_arc_weight(DirectedGraph* graph, void* origin, void* destination)
 {
 	if(graph == NULL || origin == NULL || destination == NULL)
@@ -545,13 +562,14 @@ float get_arc_weight(DirectedGraph* graph, void* origin, void* destination)
 
 	return get_weight(start, end); 
 }
-
+*/
 /*
  * The connected_vertices_count function takes a DirectedGraph* struct pointer and a void* 
  * pointer to a vertex, calls a helper recursive function, resets all the vertices visited
  * field to false, and returns the count of the vertices traversable from the void* origin
  * vertex. 
  */
+/*
 int connected_vertices_count(DirectedGraph* graph, void* origin)
 {
 	if(graph == NULL || origin == NULL)
@@ -562,7 +580,7 @@ int connected_vertices_count(DirectedGraph* graph, void* origin)
 
 	return count;
 }
-
+*/
 /*
  * The _connected_vertices_count_recursive function takes a DirectedGraph* struct pointer 
  * and a void* origin pointer to a vertex. This function recursively visits each vertex 
@@ -570,6 +588,7 @@ int connected_vertices_count(DirectedGraph* graph, void* origin)
  * number of vertices. The count of the number of vertices visited is returned to the client.
  * If either parameter is NULL, -1 is returned.
  */
+/*
 int _connected_vertices_count_recursive(DirectedGraph* graph, void* origin)
 {
 	// If either parameter is NULL, return -1.
@@ -587,6 +606,7 @@ int _connected_vertices_count_recursive(DirectedGraph* graph, void* origin)
  		 * Set this start vertex visited flag to true, count assigned to 1, 
  		 * and retrieve the arc list of this vertex.
  		 */
+/*
 		set_visited(start, true);
 		count            = 1;
 		LinkedList* list = get_arc_list(start);  
@@ -619,6 +639,7 @@ int _connected_vertices_count_recursive(DirectedGraph* graph, void* origin)
  * all vertices can be visited is returned. If no such vertex exists, then NULL
  * is returned.
  */
+/*
 void* source_vertex(DirectedGraph* graph)
 {
 	if(graph == NULL)
@@ -656,6 +677,7 @@ void* source_vertex(DirectedGraph* graph)
  * The set_visited_field function changes the visited data member for all
  * vertex structs within the DirectedGraph* struct to the value of the bool parameter.
  */
+/*
 void set_visited_field(DirectedGraph* graph, bool value)
 {
 	// If the graph is null, immediately return.
@@ -677,6 +699,7 @@ void set_visited_field(DirectedGraph* graph, bool value)
  * The reset_parent_links function changes the parent reference of eac vertex struct
  * within the DirectedGraph* struct to NULL.
  */
+/*
 void reset_parent_links(DirectedGraph* graph)
 {
 	// If the graph parameter is NULL, immediately return.
@@ -717,6 +740,7 @@ int compareVertex(void* a, void* b)
  * assigning the parent data members for each vertex struct.
  * 
  */
+/*
 void buildTree(DirectedGraph* graph, void* origin)
 {
 	if(graph == NULL || origin == NULL)
@@ -778,6 +802,7 @@ void buildTree(DirectedGraph* graph, void* origin)
 				 * assign the parent value for this vertex and the vertex 
 				 * being dequeued, and enqueue this vertex. 
 				 */
+/*
 				set_vertex_distance(vtex, distance);
 				set_vertex_parent(vtex, v);
 				pQueue_enqueue(pq, vtex);
@@ -792,6 +817,7 @@ void buildTree(DirectedGraph* graph, void* origin)
  * of this shotest path is returned to the client. Note: the returned LinkedList* is linear 
  * from origin vertex to destination vertex.
  */
+/*
 LinkedList* dijkstra(DirectedGraph* graph, void* origin, void* destination)
 {
 	if(graph == NULL || origin == NULL || destination == NULL)
@@ -833,6 +859,7 @@ LinkedList* dijkstra(DirectedGraph* graph, void* origin, void* destination)
  * with the link FROM i TO j
  */
 
+/*
 std::ostream& operator<<(std::ostream& o, DirectedGraph& net)
 {
 	int link = 0;
@@ -851,4 +878,4 @@ std::ostream& operator<<(std::ostream& o, DirectedGraph& net)
 	}
 	return (o);
 }
-
+*/
