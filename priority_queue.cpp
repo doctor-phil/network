@@ -16,21 +16,14 @@
 #include "linked_list.h"
 #include <stdio.h>
 
-/*
-PriorityQueue* pQueue_initialize(int itemSize, char* typeName, int (*compareFunction)(void*,void*))
-{
-	PriorityQueue* pq = (PriorityQueue*)malloc(sizeof(*pq));
 
-	if(pq == NULL)
-		return NULL;
+template<typename T> PriorityQueue<T>::PriorityQueue(int itemSize, int (*compareFunction)(void*,void*)) {
 
-	pq->list    = linked_list_initialize(itemSize, typeName);
-	pq->compare = compareFunction;
-
-	return pq;
+	this->list    = LinkedList<T>(itemSize);
+	this->compare = compareFunction;
 }
 
-
+/*
 bool pQueue_enqueue(PriorityQueue* pq, void* element)
 {
 	if(pq == NULL || element == NULL)

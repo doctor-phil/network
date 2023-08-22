@@ -2,10 +2,28 @@
 #include "linked_list.h"
 //#include "priority_queue.h"
 //#include "directed_graph.h"
+#include <iostream>
+#include <string>
+
+class Animal{
+public:
+    Animal(std::string str){
+        this->name = str;
+    }
+
+    std::string getName(){
+        return this->name;
+    }
+private:
+    std::string name;
+};
+
 
 int main(int argc, char** argv)
 {
 
+
+/*
     LinkedList<int>* list = new LinkedList<int>(sizeof (int));
 
     list->add_first(0);
@@ -31,6 +49,7 @@ int main(int argc, char** argv)
         int element = list->remove(i);
         printf("%d\n", element);
     }
+*/
 
 
 	// Instantiating a DirectedGraph struct.
