@@ -2,7 +2,7 @@
  * This file implements the functions declared in the
  * linked_list.h header file - the behavior of a linked list data structure.
  */
-
+/*
 #include "linked_list.h"
 #include <string>
 
@@ -18,6 +18,7 @@ template<typename T> LinkedList<T>::LinkedList(int item) {
  * Adds the element parameter at the given index parameter to the list. True is returned
  * if the element was successfully added to the list at the index.
  */
+/*
 template<typename T> bool LinkedList<T>::add_at(int index, T element) {
 
 	if(index < 0)
@@ -72,6 +73,7 @@ template<typename T> bool LinkedList<T>::add_at(int index, T element) {
 /*
  * Adds the element parameter to be the first item in the list.
  */
+/*
 template<typename T> bool LinkedList<T>::add_first(T element) {
 		return add_at(0,element);
 }
@@ -79,6 +81,7 @@ template<typename T> bool LinkedList<T>::add_first(T element) {
 /*
  * Adds the element parameter to the list such that it is the last item.
  */
+/*
 template<typename T> bool LinkedList<T>::add_last(T element) {
 		return add_at(this->size, element);
 }
@@ -87,6 +90,7 @@ template<typename T> bool LinkedList<T>::add_last(T element) {
  * Returns the value stored at the index parameter. If the index is out of bounds
  * then nullptr is returned.
  */
+/*
 template<typename T> T LinkedList<T>::get(int index) {
 
 	if(index < 0 |index >= this->size)
@@ -112,6 +116,7 @@ template<typename T> T LinkedList<T>::get(int index) {
  * Returns the index of the first occurrence of the element parameter. If the element
  * is not found, or if the element is a nullptr, then -1 is returned.
  */
+/*
 template<typename T> int LinkedList<T>::index_of(T element) {
 	
 	Node* temp = this->first;
@@ -131,6 +136,7 @@ template<typename T> int LinkedList<T>::index_of(T element) {
  * The linked_list_remove function removes an element from the Linkedlist struct
  * at a specific index. The data value stored at this index is returned to the caller.
  */
+/*
 template<typename T> T LinkedList<T>::remove(int index){
 
 	// If the list is NULL or if the index is out of bounds, return immediately.
@@ -207,6 +213,7 @@ template<typename T> T LinkedList<T>::remove(int index){
 /*
  * The linked_list_remove_first function removes the first element of the Linkedlist struct.
  */
+/*
 template<typename T> T LinkedList<T>::remove_first() {
     return this->remove(0);
 }
@@ -214,6 +221,7 @@ template<typename T> T LinkedList<T>::remove_first() {
 /*
  * The remove_last function removes the last element of the linkedlist struct.
  */
+/*
 template<typename T> T LinkedList<T>::remove_last() {
     return this->remove(this->size - 1);
 }
@@ -221,6 +229,7 @@ template<typename T> T LinkedList<T>::remove_last() {
 /*
  * The getSize returns the size of the linked list struct.
  */
+/*
 template<typename T> int LinkedList<T>::getSize() {
     return this->size;
 }
@@ -228,6 +237,7 @@ template<typename T> int LinkedList<T>::getSize() {
 /*
  * The swap function swaps the elements in two specific indexes within the Linkedlist.
  */
+/*
 template<typename T> void LinkedList<T>::swap(int index1, int index2) {
 	// If either indices are out of bounds, return immediately.
 	if( index1 >= this->size || index2 >= this->size)
@@ -255,6 +265,7 @@ template<typename T> void LinkedList<T>::swap(int index1, int index2) {
 /*
  * This function returns a pointer to the first in the list structure.
  */
+/*
 template<typename T> T LinkedList<T>::getFirst() {
     return this->first->data;
 }
@@ -262,6 +273,7 @@ template<typename T> T LinkedList<T>::getFirst() {
 /*
  * This function returns a pointer to the last node in the list structure.
  */
+/*
 template<typename T> T LinkedList<T>::getLast() {
     return this->last->data;
 }
@@ -269,6 +281,7 @@ template<typename T> T LinkedList<T>::getLast() {
 /*
  * Returns the byte size of the item being stored in the list.
  */
+/*
 template<typename T> int LinkedList<T>::getItemSize() {
     return this->itemSize;
 }
@@ -279,3 +292,4 @@ template class LinkedList<bool>;
 template class LinkedList<std::string>;
 template class LinkedList<float>;
 template class LinkedList<double>;
+*/
