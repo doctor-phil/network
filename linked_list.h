@@ -124,9 +124,9 @@ template<typename T> T LinkedList<T>::get(int index) {
 }
 
 /*
-* Returns the index of the first occurrence of the element parameter. If the element
-* is not found, or if the element is a nullptr, then -1 is returned.
-*/
+ * Returns the index of the first occurrence of the element parameter. If the element
+ * is not found, or if the element is a nullptr, then -1 is returned.
+ */
 template<typename T> int LinkedList<T>::index_of(T element) {
 
     Node* temp = this->first;
@@ -175,7 +175,6 @@ template<typename T> T LinkedList<T>::remove(int index) {
         // Make the new last reference the second to last element.
         this->last       = this->last->prev;
         this->last->next = nullptr;
-
         this->size--;
 
         return element;
@@ -194,7 +193,6 @@ template<typename T> T LinkedList<T>::remove(int index) {
         // Adjust next and prev references to remove the temp node reference from the list.
         temp->prev->next = temp->next;
         temp->next->prev = temp->prev;
-
         this->size--;
 
         return element;
@@ -219,7 +217,8 @@ template<typename T> T LinkedList<T>::remove_last() {
  * The swap function swaps the elements in two specific indexes within the Linkedlist.
  */
 template< typename T> void LinkedList<T>::swap(int index1, int index2) {
-    // If the list variable is nullptr, or if either indices are out of bounds, return immediately.
+
+    // If either indices are out of bounds, return immediately.
     if(index1 >= this->size || index2 >= this->size)
         return;
 
