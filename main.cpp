@@ -26,13 +26,13 @@ int main(int argc, char** argv)
     Animal* b = new Animal("Scruffy");
     Animal* c = new Animal("Moe");
 
-    LinkedList<Animal*>* aList = new LinkedList<Animal*>(0);
+    LinkedList<Animal*>* aList = new LinkedList<Animal*>();
 
     aList->add_first(a);
     aList->add_last(c);
     aList->add_at(1,b);
 
-    LinkedList<int>* list = new LinkedList<int>(sizeof (int));
+    LinkedList<int>* list = new LinkedList<int>();
 
     list->add_first(0);
     for(int i = 1; i < 99; i++){
