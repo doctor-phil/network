@@ -16,12 +16,13 @@
 #include "linked_list.h"
 #include <stdio.h>
 
-
+/*
 template<typename T> PriorityQueue<T>::PriorityQueue(int itemSize, int (*compareFunction)(void*,void*)) {
 
 	this->list    = LinkedList<T>(itemSize);
 	this->compare = compareFunction;
 }
+ */
 
 /*
 bool pQueue_enqueue(PriorityQueue* pq, void* element)

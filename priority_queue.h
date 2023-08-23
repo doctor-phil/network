@@ -8,10 +8,11 @@
 #include <stdbool.h>
 #include "linked_list.h"
 
-template<typename T> class PriorityQueue
-{
+template<typename T> class PriorityQueue {
+    
 public:
-    PriorityQueue(int (*)(void*, void*));
+    PriorityQueue();
+    void setCompare(int (*)(void*, void*));
     bool enqueue(T);
     T dequeue();
     T peek();
@@ -24,9 +25,11 @@ private:
 	int(*compare)(void*, void*);
 };
 
-template<typename T> PriorityQueue<T>::PriorityQueue(int (*compareFunction)(void*,void*)) {
-
+template<typename T> PriorityQueue<T>::PriorityQueue() {
     this->list    = new LinkedList<T>();
+}
+
+template<typename T> void PriorityQueue<T>::setCompare(int (*compareFunction)(void*,void*)) {
     this->compare = compareFunction;
 }
 
