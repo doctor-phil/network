@@ -22,15 +22,56 @@ private:
 int main(int argc, char** argv)
 {
 
+    LinkedList<Animal*> AList = LinkedList<Animal*>();
+
     Animal* a = new Animal("Fluffy");
     Animal* b = new Animal("Scruffy");
     Animal* c = new Animal("Moe");
 
-    LinkedList<Animal*>* aList = new LinkedList<Animal*>();
+    AList.add_last(a);
+    AList.add_first(b);
+    AList.add_at(1,c);
 
-    aList->add_first(a);
-    aList->add_last(c);
-    aList->add_at(1,b);
+    for (int i = 0; i < AList.getSize(); ++i) {
+        Animal* x = AList.get(i);
+        std::cout << i << ": " << x->getName() << "\n";
+    }
+
+    Animal* d = AList.remove(1);
+    Animal* e = AList.remove_first();
+    Animal* f = AList.remove_last();
+
+    std::cout << "First: " << e->getName() << "\n";
+    std::cout << "Middle: " << d->getName() << "\n";
+    std::cout << "Last: " << f->getName() << "\n";
+
+    AList.add_last(a);
+    AList.add_first(b);
+    AList.add_at(1,c);
+
+    Animal* g = AList.getFirst();
+    Animal* h = AList.getLast();
+
+    std::cout << "First: " << g->getName() << "\n";
+    std::cout << "Last: " << h->getName() << "\n";
+
+    int aIdx = AList.index_of(a);
+    int bIdx = AList.index_of(b);
+    int cIdx = AList.index_of(c);
+
+    std::cout << "Index of Fluffy (expected 2): " << aIdx << "\n";
+    std::cout << "Index of Moe (expected 1): " << cIdx << "\n";
+    std::cout << "Index of Scruffy (expected 0): " << bIdx << "\n";
+
+    std::cout << "swapping 0 and 2\n";
+    AList.swap(0,2);
+    std::cout << "Index of Fluffy (expected 0): " << AList.index_of(a)<< "\n";
+    std::cout << "Index of Scruffy (expected 2): " << AList.index_of(b) << "\n";
+
+    std::cout << "swapping 0 and 2 ... again\n";
+    AList.swap(2,0);
+    std::cout << "Index of Fluffy (expected 2): " << AList.index_of(a)<< "\n";
+    std::cout << "Index of Scruffy (expected 0): " << AList.index_of(b) << "\n";
 
     LinkedList<int>* list = new LinkedList<int>();
 

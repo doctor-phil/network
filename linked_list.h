@@ -41,7 +41,6 @@ private:
     Node* first;
     Node* last;
     int   size;
-    int   itemSize;
 
 };
 
@@ -51,7 +50,7 @@ template<typename T> LinkedList<T>::LinkedList() {
     this->size     = 0;
 }
 
-template<typename T> bool LinkedList<T>::add_at(int index, T element){
+template<typename T> bool LinkedList<T>::add_at(int index, T element) {
 
     if(index < 0)
         return false;
@@ -68,7 +67,7 @@ template<typename T> bool LinkedList<T>::add_at(int index, T element){
         node->next  = nullptr;
         node->prev  = nullptr;
 
-    } else if(index == 0)	{
+    } else if(index == 0) {
         node->next        = this->first;
         node->prev        = nullptr;
         this->first->prev = node;
@@ -98,15 +97,15 @@ template<typename T> bool LinkedList<T>::add_at(int index, T element){
     return true;
 }
 
-template<typename T> bool LinkedList<T>::add_first(T element){
+template<typename T> bool LinkedList<T>::add_first(T element) {
     return add_at(0,element);
 }
 
-template<typename T> bool LinkedList<T>::add_last(T element){
+template<typename T> bool LinkedList<T>::add_last(T element) {
     return add_at(this->size, element);
 }
 
-template<typename T> T LinkedList<T>::get(int index){
+template<typename T> T LinkedList<T>::get(int index) {
 
     if (index == 0) {
         return this->first->data;
@@ -128,14 +127,14 @@ template<typename T> T LinkedList<T>::get(int index){
 * Returns the index of the first occurrence of the element parameter. If the element
 * is not found, or if the element is a nullptr, then -1 is returned.
 */
-template<typename T> int LinkedList<T>::index_of(T element){
+template<typename T> int LinkedList<T>::index_of(T element) {
 
     Node* temp = this->first;
 
     for(int i = 0; i < this->size; i++)	{
-        //	if(memcmp((temp->data), element, this->itemSize) == 0)
-        if(temp->data == element)
+        if(temp->data == element) {
             return i;
+        }
 
         temp = temp->next;
     }
@@ -143,7 +142,7 @@ template<typename T> int LinkedList<T>::index_of(T element){
     return -1;
 }
 
-template<typename T> T LinkedList<T>::remove(int index){
+template<typename T> T LinkedList<T>::remove(int index) {
 
     // If the list contains only 1 element.
     if(this->size == 1)	{
@@ -171,7 +170,6 @@ template<typename T> T LinkedList<T>::remove(int index){
         // Else if the index is the last element in the list.
     else if(index == this->size - 1) {
         // Copy the data from last into the element.
-        //memcpy(element, this->last->data, this->itemSize);
         T element = this->last->data;
 
         // Make the new last reference the second to last element.
@@ -204,23 +202,23 @@ template<typename T> T LinkedList<T>::remove(int index){
 }
 
 /*
-* The linked_list_remove_first function removes the first element of the Linkedlist struct.
-*/
+ * The linked_list_remove_first function removes the first element of the Linkedlist struct.
+ */
 template<typename T> T LinkedList<T>::remove_first() {
     return this->remove(0);
 }
 
 /*
-* The remove_last function removes the last element of the Linkedlist struct.
-*/
-template<typename T> T LinkedList<T>::remove_last(){
+ * The remove_last function removes the last element of the Linkedlist struct.
+ */
+template<typename T> T LinkedList<T>::remove_last() {
     return this->remove(this->size - 1);
 }
 
 /*
-* The swap function swaps the elements in two specific indexes within the Linkedlist.
-*/
-template< typename T> void LinkedList<T>::swap(int index1, int index2){
+ * The swap function swaps the elements in two specific indexes within the Linkedlist.
+ */
+template< typename T> void LinkedList<T>::swap(int index1, int index2) {
     // If the list variable is nullptr, or if either indices are out of bounds, return immediately.
     if(index1 >= this->size || index2 >= this->size)
         return;
@@ -245,19 +243,22 @@ template< typename T> void LinkedList<T>::swap(int index1, int index2){
 }
 
 /*
-* This function returns a pointer to the first in the list structure.
-*/
+ * This function returns a pointer to the first in the list structure.
+ */
 template<typename T> T LinkedList<T>::getFirst() {
     return this->first->data;
 }
 
 /*
-* This function returns a pointer to the last node in the list structure.
-*/
+ * This function returns a pointer to the last node in the list structure.
+ */
 template< typename T> T LinkedList<T>::getLast() {
     return this->last->data;
 }
 
+/*
+ * This function returns the size class data member.
+ */
 template<typename T> int LinkedList<T>::getSize() {
     return this->size;
 }
