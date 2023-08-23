@@ -9,7 +9,7 @@
 #include "linked_list.h"
 
 template<typename T> class PriorityQueue {
-    
+
 public:
     PriorityQueue();
     void setCompare(int (*)(void*, void*));
