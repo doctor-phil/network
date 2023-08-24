@@ -91,9 +91,9 @@ int main(int argc, char** argv)
     pq->enqueue(b);
     pq->enqueue(c);
     */
-    Animal* peeked = pq->peek();
+   // Animal* peeked = pq->peek();
 
-    std::cout <<"Peeked (expected Fluffy: " << peeked->getName();
+  //  std::cout <<"Peeked (expected Fluffy: " << peeked->getName();
 
 
     LinkedList<int>* list = new LinkedList<int>();
