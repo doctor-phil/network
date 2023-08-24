@@ -1,9 +1,10 @@
 #include <stdio.h>
 #include "linked_list.h"
-//#include "priority_queue.h"
+#include "priority_queue.h"
 //#include "directed_graph.h"
 #include <iostream>
 #include <string>
+#include <cstring>
 
 class Animal{
 public:
@@ -13,6 +14,10 @@ public:
 
     std::string getName(){
         return this->name;
+    }
+
+    int compare(Animal a){
+        return std::strcmp(this->name.c_str(), a.getName().c_str());
     }
 private:
     std::string name;
@@ -72,6 +77,24 @@ int main(int argc, char** argv)
     AList.swap(2,0);
     std::cout << "Index of Fluffy (expected 2): " << AList.index_of(a)<< "\n";
     std::cout << "Index of Scruffy (expected 0): " << AList.index_of(b) << "\n";
+
+    printf("\nPriority Queue Testing\n\n");
+
+    PriorityQueue<Animal*>* pq = new PriorityQueue<Animal*>();
+
+    // Need to determine how to compare objects.
+    // Override an operator? Do all primitives and std::string support operator < ?
+
+    /*
+    pq->setCompare();
+    pq->enqueue(a);
+    pq->enqueue(b);
+    pq->enqueue(c);
+    */
+    Animal* peeked = pq->peek();
+
+    std::cout <<"Peeked (expected Fluffy: " << peeked->getName();
+
 
     LinkedList<int>* list = new LinkedList<int>();
 

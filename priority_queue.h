@@ -46,8 +46,7 @@ template<typename T> T PriorityQueue<T>::dequeue() {
 }
 
 template< typename T> T PriorityQueue<T>::peek() {
-    int end = this->list->getSize() - 1;
-    return this->list->get(end);
+    return this->list->getLast();
 }
 
 template<typename T> int PriorityQueue<T>::getSize() {
