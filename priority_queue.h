@@ -8,12 +8,11 @@
 #include <stdbool.h>
 #include "linked_list.h"
 
-template<typename T> class PriorityQueue {
+template<typename T, typename K> class PriorityQueue {
 
 public:
     PriorityQueue();
-    void setCompare(int (*)(void*, void*));
-    bool enqueue(T);
+    bool enqueue(T, K);
     T dequeue();
     T peek();
     int getSize();
@@ -22,54 +21,53 @@ public:
 
 private:
 	LinkedList<T>* list;
-	int(*compare)(void*, void*);
+    LinkedList<K>* priorities;
 };
 
-template<typename T> PriorityQueue<T>::PriorityQueue() {
-    this->list    = new LinkedList<T>();
+template<typename T, typename K> PriorityQueue<T,K>::PriorityQueue() {
+    this->list       = new LinkedList<T>();
+    this->priorities = new LinkedList<K>();
 }
 
-template<typename T> void PriorityQueue<T>::setCompare(int (*compareFunction)(void*,void*)) {
-    this->compare = compareFunction;
-}
-
-template<typename T> bool PriorityQueue<T>::enqueue(T element)
+template<typename T, typename K> bool PriorityQueue<T, K>::enqueue(T element, K priority)
 {
     bool result = this->list->add_first(element);
+    this->priorities->add_first(priority);
     sort();
 
     return result;
 }
 
-template<typename T> T PriorityQueue<T>::dequeue() {
+template<typename T, typename K> T PriorityQueue<T, K>::dequeue() {
+    this->priorities->remove_last();
     return this->list->remove_last();
 }
 
-template< typename T> T PriorityQueue<T>::peek() {
+template<typename T, typename K> T PriorityQueue<T, K>::peek() {
     return this->list->getLast();
 }
 
-template<typename T> int PriorityQueue<T>::getSize() {
+template<typename T, typename K> int PriorityQueue<T, K>::getSize() {
     return this->list->getSize();
 }
 
-template<typename T> bool PriorityQueue<T>::contains(T element) {
+template<typename T, typename K> bool PriorityQueue<T, K>::contains(T element) {
     return -1 != this->list->index_of(element);
 }
 
-template<typename T> void PriorityQueue<T>::sort() {
+template<typename T, typename K> void PriorityQueue<T, K>::sort() {
     int size = this->list->getSize();
 
     for(int i = 0; i < size; i++) {
-        T outer = this->list->get(i);
+        K outer = this->priorities->get(i);
 
         for(int j = i + 1; j < size; j++) {
-            void* inner     = this->list->get(j);
-            int directional = this->compare(outer, inner);
+            K inner     = this->priorities->get(j);
 
             // If the items need to be swapped, call the swap LinkedList function.
-            if(directional < 0) {
+            if(inner > outer) {
                 this->list->swap(i, j);
+                this->priorities->swap(i,j);
             }
         }
     }

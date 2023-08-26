@@ -80,13 +80,12 @@ int main(int argc, char** argv)
 
     printf("\nPriority Queue Testing\n\n");
 
-    PriorityQueue<Animal*>* pq = new PriorityQueue<Animal*>();
+    PriorityQueue<Animal*, int>* pq = new PriorityQueue<Animal*, int>();
 
     // Need to determine how to compare objects.
     // Override an operator? Do all primitives and std::string support operator < ?
 
     /*
-    pq->setCompare();
     pq->enqueue(a);
     pq->enqueue(b);
     pq->enqueue(c);
