@@ -168,7 +168,8 @@ template<typename T> T LinkedList<T>::remove(int index) {
         return element;
     }
         // Else if the index is the last element in the list.
-    else if(index == this->size - 1) {
+    else if(index == this->size - 1) { 
+
         // Copy the data from last into the element.
         T element = this->last->data;
 
@@ -184,7 +185,7 @@ template<typename T> T LinkedList<T>::remove(int index) {
         // Creating a local temporary Node reference to walk the list.
         Node* temp = this->first;
 
-        // For each Node in the list less that the index, walk Node reference through the list.
+        // For each Node in the list less than the index, walk the list.
         for(int i = 0; i < index; i++)
             temp = temp->next;
 
