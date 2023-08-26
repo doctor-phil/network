@@ -7,7 +7,7 @@ COMPILER = g++
 CSTD = --std=c++17
 
 # Specifying the c files to compile with
-C_FILES = linked_list.cpp vertex.cpp priority_queue.cpp directed_graph.cpp
+C_FILES = vertex.cpp directed_graph.cpp
 
 # Specifying the header files to compile with
 H_FILES = linked_list.h vertex.h priority_queue.h directed_graph.h
