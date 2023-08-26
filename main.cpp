@@ -113,7 +113,13 @@ int main(int argc, char** argv)
 	pq->enqueue(ad, 2);
 	Animal* ae = new Animal("Becky");
 	pq->enqueue(ae, 2);
+
+	Animal* cd = new Animal("Larry");
+	Animal* mo = new Animal("Moe");
  
+	std::cout << "Contains Beth? expected true: " << pq->contains(ad) << "\n";
+	std::cout << "Contains Larry? epected false: " << pq->contains(cd) << "\n";
+	std::cout << "Contains a new Moe? epected false: " << pq->contains(mo) << "\n";
 	std::cout << "Dequeue (expected Jim) " << pq->dequeue()->getName()<< "\n";
 	std::cout << "Dequeue (expected Bob) "<< pq->dequeue()->getName()<< "\n";
 	std::cout << "Dequeue (expected Moe) " << pq->dequeue()->getName()<< "\n";

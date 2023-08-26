@@ -22,11 +22,12 @@ public:
     T peek();
     int getSize();
     bool contains(T);
-    void sort();
 
 private:
 	LinkedList<T>* list;
     LinkedList<K>* priorities;
+
+    void sort();
 };
 
 template<typename T, typename K> PriorityQueue<T,K>::PriorityQueue() {
