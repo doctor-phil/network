@@ -23,7 +23,6 @@ private:
     std::string name;
 };
 
-
 int main(int argc, char** argv)
 {
 
@@ -50,6 +49,10 @@ int main(int argc, char** argv)
     std::cout << "Middle: " << d->getName() << "\n";
     std::cout << "Last: " << f->getName() << "\n";
 
+///	delete d;
+//	delete e;
+//	delete f;
+
     AList.add_last(a);
     AList.add_first(b);
     AList.add_at(1,c);
@@ -60,13 +63,16 @@ int main(int argc, char** argv)
     std::cout << "First: " << g->getName() << "\n";
     std::cout << "Last: " << h->getName() << "\n";
 
+//	delete g;
+//	delete h;
+
     int aIdx = AList.index_of(a);
     int bIdx = AList.index_of(b);
     int cIdx = AList.index_of(c);
 
-    std::cout << "Index of Fluffy (expected 2): " << aIdx << "\n";
-    std::cout << "Index of Moe (expected 1): " << cIdx << "\n";
-    std::cout << "Index of Scruffy (expected 0): " << bIdx << "\n";
+ //   std::cout << "Index of Fluffy (expected 2): " << aIdx << "\n";
+ //   std::cout << "Index of Moe (expected 1): " << cIdx << "\n";
+ //   std::cout << "Index of Scruffy (expected 0): " << bIdx << "\n";
 
     std::cout << "swapping 0 and 2\n";
     AList.swap(0,2);
@@ -85,16 +91,39 @@ int main(int argc, char** argv)
     // Need to determine how to compare objects.
     // Override an operator? Do all primitives and std::string support operator < ?
 
-    /*
-    pq->enqueue(a);
-    pq->enqueue(b);
-    pq->enqueue(c);
-    */
-   // Animal* peeked = pq->peek();
+    
+    pq->enqueue(a, 0);
+	std::cout << "added " << a->getName() << "\n";
+	
+//	std::cout << "Animal peeked is (expected Fluffy): " << pq->peek()->getName() << "\n";
 
-  //  std::cout <<"Peeked (expected Fluffy: " << peeked->getName();
+    pq->enqueue(b, 1);
+	std::cout << "added " << b->getName() << "\n";
 
+//	std::cout << "Peeking after added Fluffy and Scruffy with priorities 0 and 1\n";
+//	std::cout << "Animal peeked is (expected Scruffy): " << pq->peek()->getName() << "\n";
 
+    pq->enqueue(c, 2);
+	std::cout << "added " << c->getName() << "\n";
+	Animal* ab = new Animal("Jim");
+	pq->enqueue(ab, 5);
+	Animal* ac = new Animal("Bob");
+	pq->enqueue(ac, 3);
+	Animal* ad = new Animal("Beth");
+	pq->enqueue(ad, 2);
+	Animal* ae = new Animal("Becky");
+	pq->enqueue(ae, 2);
+ 
+	std::cout << "Dequeue (expected Jim) " << pq->dequeue()->getName()<< "\n";
+	std::cout << "Dequeue (expected Bob) "<< pq->dequeue()->getName()<< "\n";
+	std::cout << "Dequeue (expected Moe) " << pq->dequeue()->getName()<< "\n";
+	std::cout << "Dequeue (expected(Beth) " << pq->dequeue()->getName()<< "\n";
+	std::cout << "Dequeue (expected Becky) " << pq->dequeue()->getName()<< "\n";
+	std::cout << "Dequeue (expected Scruffy) " << pq->dequeue()->getName()<< "\n";
+	std::cout << "Dequeue (expected Fluffy) " << pq->dequeue()->getName()<< "\n";
+	std::cout << "list size (expected 0): " << pq->getSize() << "\n";
+
+/*
     LinkedList<int>* list = new LinkedList<int>();
 
     list->add_first(0);
@@ -120,7 +149,7 @@ int main(int argc, char** argv)
         int element = list->remove(i);
         printf("%d\n", element);
     }
-
+*/
 
 
 	// Instantiating a DirectedGraph struct.
