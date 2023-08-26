@@ -1,5 +1,5 @@
 /*
- * This is a linked list data structure implementation. 
+ * This file implements a template linked list data structure.
  */
 
 #pragma once

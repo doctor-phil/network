@@ -1,5 +1,10 @@
 /*
- * This file provides the forward declarations for the priority_queue.c file.
+ * This file implementes a template Priority Queue data structure.
+ * The types accepted include type T, the elements to be stored in
+ * the structure and type K, the priority of the elements. 
+ * 
+ * Type K must implement the > operator, otherwise undfined 
+ * behavior results.
  */
 
 #pragma once
