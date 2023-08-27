@@ -16,7 +16,7 @@
 
 #define MAX FLT_MAX
 
-template<typename T> class DirectedGraph {
+template<typename T, typename K> class DirectedGraph {
 
 	class Vertex {
 
@@ -66,8 +66,8 @@ template<typename T> class DirectedGraph {
 		int getSize();
 		bool addVertex(T);
 		bool removeVertex(T);
-		LinkedList*	    get_vertices(DirectedGraph*);
-		LinkedList*	    get_arcs(DirectedGraph*, void*);
+		LinkedList<T>* getVertices();
+		LinkedList<T>*	    get_arcs(DirectedGraph*, void*);
 		bool		    add_arc(DirectedGraph*, void*, void*, float);
 		bool		    remove_arc(DirectedGraph*, void*, void*);
 		bool		    change_arc_weight(DirectedGraph*, void*, void*, float);
@@ -79,22 +79,21 @@ template<typename T> class DirectedGraph {
 		float		    get_arc_weight(DirectedGraph*, void*, void*);
 		void		    reset_parent_links(DirectedGraph*);
 		int		    compareVertex(void*, void*);
-		LinkedList*	    dijkstra(DirectedGraph*, void*, void*);
+		LinkedList<T>*	    dijkstra(DirectedGraph*, void*, void*);
 		float**		    all_pairs_shortest_paths(DirectedGraph*);
 		void		    create_adjacency_matrix(DirectedGraph*);
 		float**		    get_adjacency_matrix(DirectedGraph*);
 		bool 		    contains_vertex(DirectedGraph*, void*);
-		DirectedGraph*      create_digraph_from_file(char*);
+		DirectedGraph<T,K>*      create_digraph_from_file(char*);
 		float		    extract_value(int, int, char*);
 		float*		    float_arr_from_str(char*);
 		int		    value_count(char*);
 		std::ostream& 	    operator<<(std::ostream& o, DirectedGraph& net);
-	
+		
 	private:
 		LinkedList<T>* vertexList;
 		int valueSize;
 		float** adjacencyMatrix;
-
 		Vertex* getVertex(T);
 
 };
@@ -102,7 +101,7 @@ template<typename T> class DirectedGraph {
 /*
  * Constructs a Directed Graph object. 
  */
-template<typename T> DirectedGraph<T>::DirectedGraph(){
+template<typename T, typename K> DirectedGraph<T, K>::DirectedGraph(){
 	this->vertexList = new LinkedList<T>();
 	this->adjacencyMatrix = nullptr;
 }
@@ -110,7 +109,7 @@ template<typename T> DirectedGraph<T>::DirectedGraph(){
 /* 
  * Returns the number of vertices in the Directed Graph.
  */
-template<typename T> int DirectedGraph<T>::getSize(){
+template<typename T, typename K> int DirectedGraph<T, K>::getSize(){
 	return this->vertexList->getSize();
 }
 
@@ -118,7 +117,7 @@ template<typename T> int DirectedGraph<T>::getSize(){
  * Searches the Directed Graph for a vertex that contains the value parameter.
  * A pointer to that vertex is returned if found, otherwise nullptr is returned.
  */
-template<typename T> Vertex* getVertex(T value) {
+template<typename T, typename K> Vertex* DirectedGraph<T, K>::getVertex(T value){
 	if(value == nullptr)
 		return nullptr;
 
@@ -145,7 +144,7 @@ template<typename T> Vertex* getVertex(T value) {
  * True is returned if the vertex was successfully added to the Directed Graph. Otherwie false 
  * is returned.
  */
-template<typename T> bool DirectedGraph<T>::addVertex(T element){
+template<typename T, typename K> bool DirectedGraph<T, K>::addVertex(T element){
 	// If either parameter is NULL, return false.
 	if(element == nullptr)
 		return false;
@@ -161,7 +160,7 @@ template<typename T> bool DirectedGraph<T>::addVertex(T element){
  * The remove function removes a specific Vertex containing the 
  element parameter from the Directed Graph, if found.
  */
-template<typename T> bool DirectedGraph<T>::removeVertex(T element){
+template<typename T, typename K> bool DirectedGraph<T, K>::removeVertex(T element){
 	// If element is a nullptr return false.
 	if(element == nullptr)
 		return false;
@@ -184,4 +183,11 @@ template<typename T> bool DirectedGraph<T>::removeVertex(T element){
 	}
 
 	return false;
+}
+
+/*
+ * Returns the list of vertices in the Directed Graph.
+ */
+template<typename T, typename K> LinkedList<T>* DirectedGraph<T, K>::getVertices(){
+	return this->vertexList;
 }
