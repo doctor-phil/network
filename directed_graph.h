@@ -64,8 +64,7 @@ template<typename T> class DirectedGraph {
 	public:
 		DirectedGraph();
 		int getSize();
-		Vertex* getVertex(T);
-		bool		    add_vertex(DirectedGraph*, void*);
+		bool addVertex(T);
 		bool		    remove_vertex(DirectedGraph*, void*);
 		LinkedList*	    get_vertices(DirectedGraph*);
 		LinkedList*	    get_arcs(DirectedGraph*, void*);
@@ -96,16 +95,29 @@ template<typename T> class DirectedGraph {
 		int valueSize;
 		float** adjacencyMatrix;
 
+		Vertex* getVertex(T);
+
 };
 
+/*
+ * Constructs a Directed Graph object. 
+ */
 template<typename T> DirectedGraph<T>::DirectedGraph(){
 	this->vertexList = new LinkedList<T>();
 	this->adjacencyMatrix = nullptr;
 }
+
+/* 
+ * Returns the number of vertices in the Directed Graph.
+ */
 template<typename T> int DirectedGraph<T>::getSize(){
 	return this->vertexList->getSize();
 }
 
+/*
+ * Searches the Directed Graph for a vertex that contains the value parameter.
+ * A pointer to that vertex is returned if found, otherwise nullptr is returned.
+ */
 template<typename T> Vertex* getVertex(T value) {
 	if(value == nullptr)
 		return nullptr;
@@ -119,14 +131,30 @@ template<typename T> Vertex* getVertex(T value) {
 		Vertex* v = this->vertexList->get(i);
 
 		// If the data fieled variable in the vertex is equal to the element parameter. 
-		if(v->data == value)	{
+		if(v->data == value) {
 			// Return this vertex pointer.
 			return v;
 		}
 	}
 
-	return NULL;
+	return nullptr;
+}
 
+/*
+ * The add vertex function creates a Vertex* pointer and adds it to the Directed Graph struct.
+ * True is returned if the vertex was successfully added to the Directed Graph. Otherwie false 
+ * is returned.
+ */
+template<typename T> bool DirectedGraph<T>::addVertex(T element){
+	// If either parameter is NULL, return false.
+	if(element == nullptr)
+		return false;
+
+	// Instantiate a Vertex struct while passing in the element parameter.
+	Vertex* v = create_vertex(element);
+
+	// Return the call to linkedlist add last function while passing in Directed Graph's vertex list and the instantiated vertex.
+	return	this->vertexList->addLast(v);
 }
 
 
