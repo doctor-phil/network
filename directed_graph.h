@@ -64,7 +64,7 @@ template<typename T> class DirectedGraph {
 	public:
 		DirectedGraph();
 		int getSize();
-		Vertex*		    get_vertex(DirectedGraph*, void*);
+		Vertex* getVertex(T);
 		bool		    add_vertex(DirectedGraph*, void*);
 		bool		    remove_vertex(DirectedGraph*, void*);
 		LinkedList*	    get_vertices(DirectedGraph*);
@@ -100,8 +100,32 @@ template<typename T> class DirectedGraph {
 
 template<typename T> DirectedGraph<T>::DirectedGraph(){
 	this->vertexList = new LinkedList<T>();
+	this->adjacencyMatrix = nullptr;
 }
 template<typename T> int DirectedGraph<T>::getSize(){
+	return this->vertexList->getSize();
+}
+
+template<typename T> Vertex* getVertex(T value) {
+	if(value == nullptr)
+		return nullptr;
+
+	int size = this->vertexList->getSize();
+	
+	// For each vertex in the vertex list.
+	for(int i = 0; i < size; i++) {
+
+		// Retrieve the vertex at index i in the vertex list.
+		Vertex* v = this->vertexList->get(i);
+
+		// If the data fieled variable in the vertex is equal to the element parameter. 
+		if(v->data == value)	{
+			// Return this vertex pointer.
+			return v;
+		}
+	}
+
+	return NULL;
 
 }
 
