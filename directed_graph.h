@@ -65,7 +65,7 @@ template<typename T> class DirectedGraph {
 		DirectedGraph();
 		int getSize();
 		bool addVertex(T);
-		bool		    remove_vertex(DirectedGraph*, void*);
+		bool removeVertex(T);
 		LinkedList*	    get_vertices(DirectedGraph*);
 		LinkedList*	    get_arcs(DirectedGraph*, void*);
 		bool		    add_arc(DirectedGraph*, void*, void*, float);
@@ -157,4 +157,31 @@ template<typename T> bool DirectedGraph<T>::addVertex(T element){
 	return	this->vertexList->addLast(v);
 }
 
+/*
+ * The remove function removes a specific Vertex containing the 
+ element parameter from the Directed Graph, if found.
+ */
+template<typename T> bool DirectedGraph<T>::removeVertex(T element){
+	// If element is a nullptr return false.
+	if(element == nullptr)
+		return false;
+	
+	// Store vertex list's current size in a local variable.	
+	int prevSize = this->vertexList->getSize();
 
+	// For each vertex in the vertex list.
+	for(int i = 0; i < prevSize; i++) {
+
+		// Retrieve the vertex in the vertex list at index i.
+		Vertex* v = this->vertexList->get(i);
+
+		// If this vertex is equivalent to the element parameter		
+		if(v->data == element) {
+			// Remove this vertex from the vertex list and break from loop.
+			this->vertexList->remove(i);
+			return true;
+		}
+	}
+
+	return false;
+}
