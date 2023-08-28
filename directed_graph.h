@@ -66,9 +66,8 @@ template<typename T, typename K> class DirectedGraph {
 		int getSize();
 		bool addVertex(T);
 		bool removeVertex(T);
-		LinkedList<T>* getVertices();
 		LinkedList<T>*	    get_arcs(DirectedGraph*, void*);
-		bool		    add_arc(DirectedGraph*, void*, void*, float);
+		bool addArc(T, T, K);
 		bool		    remove_arc(DirectedGraph*, void*, void*);
 		bool		    change_arc_weight(DirectedGraph*, void*, void*, float);
 		int 		    connected_vertices_count(DirectedGraph*, void*);
@@ -95,6 +94,7 @@ template<typename T, typename K> class DirectedGraph {
 		int valueSize;
 		float** adjacencyMatrix;
 		Vertex* getVertex(T);
+		LinkedList<T>* getVertices();
 
 };
 
@@ -117,7 +117,7 @@ template<typename T, typename K> int DirectedGraph<T, K>::getSize(){
  * Searches the Directed Graph for a vertex that contains the value parameter.
  * A pointer to that vertex is returned if found, otherwise nullptr is returned.
  */
-template<typename T, typename K> Vertex* DirectedGraph<T, K>::getVertex(T value){
+template<typename T, typename K>  Vertex* DirectedGraph<T, K>::getVertex(T value){
 	if(value == nullptr)
 		return nullptr;
 
@@ -191,3 +191,25 @@ template<typename T, typename K> bool DirectedGraph<T, K>::removeVertex(T elemen
 template<typename T, typename K> LinkedList<T>* DirectedGraph<T, K>::getVertices(){
 	return this->vertexList;
 }
+
+/*
+ * The add arc function takes a DirectedGraph* struct pointer, a void* pointer to 
+ * the origin vertex, a void* pointer to the destination vertex, and a float value
+ * representing the weight of the arc. The function then creates an arc from the
+ * origin vertex to the destination vertex with the appropriate weight assigned.
+ * This function returns true if the arc between origin and destination was added
+ * to the Directed Graph struct successfully, otherwise false is returned.
+ */
+template<typename T, typename K> bool DirectedGraph<T,K>::addArc(T origin, T destination, K cost) {
+
+	// If either origin or destination parameter is nullptr, return false.
+	if(origin == nullptr || destination == nullptr)
+		return false;
+
+	// Otherwise retrieve the Vertices associated with the origin and destination parameters.
+	Vertex* start = get_vertex(graph, origin);
+	Vertex* end   = get_vertex(graph, destination);
+
+	// Return the call to add vertex arc function with the two vertices and the arc weight.
+	return add_vertex_arc(start, end, cost);
+} 
