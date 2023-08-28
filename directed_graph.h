@@ -19,53 +19,94 @@
 template<typename T, typename K> class DirectedGraph {
 
 	class Vertex {
-
 		public: 
-			Vertex Vertex(T data){
+			Vertex(T data){
 				this->data = data;
 				this->arcList = new LinkedList<Arc*>();
+				this->visited = false;
+				this->distance = 0;
+				this->parent = nullptr;
 			}
 
-			bool        add_vertex_arc(Vertex*, Vertex*, float);
-			bool        remove_vertex_arc(Vertex*, Vertex*);
-			void*       get_data(Vertex*);
-			LinkedList<T>* get_arc_list(Vertex*);
-			bool	    been_visited(Vertex*);
-			void        set_visited(Vertex*, bool);
-			float       get_weight(Vertex*, Vertex*);
-			bool	    change_vertex_weight(Vertex*, Vertex*, float);
-			void	    set_vertex_distance(Vertex*, float);	
-			float	    get_vertex_distance(Vertex*);
-			void	    set_vertex_parent(Vertex*, Vertex*);
-			Vertex*	    get_vertex_parent(Vertex*);
-			bool	    has_arc_to_vertex(Vertex*, Vertex*);
+			bool addArc(Vertex* v, K weight) {
 
-		LinkedList<Arc*>* arcList;
-		T data;
-		bool visited;
-		float distance;
-		Vertex* parent;
+			}
+
+			bool removeArc(Vertex* v){
+
+			}
+
+			T getData() {
+				return this->data;
+			}
+
+			LinkedList<T>* get_arc_list(Vertex*);
+
+			bool getVisited() {
+				return this->visited;
+			}
+
+			void setVisited(bool visit) {
+				this->visited = visit;
+			}
+
+			float       getWeight(Vertex*, Vertex*);
+			bool	    change_vertex_weight(Vertex*, Vertex*, float);
+
+			void setDistance(K distance) {
+				this->distance = distance;
+			}	
+
+			K getDistance() {
+				return this->distance;
+			}
+
+			void setParent(Vertex* v) {
+				this->parent = v;
+			}
+
+			Vertex* getParent() {
+				return this->parent;
+			}
+			
+			bool hasArc(Vertex* v) {
+
+			}
 
 		private:
-
+			LinkedList<Arc*>* arcList;
+			T data;
+			bool visited;
+			K distance;
+			Vertex* parent;
 	};
 
 	class Arc {
 		public:
-			Arc Arc(Vertex* vertex, K weight) {
+			Arc(Vertex* vertex, K weight) {
 				this->vertex = vertex;
 				this->weight = weight;
 			}
 
-			void        set_arc_weight(Arc*, float);
-			void        set_vertex(Arc*, Vertex*);
-			float       _get_arc_weight(Arc*);
-			Vertex*     get_arc_vertex(Arc*);
-		
-		Vertex* vertex;
-		K weight;
+			void setWeight(K weight) {
+				this->weight = weight;
+			}
 
+			void setVertex(Vertex* vertex){
+				this->vertex = vertex;
+			}
+
+			K getWeight(){
+				return this->weight;
+			}
+
+			Vertex* getVertex() {
+				return this->vertex;
+			}
+		
 		private:
+			Vertex* vertex;
+			K weight;
 
 	};
 
