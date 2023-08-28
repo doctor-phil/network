@@ -71,7 +71,9 @@ template<typename T, typename K> class DirectedGraph {
 				return this->data;
 			}
 
-			LinkedList<T>* get_arc_list(Vertex*);
+			LinkedList<Arc*>* get_arc_list() {
+				return this->arcList;
+			}
 
 			bool getVisited() {
 				return this->visited;
@@ -81,8 +83,40 @@ template<typename T, typename K> class DirectedGraph {
 				this->visited = visit;
 			}
 
-			float       getWeight(Vertex*, Vertex*);
-			bool	    change_vertex_weight(Vertex*, Vertex*, float);
+			K getWeight(Vertex* destination) {
+				if(destination == nullptr)
+					return -1;
+
+				for(int i = 0; i < this->arcList->getSize(); i++) {
+					Arc* arc = this->arcList->get(i);
+					
+					// If the destination vertex is found in this vertex's arc list.	
+					// MAY NEED TO COMPARE THE VERTICES AND NOT THE DATA BASED ON MEMORY ADDRESS	
+					if(this->data == destination->data) {
+						return arc->weight;
+					}
+				}
+				
+				return -1;
+			}
+
+			bool changeWeight(Vertex* destination, K weight) {
+				if(destination == nullptr)
+					return false;
+
+				for(int i = 0; i < this->arcList->getSize(); i++) {
+					Arc* arc  = this->arcList->get(i);
+
+					// If this arc's vertex is equal to the destination vertex
+					// MAY NEED TO COMPARE THE VERTICES AND NOT THE DATA BASED ON MEMORY ADDRESS
+					if(destination->data == arc->vertex->data) {
+						arc->setWeight(weight);
+						return true;
+					}
+				}
+
+				return false;
+			}
 
 			void setDistance(K distance) {
 				this->distance = distance;
