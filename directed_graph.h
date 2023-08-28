@@ -28,12 +28,43 @@ template<typename T, typename K> class DirectedGraph {
 				this->parent = nullptr;
 			}
 
-			bool addArc(Vertex* v, K weight) {
+			bool addArc(Vertex* destination, K weight) {
+					if(destination == nullptr)
+						return false;
 
+				Arc* arc = new Arc(destination, price);
+
+				int prevSize = this->arcList->getSize();
+				
+				this->arcList->add_last(arc);	
+
+				if(this->arcList->getSize() - prevSize == 1) {
+					return true;
+				} else {
+					return false;
+				}
 			}
 
-			bool removeArc(Vertex* v){
+			bool removeArc(Vertex* destination){
+				if(destination == nullptr)
+					return false;
+				
+				int prevSize = this->arcList->getSize();
 
+				for(int i = 0; i < prevSize; i++) {
+					Arc* arc = this->arcList->get(i);
+
+					if(arc->vertex->data == destination->data) {
+						this->arcList->remove(i);
+						break;
+					}
+				}
+
+				if(prevSize - this->arcList->getSize() == 1) {
+					return true;
+				} else {
+					return false;
+				}
 			}
 
 			T getData() {
