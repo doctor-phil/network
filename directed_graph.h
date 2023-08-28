@@ -28,6 +28,10 @@ template<typename T, typename K> class DirectedGraph {
 				this->parent = nullptr;
 			}
 
+			/*
+			 * This function adds an arc struct going from the Vertex* origin parameter
+			 * to the Vertex* dest parameter with a weight of the float price parameter.   
+			 */
 			bool addArc(Vertex* destination, K weight) {
 					if(destination == nullptr)
 						return false;
@@ -83,6 +87,11 @@ template<typename T, typename K> class DirectedGraph {
 				this->visited = visit;
 			}
 
+			/*
+			 * The get_weight function takes a Vertex* origin vertex that goes to the 
+			 * Vertex* destination vertex parameter and returns the weight of that arc 
+			 * if such an arc exists. -1 is returned if no such arc exists.
+			 */
 			K getWeight(Vertex* destination) {
 				if(destination == nullptr)
 					return -1;
@@ -100,6 +109,11 @@ template<typename T, typename K> class DirectedGraph {
 				return -1;
 			}
 
+			/*
+ 			 * The change_vertex_weight function takes an origin and destination Vertex* and changes the
+			 * weight associated with the arc from the origin vertex to the destination vertex to the
+			 * value of the cost parameter. 
+			 */
 			bool changeWeight(Vertex* destination, K weight) {
 				if(destination == nullptr)
 					return false;
@@ -172,7 +186,6 @@ template<typename T, typename K> class DirectedGraph {
 		private:
 			Vertex* vertex;
 			K weight;
-
 	};
 
 	public:
