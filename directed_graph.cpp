@@ -722,6 +722,7 @@ void reset_parent_links(DirectedGraph* graph)
  * accepts two vertex* structs as void*, casts them to Vertex*,
  * and compares them based on their distance data member.
  */
+/*
 int compareVertex(void* a, void* b)
 {
 	if(a == NULL || b == NULL)
@@ -733,7 +734,7 @@ int compareVertex(void* a, void* b)
 
 	return (int) v1->distance - v2->distance;
 }
-
+*/
 /*
  * This buildTree funciton implements dijkstra's algorithm. It takes a DirectedGraph* struct
  * pointer and a void* origin vertex struct pointer, then creates a shotest path list by

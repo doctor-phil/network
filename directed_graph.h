@@ -11,7 +11,7 @@
 #include <string.h>
 #include <float.h>
 #include "linked_list.h"
-#include "vertex.h"
+//#include "vertex.h"
 #include "priority_queue.h"
 
 #define MAX FLT_MAX
@@ -21,7 +21,11 @@ template<typename T, typename K> class DirectedGraph {
 	class Vertex {
 
 		public: 
-			Vertex*     create_vertex(void*);
+			Vertex Vertex(T data){
+				this->data = data;
+				this->arcList = new LinkedList<Arc*>();
+			}
+
 			bool        add_vertex_arc(Vertex*, Vertex*, float);
 			bool        remove_vertex_arc(Vertex*, Vertex*);
 			void*       get_data(Vertex*);
@@ -36,7 +40,7 @@ template<typename T, typename K> class DirectedGraph {
 			Vertex*	    get_vertex_parent(Vertex*);
 			bool	    has_arc_to_vertex(Vertex*, Vertex*);
 
-		LinkedList<T>* arcList;
+		LinkedList<Arc*>* arcList;
 		T data;
 		bool visited;
 		float distance;
@@ -48,14 +52,18 @@ template<typename T, typename K> class DirectedGraph {
 
 	class Arc {
 		public:
-			Arc*        create_arc(Vertex*, float);
+			Arc Arc(Vertex* vertex, K weight) {
+				this->vertex = vertex;
+				this->weight = weight;
+			}
+
 			void        set_arc_weight(Arc*, float);
 			void        set_vertex(Arc*, Vertex*);
 			float       _get_arc_weight(Arc*);
 			Vertex*     get_arc_vertex(Arc*);
 		
 		Vertex* vertex;
-		float weight;
+		K weight;
 
 		private:
 
