@@ -200,7 +200,7 @@ template<typename T, typename K> class DirectedGraph {
 		int 		    connected_vertices_count(DirectedGraph*, void*);
 		int		    _connected_vertices_count_recursive(DirectedGraph*, void*);
 		void*		    source_vertex(DirectedGraph*);
-		void		    set_visited_field(DirectedGraph*, bool);
+		void setVisitedField(bool);
 		void		    buildTree(DirectedGraph*, void*);
 		float		    get_arc_weight(DirectedGraph*, void*, void*);
 		void		    reset_parent_links(DirectedGraph*);
@@ -352,4 +352,18 @@ template<typename T, typename K> bool DirectedGraph<T,K>::removeArc(T origin, T 
 
 	Vertex* start = getVertex(origin);
 	return start->removeArc(destination);
+}
+
+/*
+ * The set_visited_field function changes the visited data member for all
+ * vertex structs within the DirectedGraph* struct to the value of the bool parameter.
+ */
+template<typename T, typename K> void DirectedGraph<T, K>::setVisitedField(bool value) {
+
+	// For each vertex in the Directed Graph's vertex list.
+	for(int i = 0; i < this->vertexList; i++) {
+		// Retrieve the vertex struct at index i.
+		Vertex* v  = this->vertexList->get(i);
+		v->setVisited(value);
+	}
 }
