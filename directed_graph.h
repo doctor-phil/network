@@ -36,7 +36,7 @@ template<typename T, typename K> class DirectedGraph {
 					if(destination == nullptr)
 						return false;
 
-				Arc* arc = new Arc(destination, price);
+				Arc* arc = new Arc(destination, weight);
 
 				int prevSize = this->arcList->getSize();
 				
@@ -214,7 +214,7 @@ template<typename T, typename K> class DirectedGraph {
 		float		    extract_value(int, int, char*);
 		float*		    float_arr_from_str(char*);
 		int		    value_count(char*);
-		std::ostream& 	    operator<<(std::ostream& o, DirectedGraph& net);
+		//std::ostream& 	    operator<<(std::ostream& o, DirectedGraph& net);
 		
 	private:
 		LinkedList<T>* vertexList;
@@ -334,11 +334,11 @@ template<typename T, typename K> bool DirectedGraph<T,K>::addArc(T origin, T des
 		return false;
 
 	// Otherwise retrieve the Vertices associated with the origin and destination parameters.
-	Vertex* start = get_vertex(graph, origin);
-	Vertex* end   = get_vertex(graph, destination);
+	Vertex* start = getVertex(origin);
+	Vertex* end   = getVertex(destination);
 
 	// Return the call to add vertex arc function with the two vertices and the arc weight.
-	return add_vertex_arc(start, end, cost);
+	return start->addArc(end, cost);
 } 
 
 
