@@ -1,6 +1,6 @@
 /*
- * This is a direcected graph header file - providing the forward declarations
- * for the directed_graph.c file.
+ * This file provides the declaration and implementation of the
+ digraph template class.
  */
 
 #pragma once
@@ -195,7 +195,7 @@ template<typename T, typename K> class DirectedGraph {
 		bool removeVertex(T);
 		LinkedList<T>*	    get_arcs(DirectedGraph*, void*);
 		bool addArc(T, T, K);
-		bool		    remove_arc(DirectedGraph*, void*, void*);
+		bool removeArc(T, T);
 		bool		    change_arc_weight(DirectedGraph*, void*, void*, float);
 		int 		    connected_vertices_count(DirectedGraph*, void*);
 		int		    _connected_vertices_count_recursive(DirectedGraph*, void*);
@@ -340,3 +340,16 @@ template<typename T, typename K> bool DirectedGraph<T,K>::addArc(T origin, T des
 	// Return the call to add vertex arc function with the two vertices and the arc weight.
 	return add_vertex_arc(start, end, cost);
 } 
+
+
+/*
+ * The remove arc function removes the arc from the origin veretx to the destination vertex
+ * parameters.
+ */
+template<typename T, typename K> bool DirectedGraph<T,K>::removeArc(T origin, T destination) {
+	if(origin == nullptr || destination == nullptr)
+		return false;
+
+	Vertex* start = getVertex(origin);
+	return start->removeArc(destination);
+}

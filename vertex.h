@@ -2,7 +2,7 @@
 
  * This vertex.h file provides the forward declarations for the vertex.c file.
  */ 
-
+/*
 #ifndef __VERTEX_HEADER
 #define __VERTEX_HEADER
 
@@ -50,3 +50,4 @@ float       _get_arc_weight(Arc*);
 Vertex*     get_arc_vertex(Arc*);
 
 #endif
+*/
