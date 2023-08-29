@@ -29,8 +29,8 @@ Vertex* create_vertex(void* element)
 }
 
 /*
- * This function adds an arc struct going from the Vertex* origin parameter to the Vertex* dest parameter
- * with a weight of the float price parameter.   
+ * This function adds an arc struct going from the Vertex* origin parameter
+  to the Vertex* dest parameter with a weight of the float price parameter.   
  */
 /*
 bool add_vertex_arc(Vertex* origin, Vertex* dest, float price)

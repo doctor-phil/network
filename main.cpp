@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "linked_list.h"
 #include "priority_queue.h"
-//#include "directed_graph.h"
+#include "directed_graph.h"
 #include <iostream>
 #include <string>
 #include <cstring>
@@ -128,6 +128,11 @@ int main(int argc, char** argv)
 	std::cout << "Dequeue (expected Scruffy) " << pq->dequeue()->getName()<< "\n";
 	std::cout << "Dequeue (expected Fluffy) " << pq->dequeue()->getName()<< "\n";
 	std::cout << "list size (expected 0): " << pq->getSize() << "\n";
+
+	printf("\t.....DiGraph Testing.....\n");
+
+	DirectedGraph<char, int>* graph = new DirectedGraph<char, int>();
+
 
 /*
     LinkedList<int>* list = new LinkedList<int>();
