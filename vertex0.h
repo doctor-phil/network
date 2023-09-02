@@ -109,7 +109,7 @@ template<typename T, typename K> class Vertex {
 		bool changeWeight(Vertex* destination, K weight) {
 			if(destination == nullptr)
 				return false;
-
+            /*
 			for(int i = 0; i < this->arcList->getSize(); i++) {
 				Arc* arc  = this->arcList->get(i);
 
@@ -120,8 +120,18 @@ template<typename T, typename K> class Vertex {
 					return true;
 				}
 			}
+            */
 
-			return false;
+            this->arcMap::iterator it;
+            it = this->arcMap->find(destination);
+            if(it != this->arcMap->end()){
+                this->arcMap[destination] = weight;
+                return true;
+           } else {
+            return false;
+           }
+
+		//	return false;
 		}
 
 		void setDistance(K distance) {
@@ -133,15 +143,21 @@ template<typename T, typename K> class Vertex {
 		}
 			
 		bool hasArc(Vertex* v) {
-
-			}
+            this->arcMap::iterator it;
+            it = this->arcMap->find(v);
+            if(it != this->arcMap->end()){
+                return true;
+           } else {
+            return false;
+           }
+		}
 
 	private:
-		std::map<Vertex*, K> arcMap;
 		T data;
 		bool visited;
 		K distance;
 		Vertex* parent;
+        std::map<Vertex*, K> arcMap;
 
         void setParent(Vertex* v) {
 			this->parent = v;
