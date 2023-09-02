@@ -12,6 +12,7 @@
 #include <float.h>
 #include "linked_list.h"
 //#include "vertex.h"
+#include "vertex0.h"
 #include "priority_queue.h"
 
 #define MAX FLT_MAX
@@ -49,7 +50,7 @@ template<typename T, typename K> class DirectedGraph {
 		LinkedList<T>* vertexList;
 		int valueSize;
 		float** adjacencyMatrix;
-		Vertex* getVertex(T);
+		Vertex<T, K>* getVertex(T);
 		LinkedList<T>* getVertices();
 
 };
@@ -73,7 +74,7 @@ template<typename T, typename K> int DirectedGraph<T, K>::getSize(){
  * Searches the Directed Graph for a vertex that contains the value parameter.
  * A pointer to that vertex is returned if found, otherwise nullptr is returned.
  */
-template<typename T, typename K>  Vertex* DirectedGraph<T, K>::getVertex(T value){
+template<typename T, typename K>  Vertex<T,K>* DirectedGraph<T, K>::getVertex(T value){
 	if(value == nullptr)
 		return nullptr;
 
@@ -83,7 +84,7 @@ template<typename T, typename K>  Vertex* DirectedGraph<T, K>::getVertex(T value
 	for(int i = 0; i < size; i++) {
 
 		// Retrieve the vertex at index i in the vertex list.
-		Vertex* v = this->vertexList->get(i);
+		Vertex<T,K>* v = this->vertexList->get(i);
 
 		// If the data fieled variable in the vertex is equal to the element parameter. 
 		if(v->data == value) {
@@ -106,7 +107,7 @@ template<typename T, typename K> bool DirectedGraph<T, K>::addVertex(T element){
 		return false;
 
 	// Instantiate a Vertex struct while passing in the element parameter.
-	Vertex* v = create_vertex(element);
+	Vertex<T,K>* v = create_vertex(element);
 
 	// Return the call to linkedlist add last function while passing in Directed Graph's vertex list and the instantiated vertex.
 	return	this->vertexList->addLast(v);
@@ -128,7 +129,7 @@ template<typename T, typename K> bool DirectedGraph<T, K>::removeVertex(T elemen
 	for(int i = 0; i < prevSize; i++) {
 
 		// Retrieve the vertex in the vertex list at index i.
-		Vertex* v = this->vertexList->get(i);
+		Vertex<T,K>* v = this->vertexList->get(i);
 
 		// If this vertex is equivalent to the element parameter		
 		if(v->data == element) {
@@ -163,8 +164,8 @@ template<typename T, typename K> bool DirectedGraph<T,K>::addArc(T origin, T des
 		return false;
 
 	// Otherwise retrieve the Vertices associated with the origin and destination parameters.
-	Vertex* start = getVertex(origin);
-	Vertex* end   = getVertex(destination);
+	Vertex<T,K>* start = getVertex(origin);
+	Vertex<T,K>* end   = getVertex(destination);
 
 	// Return the call to add vertex arc function with the two vertices and the arc weight.
 	return start->addArc(end, cost);
@@ -179,7 +180,7 @@ template<typename T, typename K> bool DirectedGraph<T,K>::removeArc(T origin, T 
 	if(origin == nullptr || destination == nullptr)
 		return false;
 
-	Vertex* start = getVertex(origin);
+	Vertex<T,K>* start = getVertex(origin);
 	return start->removeArc(destination);
 }
 
@@ -192,7 +193,7 @@ template<typename T, typename K> void DirectedGraph<T, K>::setVisitedField(bool 
 	// For each vertex in the Directed Graph's vertex list.
 	for(int i = 0; i < this->vertexList; i++) {
 		// Retrieve the vertex struct at index i.
-		Vertex* v  = this->vertexList->get(i);
+		Vertex<T,K>* v  = this->vertexList->get(i);
 		v->setVisited(value);
 	}
 }

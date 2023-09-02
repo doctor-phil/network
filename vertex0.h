@@ -7,7 +7,7 @@ template<typename T, typename K> class Vertex {
 			this->data     = data;
             this->visited  = false;
 			this->distance = 0;
-			this->parent   = nullptr
+			this->parent   = nullptr;
 			this->arcMap   = new std::map<Vertex*, K>();
 			;
 		}
@@ -45,8 +45,8 @@ template<typename T, typename K> class Vertex {
 				}
 			}
             */
-           this->arcMap::iterator it;
-           it = this->arcMap->find(destination);
+          // this->arcMap<Vertex*, K>::iterator it = this->arcMap->find(destination);
+            auto it = this->arcMap->find(destination);
            if(it != this->arcMap->end()){
                 this->arcMap->erase(destination);
                 return true;
@@ -92,8 +92,7 @@ template<typename T, typename K> class Vertex {
 			}
             */
 
-           this->arcMap::iterator it;
-           it = this->arcMap->find(destination);
+           auto it = this->arcMap->find(destination);
            if(it != this->arcMap->end()){
                 return this->arcMap[destination];
            } else {
@@ -122,8 +121,7 @@ template<typename T, typename K> class Vertex {
 			}
             */
 
-            this->arcMap::iterator it;
-            it = this->arcMap->find(destination);
+            auto it = this->arcMap->find(destination);
             if(it != this->arcMap->end()){
                 this->arcMap[destination] = weight;
                 return true;
@@ -143,8 +141,7 @@ template<typename T, typename K> class Vertex {
 		}
 			
 		bool hasArc(Vertex* v) {
-            this->arcMap::iterator it;
-            it = this->arcMap->find(v);
+            auto it = this->arcMap->find(v);
             if(it != this->arcMap->end()){
                 return true;
            } else {
