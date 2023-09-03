@@ -36,16 +36,16 @@ template<typename T, typename K> PriorityQueue<T,K>::PriorityQueue() {
 }
 
 template<typename T, typename K> bool PriorityQueue<T, K>::enqueue(T element, K priority) {
-    bool result = this->list->add_last(element);
-    this->priorities->add_last(priority);
+    bool result = this->list->addLast(element);
+    this->priorities->addLast(priority);
     sort();
 
     return result;
 }
 
 template<typename T, typename K> T PriorityQueue<T, K>::dequeue() {
-    this->priorities->remove_first();
-    return this->list->remove_first();
+    this->priorities->removeFirst();
+    return this->list->removeFirst();
 }
 
 template<typename T, typename K> T PriorityQueue<T, K>::peek() {
@@ -57,7 +57,7 @@ template<typename T, typename K> int PriorityQueue<T, K>::getSize() {
 }
 
 template<typename T, typename K> bool PriorityQueue<T, K>::contains(T element) {
-    return -1 != this->list->index_of(element);
+    return -1 != this->list->indexOf(element);
 }
 
 template<typename T, typename K> void PriorityQueue<T, K>::sort() {

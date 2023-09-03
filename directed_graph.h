@@ -47,11 +47,11 @@ template<typename T, typename K> class DirectedGraph {
 		//std::ostream& 	    operator<<(std::ostream& o, DirectedGraph& net);
 		
 	private:
-		LinkedList<T>* vertexList;
+		LinkedList<Vertex<T,K>*>* vertexList;
 		int valueSize;
 		float** adjacencyMatrix;
 		Vertex<T, K>* getVertex(T);
-		LinkedList<T>* getVertices();
+		LinkedList<Vertex<T,K>*>* getVertices();
 
 };
 
@@ -59,7 +59,7 @@ template<typename T, typename K> class DirectedGraph {
  * Constructs a Directed Graph object. 
  */
 template<typename T, typename K> DirectedGraph<T, K>::DirectedGraph(){
-	this->vertexList = new LinkedList<T>();
+	this->vertexList = new LinkedList<Vertex<T,K>*>();
 	this->adjacencyMatrix = nullptr;
 }
 
@@ -102,12 +102,9 @@ template<typename T, typename K>  Vertex<T,K>* DirectedGraph<T, K>::getVertex(T 
  * is returned.
  */
 template<typename T, typename K> bool DirectedGraph<T, K>::addVertex(T element){
-	// If either parameter is NULL, return false.
-	if(element == nullptr)
-		return false;
 
 	// Instantiate a Vertex struct while passing in the element parameter.
-	Vertex<T,K>* v = create_vertex(element);
+	Vertex<T,K>* v = new Vertex<T,K>(element);
 
 	// Return the call to linkedlist add last function while passing in Directed Graph's vertex list and the instantiated vertex.
 	return	this->vertexList->addLast(v);
@@ -145,7 +142,7 @@ template<typename T, typename K> bool DirectedGraph<T, K>::removeVertex(T elemen
 /*
  * Returns the list of vertices in the Directed Graph.
  */
-template<typename T, typename K> LinkedList<T>* DirectedGraph<T, K>::getVertices(){
+template<typename T, typename K> LinkedList<Vertex<T,K>*>* DirectedGraph<T, K>::getVertices(){
 	return this->vertexList;
 }
 

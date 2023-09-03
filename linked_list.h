@@ -24,14 +24,14 @@ template<typename T> class LinkedList {
 
 public:
     LinkedList();
-    bool add_at(int index, T element);
-    bool add_first(T element);
-    bool add_last(T element);
-    int index_of(T element);
+    bool addAt(int index, T element);
+    bool addFirst(T element);
+    bool addLast(T element);
+    int indexOf(T element);
     T get(int index);
     T remove(int index);
-    T remove_first();
-    T remove_last();
+    T removeFirst();
+    T removeLast();
     void swap(int index1, int index2);
     T getFirst();
     T getLast();
@@ -50,13 +50,13 @@ template<typename T> LinkedList<T>::LinkedList() {
     this->size     = 0;
 }
 
-template<typename T> bool LinkedList<T>::add_at(int index, T element) {
+template<typename T> bool LinkedList<T>::addAt(int index, T element) {
 
     if(index < 0)
         return false;
 
     if(index > this->size)
-        return add_last(element);
+        return addLast(element);
 
     Node *node = new Node();
     node->data = element;
@@ -97,12 +97,12 @@ template<typename T> bool LinkedList<T>::add_at(int index, T element) {
     return true;
 }
 
-template<typename T> bool LinkedList<T>::add_first(T element) {
-    return add_at(0,element);
+template<typename T> bool LinkedList<T>::addFirst(T element) {
+    return addAt(0,element);
 }
 
-template<typename T> bool LinkedList<T>::add_last(T element) {
-    return add_at(this->size, element);
+template<typename T> bool LinkedList<T>::addLast(T element) {
+    return addAt(this->size, element);
 }
 
 template<typename T> T LinkedList<T>::get(int index) {
@@ -127,7 +127,7 @@ template<typename T> T LinkedList<T>::get(int index) {
  * Returns the index of the first occurrence of the element parameter. If the element
  * is not found, or if the element is a nullptr, then -1 is returned.
  */
-template<typename T> int LinkedList<T>::index_of(T element) {
+template<typename T> int LinkedList<T>::indexOf(T element) {
 
     Node* temp = this->first;
 
@@ -203,14 +203,14 @@ template<typename T> T LinkedList<T>::remove(int index) {
 /*
  * The linked_list_remove_first function removes the first element of the Linkedlist struct.
  */
-template<typename T> T LinkedList<T>::remove_first() {
+template<typename T> T LinkedList<T>::removeFirst() {
     return this->remove(0);
 }
 
 /*
  * The remove_last function removes the last element of the Linkedlist struct.
  */
-template<typename T> T LinkedList<T>::remove_last() {
+template<typename T> T LinkedList<T>::removeLast() {
     return this->remove(this->size - 1);
 }
 
@@ -232,13 +232,13 @@ template< typename T> void LinkedList<T>::swap(int index1, int index2) {
     if(index1 > index2){
         this->remove(index1);
         this->remove(index2);
-        this->add_at(index2, temp1);
-        this->add_at(index1, temp2);
+        this->addAt(index2, temp1);
+        this->addAt(index1, temp2);
     } else {
         this->remove(index2);
         this->remove(index1);
-        this->add_at(index1, temp2);
-        this->add_at(index2, temp1);
+        this->addAt(index1, temp2);
+        this->addAt(index2, temp1);
     }
 }
 

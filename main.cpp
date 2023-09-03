@@ -32,9 +32,9 @@ int main(int argc, char** argv)
     Animal* b = new Animal("Scruffy");
     Animal* c = new Animal("Moe");
 
-    AList.add_last(a);
-    AList.add_first(b);
-    AList.add_at(1,c);
+    AList.addLast(a);
+    AList.addFirst(b);
+    AList.addAt(1,c);
 
     for (int i = 0; i < AList.getSize(); ++i) {
         Animal* x = AList.get(i);
@@ -42,8 +42,8 @@ int main(int argc, char** argv)
     }
 
     Animal* d = AList.remove(1);
-    Animal* e = AList.remove_first();
-    Animal* f = AList.remove_last();
+    Animal* e = AList.removeFirst();
+    Animal* f = AList.removeLast();
 
     std::cout << "First: " << e->getName() << "\n";
     std::cout << "Middle: " << d->getName() << "\n";
@@ -53,9 +53,9 @@ int main(int argc, char** argv)
 //	delete e;
 //	delete f;
 
-    AList.add_last(a);
-    AList.add_first(b);
-    AList.add_at(1,c);
+    AList.addLast(a);
+    AList.addFirst(b);
+    AList.addAt(1,c);
 
     Animal* g = AList.getFirst();
     Animal* h = AList.getLast();
@@ -66,9 +66,9 @@ int main(int argc, char** argv)
 //	delete g;
 //	delete h;
 
-    int aIdx = AList.index_of(a);
-    int bIdx = AList.index_of(b);
-    int cIdx = AList.index_of(c);
+    int aIdx = AList.indexOf(a);
+    int bIdx = AList.indexOf(b);
+    int cIdx = AList.indexOf(c);
 
  //   std::cout << "Index of Fluffy (expected 2): " << aIdx << "\n";
  //   std::cout << "Index of Moe (expected 1): " << cIdx << "\n";
@@ -76,13 +76,13 @@ int main(int argc, char** argv)
 
     std::cout << "swapping 0 and 2\n";
     AList.swap(0,2);
-    std::cout << "Index of Fluffy (expected 0): " << AList.index_of(a)<< "\n";
-    std::cout << "Index of Scruffy (expected 2): " << AList.index_of(b) << "\n";
+    std::cout << "Index of Fluffy (expected 0): " << AList.indexOf(a)<< "\n";
+    std::cout << "Index of Scruffy (expected 2): " << AList.indexOf(b) << "\n";
 
     std::cout << "swapping 0 and 2 ... again\n";
     AList.swap(2,0);
-    std::cout << "Index of Fluffy (expected 2): " << AList.index_of(a)<< "\n";
-    std::cout << "Index of Scruffy (expected 0): " << AList.index_of(b) << "\n";
+    std::cout << "Index of Fluffy (expected 2): " << AList.indexOf(a)<< "\n";
+    std::cout << "Index of Scruffy (expected 0): " << AList.indexOf(b) << "\n";
 
     printf("\nPriority Queue Testing\n\n");
 
@@ -123,7 +123,7 @@ int main(int argc, char** argv)
 	std::cout << "Dequeue (expected Jim) " << pq->dequeue()->getName()<< "\n";
 	std::cout << "Dequeue (expected Bob) "<< pq->dequeue()->getName()<< "\n";
 	std::cout << "Dequeue (expected Moe) " << pq->dequeue()->getName()<< "\n";
-	std::cout << "Dequeue (expected(Beth) " << pq->dequeue()->getName()<< "\n";
+	std::cout << "Dequeue (expected Beth) " << pq->dequeue()->getName()<< "\n";
 	std::cout << "Dequeue (expected Becky) " << pq->dequeue()->getName()<< "\n";
 	std::cout << "Dequeue (expected Scruffy) " << pq->dequeue()->getName()<< "\n";
 	std::cout << "Dequeue (expected Fluffy) " << pq->dequeue()->getName()<< "\n";
@@ -133,6 +133,12 @@ int main(int argc, char** argv)
 
 	DirectedGraph<char, int>* graph = new DirectedGraph<char, int>();
 
+	graph->addVertex('a');
+	graph->addVertex('b');
+	graph->addVertex('c');
+	graph->addVertex('d');
+	graph->addVertex('e');
+	graph->addVertex('f');
 
 /*
     LinkedList<int>* list = new LinkedList<int>();
