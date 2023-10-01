@@ -146,10 +146,18 @@ int main(int argc, char** argv)
 	graph->addArc('a','d',7);
 	graph->addArc('a','f',2);
 	graph->addArc('b','d',17);
+	graph->addArc('b','f',8);
 	graph->addArc('c','d',1);
+	graph->addArc('e','a',6);
 	graph->addArc('f','d',0);
 
 	printf("\t.....Enumerating Connections in DiGraph.....\n");
+	graph->enumerateVertices();
+
+	
+	printf("\t.....Removing connection from a to b and from f to d.....\n");
+	graph->removeArc('a','b');
+	graph->removeArc('f','d');
 	graph->enumerateVertices();
 
 /*	// Creating edges between vertices and assigning weights.

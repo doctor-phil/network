@@ -18,7 +18,6 @@ template<typename T, typename K> class Vertex {
 			if(destination == nullptr)
 				return false;
 
-			//Vertex* arc  = new Vertex(destination);
 			int prevSize = arcMap.size();
 	
 			arcMap.insert({destination, weight});	
@@ -44,9 +43,9 @@ template<typename T, typename K> class Vertex {
 			}
             */
           // this->arcMap<Vertex*, K>::iterator it = this->arcMap->find(destination);
-            auto it = this->arcMap->find(destination);
-           if(it != this->arcMap->end()){
-                this->arcMap->erase(destination);
+            auto it = this->arcMap.find(destination);
+           if(it != this->arcMap.end()){
+                this->arcMap.erase(destination);
                 return true;
            } else {
             return false;
@@ -90,8 +89,8 @@ template<typename T, typename K> class Vertex {
 			}
             */
 
-           auto it = this->arcMap->find(destination);
-           if(it != this->arcMap->end()){
+           auto it = this->arcMap.find(destination);
+           if(it != this->arcMap.end()){
                 return this->arcMap[destination];
            } else {
             return -1;
@@ -119,8 +118,8 @@ template<typename T, typename K> class Vertex {
 			}
             */
 
-            auto it = this->arcMap->find(destination);
-            if(it != this->arcMap->end()){
+            auto it = this->arcMap.find(destination);
+            if(it != this->arcMap.end()){
                 this->arcMap[destination] = weight;
                 return true;
            } else {
@@ -139,8 +138,8 @@ template<typename T, typename K> class Vertex {
 		}
 			
 		bool hasArc(Vertex* v) {
-            auto it = this->arcMap->find(v);
-            if(it != this->arcMap->end()){
+            auto it = this->arcMap.find(v);
+            if(it != this->arcMap.end()){
                 return true;
            } else {
             return false;

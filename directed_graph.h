@@ -114,10 +114,7 @@ template<typename T, typename K> bool DirectedGraph<T, K>::addVertex(T element){
  element parameter from the Directed Graph, if found.
  */
 template<typename T, typename K> bool DirectedGraph<T, K>::removeVertex(T element){
-	// If element is a nullptr return false.
-	if(element == nullptr)
-		return false;
-	
+
 	// Store vertex list's current size in a local variable.	
 	int prevSize = this->vertexList->getSize();
 
@@ -155,12 +152,7 @@ template<typename T, typename K> LinkedList<Vertex<T,K>*>* DirectedGraph<T, K>::
  */
 template<typename T, typename K> bool DirectedGraph<T,K>::addArc(T origin, T destination, K cost) {
 
-	// If either origin or destination parameter is nullptr, return false.
-/*	if(origin == NULL || destination == NULL)
-		return false;
-		*/
-
-	// Otherwise retrieve the Vertices associated with the origin and destination parameters.
+	// Retrieve the Vertices associated with the origin and destination parameters.
 	Vertex<T,K>* start = getVertex(origin);
 	Vertex<T,K>* end   = getVertex(destination);
 
@@ -174,11 +166,10 @@ template<typename T, typename K> bool DirectedGraph<T,K>::addArc(T origin, T des
  * parameters.
  */
 template<typename T, typename K> bool DirectedGraph<T,K>::removeArc(T origin, T destination) {
-	if(origin == nullptr || destination == nullptr)
-		return false;
-
+	
 	Vertex<T,K>* start = getVertex(origin);
-	return start->removeArc(destination);
+	Vertex<T,K>* end   = getVertex(destination);
+	return start->removeArc(end);
 }
 
 /*
@@ -202,10 +193,8 @@ template<typename T, typename K> void DirectedGraph<T, K>::enumerateVertices() {
 		Vertex<T,K>* v = this->vertexList->get(i);
 		std::map<Vertex<T,K>*, K> map = v->getArcMap();
 		std::cout << v->getData() << ":\n";
-		int count = 0;
 		for(auto j = map.begin(); j != map.end(); j++){
-			Vertex<T,K>* vx = j->first;
-			std::cout << "\t" << vx->getData() << ": " << j->second << "\n";
+			std::cout << "\t" << j->first->getData() << ": " << j->second << "\n";
 		}
 	}
 }
