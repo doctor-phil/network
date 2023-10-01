@@ -200,11 +200,12 @@ template<typename T, typename K> void DirectedGraph<T, K>::enumerateVertices() {
 	// For each vertex in the Directed Graph's vertex list.
 	for(int i = 0; i < this->vertexList->getSize(); i++) {
 		Vertex<T,K>* v = this->vertexList->get(i);
-		std::map<Vertex<T,K>*, K> vMap = v->getArcMap();
+		std::map<Vertex<T,K>*, K> map = v->getArcMap();
 		std::cout << v->getData() << ":\n";
 		int count = 0;
-		for(auto j = vMap.begin(); j != vMap.end(); j++){
-			std::cout << " " << j->second << "\n";
+		for(auto j = map.begin(); j != map.end(); j++){
+			Vertex<T,K>* vx = j->first;
+			std::cout << "\t" << vx->getData() << ": " << j->second << "\n";
 		}
 	}
 }

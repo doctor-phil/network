@@ -141,7 +141,13 @@ int main(int argc, char** argv)
 	graph->addVertex('f');
 
 	// Creating Edges between vertices and assigning weights
-	graph->addArc('a','b',34);
+	graph->addArc('a','b',1);
+	graph->addArc('a','c',2);
+	graph->addArc('a','d',7);
+	graph->addArc('a','f',2);
+	graph->addArc('b','d',17);
+	graph->addArc('c','d',1);
+	graph->addArc('f','d',0);
 
 	printf("\t.....Enumerating Connections in DiGraph.....\n");
 	graph->enumerateVertices();

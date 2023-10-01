@@ -18,10 +18,10 @@ template<typename T, typename K> class Vertex {
 			if(destination == nullptr)
 				return false;
 
-			Vertex* arc  = new Vertex(weight);
+			//Vertex* arc  = new Vertex(destination);
 			int prevSize = arcMap.size();
 	
-			arcMap.insert({arc, weight});	
+			arcMap.insert({destination, weight});	
 
 			if(this->arcMap.size() - prevSize == 1) {
 				return true;
