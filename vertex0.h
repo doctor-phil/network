@@ -7,9 +7,7 @@ template<typename T, typename K> class Vertex {
 			this->data     = data;
             this->visited  = false;
 			this->distance = 0;
-			this->parent   = nullptr;
-			this->arcMap   = new std::map<Vertex*, K>();
-			;
+			this->parent   = nullptr;			
 		}
 
 		/*
