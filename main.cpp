@@ -140,55 +140,13 @@ int main(int argc, char** argv)
 	graph->addVertex('e');
 	graph->addVertex('f');
 
-/*
-    LinkedList<int>* list = new LinkedList<int>();
+	// Creating Edges between vertices and assigning weights
+	graph->addArc('a','b',34);
 
-    list->add_first(0);
-    for(int i = 1; i < 99; i++){
-        list->add_at(i,i);
-    }
-    list->add_last(99);
+	printf("\t.....Enumerating Connections in DiGraph.....\n");
+	graph->enumerateVertices();
 
-    int size = list->getSize();
-
-    for (int i = 0; i < size; ++i) {
-        int item = list->get(i);
-        printf("%d\n", item);
-    }
-
-    int first = list->remove_first();
-    int last  = list->remove_last();
-    
-    printf("first %d\n", first);
-    printf("last %d\n", last);
-
-    for (int i = list->getSize()-1; i >=0; i--){
-        int element = list->remove(i);
-        printf("%d\n", element);
-    }
-*/
-
-
-	// Instantiating a DirectedGraph struct.
-/*	DirectedGraph* digraph = initialize_digraph(sizeof(char),"char");
-
-	// Creating elements to add to graph.
-	char* a = "a";
-	char* b = "b";
-	char* c = "c";
-	char* d = "d";
-	char* e = "e";
-	char* f = "f";
-
-	// Adding elements to graph.
-	add_vertex(digraph, a);
-	add_vertex(digraph, b);
-	add_vertex(digraph, c);
-	add_vertex(digraph, d);
-	add_vertex(digraph, e);
-	add_vertex(digraph, f);
-
-	// Creating edges between vertices and assigning weights.
+/*	// Creating edges between vertices and assigning weights.
 	add_arc(digraph, a, b, 4);
 	add_arc(digraph, a, e, 2);
 	add_arc(digraph, a, f, 1);

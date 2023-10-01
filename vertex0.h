@@ -18,12 +18,12 @@ template<typename T, typename K> class Vertex {
 			if(destination == nullptr)
 				return false;
 
-			Vertex* arc = new Vertex(weight);
-			int prevSize = this->arcMap->size();
+			Vertex* arc  = new Vertex(weight);
+			int prevSize = arcMap.size();
 	
-			this->arcMap->pair_insert(arc, weight);	
+			arcMap.insert({arc, weight});	
 
-			if(this->arcMap->size() - prevSize == 1) {
+			if(this->arcMap.size() - prevSize == 1) {
 				return true;
 			} else {
 				return false;
@@ -145,6 +145,10 @@ template<typename T, typename K> class Vertex {
            } else {
             return false;
            }
+		}
+
+		std::map<Vertex*, K> getArcMap(){
+			return this->arcMap;
 		}
 
 	private:

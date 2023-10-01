@@ -45,6 +45,7 @@ template<typename T, typename K> class DirectedGraph {
 		float*		    float_arr_from_str(char*);
 		int		    value_count(char*);
 		//std::ostream& 	    operator<<(std::ostream& o, DirectedGraph& net);
+		void enumerateVertices();
 		
 	private:
 		LinkedList<Vertex<T,K>*>* vertexList;
@@ -72,11 +73,9 @@ template<typename T, typename K> int DirectedGraph<T, K>::getSize(){
 
 /*
  * Searches the Directed Graph for a vertex that contains the value parameter.
- * A pointer to that vertex is returned if found, otherwise nullptr is returned.
+ * A pointer to that vertex is returned if found.
  */
 template<typename T, typename K>  Vertex<T,K>* DirectedGraph<T, K>::getVertex(T value){
-	if(value == nullptr)
-		return nullptr;
 
 	int size = this->vertexList->getSize();
 	
@@ -87,7 +86,7 @@ template<typename T, typename K>  Vertex<T,K>* DirectedGraph<T, K>::getVertex(T 
 		Vertex<T,K>* v = this->vertexList->get(i);
 
 		// If the data fieled variable in the vertex is equal to the element parameter. 
-		if(v->data == value) {
+		if(v->getData() == value) {
 			// Return this vertex pointer.
 			return v;
 		}
@@ -157,8 +156,9 @@ template<typename T, typename K> LinkedList<Vertex<T,K>*>* DirectedGraph<T, K>::
 template<typename T, typename K> bool DirectedGraph<T,K>::addArc(T origin, T destination, K cost) {
 
 	// If either origin or destination parameter is nullptr, return false.
-	if(origin == nullptr || destination == nullptr)
+/*	if(origin == NULL || destination == NULL)
 		return false;
+		*/
 
 	// Otherwise retrieve the Vertices associated with the origin and destination parameters.
 	Vertex<T,K>* start = getVertex(origin);
@@ -192,5 +192,19 @@ template<typename T, typename K> void DirectedGraph<T, K>::setVisitedField(bool 
 		// Retrieve the vertex struct at index i.
 		Vertex<T,K>* v  = this->vertexList->get(i);
 		v->setVisited(value);
+	}
+}
+
+template<typename T, typename K> void DirectedGraph<T, K>::enumerateVertices() {
+
+	// For each vertex in the Directed Graph's vertex list.
+	for(int i = 0; i < this->vertexList->getSize(); i++) {
+		Vertex<T,K>* v = this->vertexList->get(i);
+		std::map<Vertex<T,K>*, K> vMap = v->getArcMap();
+		std::cout << v->getData() << ":\n";
+		int count = 0;
+		for(auto j = vMap.begin(); j != vMap.end(); j++){
+			std::cout << " " << j->second << "\n";
+		}
 	}
 }
