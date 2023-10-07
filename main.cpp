@@ -25,7 +25,7 @@ private:
 
 int main(int argc, char** argv)
 {
-
+/*
     LinkedList<Animal*> AList = LinkedList<Animal*>();
 
     Animal* a = new Animal("Fluffy");
@@ -128,10 +128,12 @@ int main(int argc, char** argv)
 	std::cout << "Dequeue (expected Scruffy) " << pq->dequeue()->getName()<< "\n";
 	std::cout << "Dequeue (expected Fluffy) " << pq->dequeue()->getName()<< "\n";
 	std::cout << "list size (expected 0): " << pq->getSize() << "\n";
-
-	printf("\t.....DiGraph Testing.....\n");
+*/
+	printf("\t.....DiGraph Testing (constructor).....\n");
 
 	DirectedGraph<char, int>* graph = new DirectedGraph<char, int>();
+
+	printf("....Adding Vertices (addVertex)....\n");
 
 	graph->addVertex('a');
 	graph->addVertex('b');
@@ -141,6 +143,8 @@ int main(int argc, char** argv)
 	graph->addVertex('f');
 
 	// Creating Edges between vertices and assigning weights
+
+	printf("....Adding Arcs (addArc)....\n");
 	graph->addArc('a','b',1);
 	graph->addArc('a','c',2);
 	graph->addArc('a','d',7);
@@ -155,10 +159,21 @@ int main(int argc, char** argv)
 	graph->enumerateVertices();
 
 	
-	printf("\t.....Removing connection from a to b and from f to d.....\n");
+	printf("\t.....Removing  Arcs (removeArc) from a to b and from f to d.....\n");
 	graph->removeArc('a','b');
 	graph->removeArc('f','d');
 	graph->enumerateVertices();
+
+	printf("....Removing Vertex c and f (removeVertex)....\n");
+
+	char c = 'c';
+	char f = 'f';
+	graph->removeVertex(c);
+	graph->removeVertex(f);
+	graph->enumerateVertices();
+
+	int sz = graph->getSize();
+	printf("....Calling getSize on graph: expecting 4 | actual %d....\n", sz);
 
 /*	// Creating edges between vertices and assigning weights.
 	add_arc(digraph, a, b, 4);

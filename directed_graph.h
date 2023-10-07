@@ -19,13 +19,13 @@
 
 template<typename T, typename K> class DirectedGraph {
 	public:
-		DirectedGraph();
+		DirectedGraph();	// Tested
 		int getSize();
-		bool addVertex(T);
-		bool removeVertex(T);
+		bool addVertex(T);	// Tested
+		bool removeVertex(T); // Tested
 		LinkedList<T>*	    get_arcs(DirectedGraph*, void*);
-		bool addArc(T, T, K);
-		bool removeArc(T, T);
+		bool addArc(T, T, K);	// Tested
+		bool removeArc(T, T);	// Tested
 		bool		    change_arc_weight(DirectedGraph*, void*, void*, float);
 		int 		    connected_vertices_count(DirectedGraph*, void*);
 		int		    _connected_vertices_count_recursive(DirectedGraph*, void*);
@@ -117,22 +117,33 @@ template<typename T, typename K> bool DirectedGraph<T, K>::removeVertex(T elemen
 
 	// Store vertex list's current size in a local variable.	
 	int prevSize = this->vertexList->getSize();
-
+	bool found   = false;
+	Vertex<T,K>* vtx;
 	// For each vertex in the vertex list.
 	for(int i = 0; i < prevSize; i++) {
 
 		// Retrieve the vertex in the vertex list at index i.
 		Vertex<T,K>* v = this->vertexList->get(i);
 
-		// If this vertex is equivalent to the element parameter		
-		if(v->data == element) {
-			// Remove this vertex from the vertex list and break from loop.
+		// If this vertex is equivalent to the element parameter.	
+		if(v->getData() == element) {
+			// Remove this vertex from the vertex list.
+			vtx = this->getVertex(element);
 			this->vertexList->remove(i);
-			return true;
+			found = true;
+			break;
 		}
 	}
 
-	return false;
+	if(found){
+		for(int i = 0; i < this->vertexList->getSize(); i++){
+			Vertex<T,K>* v = this->vertexList->get(i);
+			v->removeArc(vtx);
+		}
+		return true;
+	} else {
+		return false;
+	}
 }
 
 /*
