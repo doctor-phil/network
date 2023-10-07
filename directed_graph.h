@@ -20,13 +20,13 @@
 template<typename T, typename K> class DirectedGraph {
 	public:
 		DirectedGraph();	// Tested
-		int getSize();
+		int getSize();		// Tested
 		bool addVertex(T);	// Tested
 		bool removeVertex(T); // Tested
 		LinkedList<T>*	    get_arcs(DirectedGraph*, void*);
 		bool addArc(T, T, K);	// Tested
 		bool removeArc(T, T);	// Tested
-		bool		    change_arc_weight(DirectedGraph*, void*, void*, float);
+		bool changeArcWeight(T, T, K); // Tested
 		int 		    connected_vertices_count(DirectedGraph*, void*);
 		int		    _connected_vertices_count_recursive(DirectedGraph*, void*);
 		void*		    source_vertex(DirectedGraph*);
@@ -208,4 +208,10 @@ template<typename T, typename K> void DirectedGraph<T, K>::enumerateVertices() {
 			std::cout << "\t" << j->first->getData() << ": " << j->second << "\n";
 		}
 	}
+}
+
+template<typename T, typename K> bool DirectedGraph<T,K>:: changeArcWeight(T origin, T destination, K weight){
+	Vertex<T,K>* start = this->getVertex(origin);
+	Vertex<T,K>* end  = this->getVertex(destination);
+	return start->changeWeight(end, weight);
 }

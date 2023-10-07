@@ -175,6 +175,10 @@ int main(int argc, char** argv)
 	int sz = graph->getSize();
 	printf("....Calling getSize on graph: expecting 4 | actual %d....\n", sz);
 
+	printf("Changing Arc Weight (changeArcWeight) from e to a from 6 to 264....\n");
+	graph->changeArcWeight('e','a',264);
+	graph->enumerateVertices();
+
 /*	// Creating edges between vertices and assigning weights.
 	add_arc(digraph, a, b, 4);
 	add_arc(digraph, a, e, 2);
