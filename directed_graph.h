@@ -32,7 +32,7 @@ template<typename T, typename K> class DirectedGraph {
 		void*		    source_vertex(DirectedGraph*);
 		void setVisitedField(bool);
 		void		    buildTree(DirectedGraph*, void*);
-		float		    get_arc_weight(DirectedGraph*, void*, void*);
+		K     getArcWeight(T, T);	// Tested
 		void		    reset_parent_links(DirectedGraph*);
 		int		    compareVertex(void*, void*);
 		LinkedList<T>*	    dijkstra(DirectedGraph*, void*, void*);
@@ -214,4 +214,10 @@ template<typename T, typename K> bool DirectedGraph<T,K>:: changeArcWeight(T ori
 	Vertex<T,K>* start = this->getVertex(origin);
 	Vertex<T,K>* end  = this->getVertex(destination);
 	return start->changeWeight(end, weight);
+}
+
+template<typename T, typename K> K DirectedGraph<T,K>:: getArcWeight(T origin, T destination){
+	Vertex<T,K>* start = this->getVertex(origin);
+	Vertex<T,K>* end  = this->getVertex(destination);
+	return start->getWeight(end);
 }

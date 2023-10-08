@@ -179,6 +179,12 @@ int main(int argc, char** argv)
 	graph->changeArcWeight('e','a',264);
 	graph->enumerateVertices();
 
+	printf(".... Getting Arc Weight (getArcWeight) of e to a....\n");
+	int weightEtoA = graph->getArcWeight('e','a');
+	printf(".... Getting Arc Weight (getArcWeight) of e to b....\n");
+	int weightEtoB = graph->getArcWeight('e','b');
+	printf("Weight E to A (expected 264): %d | Weight E to B (expected -1): %d\n",weightEtoA, weightEtoB);
+
 /*	// Creating edges between vertices and assigning weights.
 	add_arc(digraph, a, b, 4);
 	add_arc(digraph, a, e, 2);
