@@ -29,7 +29,7 @@ template<typename T, typename K> class DirectedGraph {
 		bool changeArcWeight(T, T, K); // Tested
 		int 		    connected_vertices_count(DirectedGraph*, void*);
 		int		    _connected_vertices_count_recursive(DirectedGraph*, void*);
-		void*		    source_vertex(DirectedGraph*);
+		Vertex<T,K>* sourceVertex();
 		void setVisitedField(bool);
 		void		    buildTree(DirectedGraph*, void*);
 		K     getArcWeight(T, T);	// Tested
@@ -105,8 +105,9 @@ template<typename T, typename K> bool DirectedGraph<T, K>::addVertex(T element){
 	// Instantiate a Vertex struct while passing in the element parameter.
 	Vertex<T,K>* v = new Vertex<T,K>(element);
 
-	// Return the call to linkedlist add last function while passing in Directed Graph's vertex list and the instantiated vertex.
-	return	this->vertexList->addLast(v);
+	// Return the call to linkedlist add last function while passing in
+	// Directed Graph's vertex list and the instantiated vertex.
+	return this->vertexList->addLast(v);
 }
 
 /*
@@ -177,7 +178,6 @@ template<typename T, typename K> bool DirectedGraph<T,K>::addArc(T origin, T des
  * parameters.
  */
 template<typename T, typename K> bool DirectedGraph<T,K>::removeArc(T origin, T destination) {
-	
 	Vertex<T,K>* start = getVertex(origin);
 	Vertex<T,K>* end   = getVertex(destination);
 	return start->removeArc(end);
@@ -191,7 +191,6 @@ template<typename T, typename K> void DirectedGraph<T, K>::setVisitedField(bool 
 
 	// For each vertex in the Directed Graph's vertex list.
 	for(int i = 0; i < this->vertexList; i++) {
-		// Retrieve the vertex struct at index i.
 		Vertex<T,K>* v  = this->vertexList->get(i);
 		v->setVisited(value);
 	}
@@ -199,11 +198,12 @@ template<typename T, typename K> void DirectedGraph<T, K>::setVisitedField(bool 
 
 template<typename T, typename K> void DirectedGraph<T, K>::enumerateVertices() {
 
-	// For each vertex in the Directed Graph's vertex list.
 	for(int i = 0; i < this->vertexList->getSize(); i++) {
+
 		Vertex<T,K>* v = this->vertexList->get(i);
 		std::map<Vertex<T,K>*, K> map = v->getArcMap();
 		std::cout << v->getData() << ":\n";
+
 		for(auto j = map.begin(); j != map.end(); j++){
 			std::cout << "\t" << j->first->getData() << ": " << j->second << "\n";
 		}
@@ -216,8 +216,17 @@ template<typename T, typename K> bool DirectedGraph<T,K>:: changeArcWeight(T ori
 	return start->changeWeight(end, weight);
 }
 
-template<typename T, typename K> K DirectedGraph<T,K>:: getArcWeight(T origin, T destination){
+template<typename T, typename K> K DirectedGraph<T,K>::getArcWeight(T origin, T destination){
 	Vertex<T,K>* start = this->getVertex(origin);
 	Vertex<T,K>* end  = this->getVertex(destination);
 	return start->getWeight(end);
+}
+
+/*
+ * The sourceVertex function traverses the Directed Graph structure from each 
+ * vertex. The first vertex from which all vertices can be visited is returned. 
+ * If no such vertex exists, then NULL is returned.
+ */
+template<typename T, typename K> Vertex<T,K>* DirectedGraph<T,K>::sourceVertex(){
+
 }

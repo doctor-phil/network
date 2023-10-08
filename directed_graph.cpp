@@ -635,7 +635,7 @@ int _connected_vertices_count_recursive(DirectedGraph* graph, void* origin)
 
 /*
  * The source_vertex function takes a DirectedGraph* struct pointer parameter and
- * traverses the Directed Graph structure from each vertex. The vertex from which
+ * traverses the Directed Graph structure from each vertex. The first vertex from which
  * all vertices can be visited is returned. If no such vertex exists, then NULL
  * is returned.
  */
