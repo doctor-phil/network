@@ -27,8 +27,7 @@ template<typename T, typename K> class DirectedGraph {
 		bool addArc(T, T, K);	// Tested
 		bool removeArc(T, T);	// Tested
 		bool changeArcWeight(T, T, K); // Tested
-		int 		    connected_vertices_count(DirectedGraph*, void*);
-		int		    _connected_vertices_count_recursive(DirectedGraph*, void*);
+		int  connectedVerticesCount(T); // Tested
 		Vertex<T,K>* sourceVertex();
 		void setVisitedField(bool);
 		void		    buildTree(DirectedGraph*, void*);
@@ -51,8 +50,9 @@ template<typename T, typename K> class DirectedGraph {
 		LinkedList<Vertex<T,K>*>* vertexList;
 		int valueSize;
 		float** adjacencyMatrix;
-		Vertex<T, K>* getVertex(T);
-		LinkedList<Vertex<T,K>*>* getVertices();
+		Vertex<T, K>* getVertex(T);	// Tested
+		LinkedList<Vertex<T,K>*>* getVertices();	// Tested
+		int  connectedVerticesCountHelper(Vertex<T,K>*); // Tested
 
 };
 
@@ -190,7 +190,7 @@ template<typename T, typename K> bool DirectedGraph<T,K>::removeArc(T origin, T 
 template<typename T, typename K> void DirectedGraph<T, K>::setVisitedField(bool value) {
 
 	// For each vertex in the Directed Graph's vertex list.
-	for(int i = 0; i < this->vertexList; i++) {
+	for(int i = 0; i < this->vertexList->getSize(); i++) {
 		Vertex<T,K>* v  = this->vertexList->get(i);
 		v->setVisited(value);
 	}
@@ -229,4 +229,43 @@ template<typename T, typename K> K DirectedGraph<T,K>::getArcWeight(T origin, T 
  */
 template<typename T, typename K> Vertex<T,K>* DirectedGraph<T,K>::sourceVertex(){
 
+}
+
+/*
+ * The connectedVerticesCount function takes the data in the graph as a parameter, 
+ * the origin to explore the graph from, calls a helper recursive function, resets 
+ * all the vertices visited field to false, and returns the count of the vertices 
+ * traversable from the origin parameter. 
+ */
+template<typename T, typename K> int DirectedGraph<T,K>::connectedVerticesCount(T origin){
+	Vertex<T,K>* source = this->getVertex(origin);
+	int count 			= 0;
+	count 				+= this->connectedVerticesCountHelper(source);
+	
+	this->setVisitedField(false);
+	return count;
+}
+
+/*
+ * The connectedVerticesCountHelper function takesVertex pointer to serve as an origin vertex. 
+ * The function then recursively visits each vertex traversable via the vertx's arcMap that 
+ * has not been visited and counts the number of vertices. The count of the number of vertices
+ * visited is returned to the client.
+ */
+template<typename T, typename K> int DirectedGraph<T,K>::connectedVerticesCountHelper(Vertex<T,K>* source){
+	int count = 0;
+
+	if(!source->getVisited()){
+		source->setVisited(true);
+		count++;
+
+		for(auto const& it : source->getArcMap()){
+			count += connectedVerticesCountHelper(it.first);
+		}
+
+	} else {
+		return count;
+	}
+
+	return count;
 }

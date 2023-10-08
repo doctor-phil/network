@@ -185,6 +185,19 @@ int main(int argc, char** argv)
 	int weightEtoB = graph->getArcWeight('e','b');
 	printf("Weight E to A (expected 264): %d | Weight E to B (expected -1): %d\n",weightEtoA, weightEtoB);
 
+	printf("\n....Testing connected vertices count from e....\n");
+	int fromE = graph->connectedVerticesCount('e');
+	printf("connected vertices from e (expected 3): %d\n", fromE);
+
+	graph->addArc('a','b',9);
+	int fromE2 = graph->connectedVerticesCount('e');
+	printf("Added ard from a to b, connected vertices from e (expected 4): %d\n", fromE2);
+
+	graph->addArc('d','a',83);
+	int fromE3 = graph->connectedVerticesCount('e');
+	printf("Added ard from d to a, connected vertices from e (expected 4): %d\n", fromE3);
+	graph->enumerateVertices();
+
 /*	// Creating edges between vertices and assigning weights.
 	add_arc(digraph, a, b, 4);
 	add_arc(digraph, a, e, 2);
