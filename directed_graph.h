@@ -29,7 +29,7 @@ template<typename T, typename K> class DirectedGraph {
 		bool changeArcWeight(T, T, K); // Tested
 		int  connectedVerticesCount(T); // Tested
 		Vertex<T,K>* sourceVertex();
-		void setVisitedField(bool);
+		void setVisitedField(bool);	// Tested
 		void		    buildTree(DirectedGraph*, void*);
 		K     getArcWeight(T, T);	// Tested
 		void		    reset_parent_links(DirectedGraph*);
@@ -228,7 +228,16 @@ template<typename T, typename K> K DirectedGraph<T,K>::getArcWeight(T origin, T 
  * If no such vertex exists, then NULL is returned.
  */
 template<typename T, typename K> Vertex<T,K>* DirectedGraph<T,K>::sourceVertex(){
+	int numOfVertices = this->vertexList->getSize();
+	for(int i = 0; i < numOfVertices; i++){
+		Vertex<T,K>* v = this->vertexList->get(i);
+		int visited = this->connectedVerticesCountHelper(v);
+		if(visited == numOfVertices){
+			return v;
+		}
+	}
 
+	return;
 }
 
 /*
@@ -241,7 +250,7 @@ template<typename T, typename K> int DirectedGraph<T,K>::connectedVerticesCount(
 	Vertex<T,K>* source = this->getVertex(origin);
 	int count 			= 0;
 	count 				+= this->connectedVerticesCountHelper(source);
-	
+
 	this->setVisitedField(false);
 	return count;
 }
