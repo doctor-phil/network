@@ -10,6 +10,9 @@ template<typename T, typename K> class Vertex {
 			this->parent   = nullptr;			
 		}
 
+		// Sets the data class field of this Vertex.
+		void setData(T data){ this->data = data; }
+
 		/*
 		 * This function adds an arc struct going from the Vertex* origin parameter
 		 * to the Vertex* dest parameter with a weight of the float price parameter.   

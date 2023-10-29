@@ -30,9 +30,8 @@ template<typename T, typename K> class DirectedGraph {
 		int  connectedVerticesCount(T); // Tested
 		Vertex<T,K>* sourceVertex();  // Tested
 		void setVisitedField(bool);	// Tested
-		void		    buildTree(DirectedGraph*, void*);
+		void		    buildTree(Vertex<T,K>*);
 		K     getArcWeight(T, T);	// Tested
-		void		    resetParentLinks();		// Implemented
 		int		    compareVertex(void*, void*);	// Maybe require the user to ensure that T or K (which one?) implements the "comparable interface". I need to develop this interface.
 		LinkedList<T>*	    dijkstra(DirectedGraph*, void*, void*);
 		float**		    all_pairs_shortest_paths(DirectedGraph*);
@@ -53,6 +52,7 @@ template<typename T, typename K> class DirectedGraph {
 		Vertex<T, K>* getVertex(T);	// Tested
 		LinkedList<Vertex<T,K>*>* getVertices();	// Tested
 		int  connectedVerticesCountHelper(Vertex<T,K>*); // Tested
+		void resetParentLinks();		// Implemented
 
 };
 
@@ -307,4 +307,56 @@ template<typename T, typename K> int DirectedGraph<T,K>::valueCount(char* buffer
 	commas++;
 
 	return commas;
+}
+
+/*
+ * This buildTree function implements dijkstra's algorithm. It takes a vertex pointer origin vertex 
+ * then creates a shotest path list by assigning the parent data members for each vertex.
+ */
+template<typename T, typename K> void DirectedGraph<T,K>::buildTree(Vertex<T,K>* root){
+	if(root == nullptr) { return;}
+
+	// For each vertex in the vertex list.
+	for(int i = 0; i < this->vertexList->getSize(); i++){	
+		// get the vertex at the index and assign its distance data field to MAX.
+		Vertex<T,K>* v = this->vertexList->get(i);
+		v->setDistance(INT32_MAX);		
+	}
+
+	PriorityQueue<T,K>* pq = new PriorityQueue();
+	root->setDistance(0);
+	pq->enqueue(root, 0);
+
+	// While the priority queue contains elements.
+	while(pq->getSize() > 0){
+		// Dequeue a vertex from the priority queue.
+		Vertex<T,K>* v = pq->dequeue();
+		
+		// If this vertex has already been visited, force a new iteration.
+		if(v->getVisited){ continue; }
+		
+		// Set the vertex's visited data member to true.
+		v->setVisited(true);
+
+		// Retrieve the list of arcs from this vertex.
+		std::map<Vertex<T,K>*, K> map = v->getArcMap();
+
+		// For each arc from this vertex.
+		for(auto j = map.begin(); j != map.end(); j++){
+			float distance = v->getDistance() + j->second;
+
+			// If the vertex's diatance is greater than the calculated distance.
+			if(j->first->getDistance() > distance){
+				/*
+				 * Assign the calculated distance to the current vertex,
+				 * assign the parent value for this vertex and the vertex 
+				 * being dequeued, and enqueue this vertex. 
+				 */
+
+				j->first->setDistance(distance);
+				j->first->setParent(v);
+				pq->enqueue(j->first);
+			}
+		}
+	}
 }
