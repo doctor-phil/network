@@ -696,7 +696,7 @@ void set_visited_field(DirectedGraph* graph, bool value)
 }
 
 /*
- * The reset_parent_links function changes the parent reference of eac vertex struct
+ * The reset_parent_links function changes the parent reference of each vertex struct
  * within the DirectedGraph* struct to NULL.
  */
 /*

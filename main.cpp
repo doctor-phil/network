@@ -195,8 +195,15 @@ int main(int argc, char** argv)
 
 	graph->addArc('d','a',83);
 	int fromE3 = graph->connectedVerticesCount('e');
-	printf("Added ard from d to a, connected vertices from e (expected 4): %d\n", fromE3);
+	printf("Added arc from d to a, connected vertices from e (expected 4): %d\n", fromE3);
 	graph->enumerateVertices();
+
+	graph->addArc('d','e',0);
+	printf("Added arc from d to e");
+	graph->enumerateVertices();
+
+	Vertex<char,int>* source = graph->sourceVertex();
+	std::cout << "Computing source vertex (expected a): " << source->getData() << "\n";
 
 /*	// Creating edges between vertices and assigning weights.
 	add_arc(digraph, a, b, 4);

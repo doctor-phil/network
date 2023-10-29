@@ -28,12 +28,12 @@ template<typename T, typename K> class DirectedGraph {
 		bool removeArc(T, T);	// Tested
 		bool changeArcWeight(T, T, K); // Tested
 		int  connectedVerticesCount(T); // Tested
-		Vertex<T,K>* sourceVertex();
+		Vertex<T,K>* sourceVertex();  // Tested
 		void setVisitedField(bool);	// Tested
 		void		    buildTree(DirectedGraph*, void*);
 		K     getArcWeight(T, T);	// Tested
-		void		    reset_parent_links(DirectedGraph*);
-		int		    compareVertex(void*, void*);
+		void		    resetParentLinks();		// Implemented
+		int		    compareVertex(void*, void*);	// Maybe require the user to ensure that T or K (which one?) implements the "comparable interface". I need to develop this interface.
 		LinkedList<T>*	    dijkstra(DirectedGraph*, void*, void*);
 		float**		    all_pairs_shortest_paths(DirectedGraph*);
 		void		    create_adjacency_matrix(DirectedGraph*);
@@ -42,7 +42,7 @@ template<typename T, typename K> class DirectedGraph {
 		DirectedGraph<T,K>*      create_digraph_from_file(char*);
 		float		    extract_value(int, int, char*);
 		float*		    float_arr_from_str(char*);
-		int		    value_count(char*);
+		int		    valueCount(char*);			// Implemented
 		//std::ostream& 	    operator<<(std::ostream& o, DirectedGraph& net);
 		void enumerateVertices();
 		
@@ -224,7 +224,7 @@ template<typename T, typename K> K DirectedGraph<T,K>::getArcWeight(T origin, T 
 
 /*
  * The sourceVertex function traverses the Directed Graph structure from each 
- * vertex. The first vertex from which all vertices can be visited is returned. 
+ * vertex. The first vertex found from which all vertices can be visited is returned. 
  * If no such vertex exists, then NULL is returned.
  */
 template<typename T, typename K> Vertex<T,K>* DirectedGraph<T,K>::sourceVertex(){
@@ -237,7 +237,7 @@ template<typename T, typename K> Vertex<T,K>* DirectedGraph<T,K>::sourceVertex()
 		}
 	}
 
-	return;
+	return nullptr;
 }
 
 /*
@@ -277,4 +277,34 @@ template<typename T, typename K> int DirectedGraph<T,K>::connectedVerticesCountH
 	}
 
 	return count;
+}
+
+/*
+ * The resetParentLinks function changes the parent reference of each vertex in the graph's
+ * vertexList to nullptr.
+ */
+template<typename T, typename K> void DirectedGraph<T,K>::resetParentLinks(){
+
+	// For each vertex in the Directed Graph's vertex list.
+	for(int i = 0; i < this->vertexList->getSize(); i++){
+		// Retrieve a reference to the vertex struct at index i.
+		Vertex<T,K>* v = this->vertexList->get(i);
+		// Assign the vertex's parent reference to NULL.
+		v->setParent(nullptr);
+	}
+}
+
+/**
+ * The valueCount function takes a char* parameter containing a csv of values and counts 
+ * the number of values in the parameter string. This is equivalent to the number of commas
+ * plus one.
+ */
+template<typename T, typename K> int DirectedGraph<T,K>::valueCount(char* buffer){
+	int commas = 0;
+	int size   = strlen(buffer);
+
+	for(int i = 0; i < size; i++){ if(buffer[i] == ','){ commas++;}}
+	commas++;
+
+	return commas;
 }
